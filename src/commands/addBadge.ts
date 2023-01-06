@@ -2,45 +2,99 @@
 
 import { CompositeOperator } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 import addImageOverlay from '../utils/addImageOverlay';
+import { getCompositeOperator } from '../utils/getCompositeOperator';
 
-async function execute(argv: string[]) {
-  const [imageFile, badgeFile, outputFile] = argv;
-
+async function execute(
+  imageFile: string | undefined,
+  badgeFile: string | undefined,
+  outputFile: string | undefined,
+  compositeOperator: CompositeOperator,
+  opacityThreshold: number,
+  dryRun: boolean
+) {
   if (!imageFile || !badgeFile || !outputFile) {
-    console.log(
-      'usage: add-badge <input-image-file> <badge-image-file> <output-file>'
-    );
-    return 1;
+    throw new Error('Missing parameter');
   }
 
   if (!fs.existsSync(imageFile)) {
-    console.log(`Image file "${imageFile}" not found`);
+    console.error(`Input file "${imageFile}" not found`);
     return 1;
   }
 
   if (!fs.existsSync(badgeFile)) {
-    console.log(`Badge file "${badgeFile}" not found`);
+    console.error(`Badge file "${badgeFile}" not found`);
     return 1;
   }
 
-  // `Over` for overlay, `Atop` overlays while maintaining transparency.
-  const compositeType = CompositeOperator.Atop;
+  console.info(`${dryRun ? 'Would process' : 'Processing'} ${imageFile}`);
 
-  // Opacity must be above this to be considered not transparent. Without this
-  // the inset will always be 0 on the circular icon due to the shadow.
-  const opacityCutoff = 29;
-
-  await addImageOverlay(
-    badgeFile,
-    imageFile,
-    outputFile,
-    opacityCutoff,
-    compositeType
-  );
+  if (!dryRun) {
+    await addImageOverlay(
+      badgeFile,
+      imageFile,
+      outputFile,
+      opacityThreshold,
+      compositeOperator
+    );
+  }
 
   return 0;
 }
 
-execute(process.argv.slice(2)).then((exitCode) => process.exit(exitCode));
+yargs(hideBin(process.argv))
+  .command(
+    '* <input-image> <badge-image> <output-image>',
+    'Add a badge to an image',
+    (yargs) =>
+      yargs
+        .positional('input-image', {
+          describe: 'input image file',
+          type: 'string',
+        })
+        .positional('badge-image', {
+          describe: 'badge image file',
+          type: 'string',
+        })
+        .positional('output-image', {
+          describe: 'output file',
+          type: 'string',
+        }),
+    (argv) => {
+      execute(
+        argv.inputImage,
+        argv.badgeImage,
+        argv.outputImage,
+        getCompositeOperator(argv.compositeOperator),
+        parseInt(`${argv.opacityThreshold}`, 10),
+        Boolean(argv.dryRun)
+      )
+        .then((exitCode) => process.exit(exitCode))
+        .catch((err) => {
+          console.error(`Caught error: ${err}`);
+          process.exit(1);
+        });
+    }
+  )
+  .version('1.0')
+  .option('composite-operator', {
+    alias: 'c',
+    type: 'string',
+    description: 'Change the composite operator, recommended: Atop or Over',
+    default: CompositeOperator[CompositeOperator.Atop],
+  })
+  .option('opacity-threshold', {
+    alias: 'o',
+    type: 'number',
+    description: 'The opacity level required for the inset comparison',
+    default: 29,
+  })
+  .option('dry-run', {
+    alias: 'd',
+    type: 'boolean',
+    description: 'Does not perform actions',
+  })
+  .parse();
