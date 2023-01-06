@@ -1,13 +1,16 @@
 {
   "bin": {
-    "add-badge": "./bin/addBadge.js"
+    "add-badge": "./bin/add-badge.js",
+    "add-badges": "./bin/add-badges.js"
   },
   "scripts": {
-    "add-badge": "node ./bin/addBadge.js",
+    "add-badge": "node ./bin/add-badge.js",
+    "add-badges": "node ./bin/add-badges.js",
     "build": "tsc && rollup -c rollup.config.ts --configPlugin typescript"
   },
   "dependencies": {
     "@imagemagick/magick-wasm": "^0.0.18",
+    "fast-glob": "^3.2.12",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
