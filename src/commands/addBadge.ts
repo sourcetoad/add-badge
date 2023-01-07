@@ -60,7 +60,26 @@ yargs(hideBin(process.argv))
         .positional('output-image', {
           describe: 'output file',
           type: 'string',
-        }),
+        })
+        .option('composite-type', {
+          alias: 'c',
+          default: CompositeOperator[CompositeOperator.Atop],
+          description: 'Change the composite type, recommended: Atop or Over',
+          type: 'string',
+        })
+        .option('opacity-threshold', {
+          alias: 'o',
+          default: 29,
+          description: 'The opacity level required for the inset comparison',
+          type: 'number',
+        })
+        .option('dry-run', {
+          alias: 'd',
+          description: 'Does not perform actions',
+          default: false,
+          type: 'boolean',
+        })
+        .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
         const exitCode = await execute(
@@ -68,8 +87,8 @@ yargs(hideBin(process.argv))
           argv.badgeImage,
           argv.outputImage,
           getCompositeOperator(argv.compositeType),
-          parseInt(`${argv.opacityThreshold}`, 10),
-          Boolean(argv.dryRun)
+          argv.opacityThreshold,
+          argv.dryRun
         );
 
         process.exit(exitCode);
@@ -81,22 +100,4 @@ yargs(hideBin(process.argv))
       }
     }
   )
-  .version(process.env.APP_VERSION ?? 'Unknown')
-  .option('composite-type', {
-    alias: 'c',
-    type: 'string',
-    description: 'Change the composite type, recommended: Atop or Over',
-    default: CompositeOperator[CompositeOperator.Atop],
-  })
-  .option('opacity-threshold', {
-    alias: 'o',
-    type: 'number',
-    description: 'The opacity level required for the inset comparison',
-    default: 29,
-  })
-  .option('dry-run', {
-    alias: 'd',
-    type: 'boolean',
-    description: 'Does not perform actions',
-  })
   .parse();
