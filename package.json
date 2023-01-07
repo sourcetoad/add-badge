@@ -7,8 +7,10 @@
   "scripts": {
     "add-badge": "node ./bin/add-badge.js",
     "add-badges": "node ./bin/add-badges.js",
-    "lint": "eslint ./src/**",
     "build": "node ./build.js",
+    "check-code": "npm run lint && npm run check-types",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ./src/**",
     "prepare": "npm run build"
   },
   "dependencies": {
