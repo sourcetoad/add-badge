@@ -68,7 +68,7 @@ yargs(hideBin(process.argv))
         argv.inputImage,
         argv.badgeImage,
         argv.outputImage,
-        getCompositeOperator(argv.compositeOperator),
+        getCompositeOperator(argv.compositeType),
         parseInt(`${argv.opacityThreshold}`, 10),
         Boolean(argv.dryRun)
       )
@@ -80,10 +80,10 @@ yargs(hideBin(process.argv))
     }
   )
   .version('1.0')
-  .option('composite-operator', {
+  .option('composite-type', {
     alias: 'c',
     type: 'string',
-    description: 'Change the composite operator, recommended: Atop or Over',
+    description: 'Change the composite type, recommended: Atop or Over',
     default: CompositeOperator[CompositeOperator.Atop],
   })
   .option('opacity-threshold', {
