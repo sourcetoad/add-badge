@@ -3,7 +3,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "outDir": "build",
     "strict": true
   },
   "include": ["src"]

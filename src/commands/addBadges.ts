@@ -1,5 +1,3 @@
-#!/usr/bin/env ts-node
-
 import { CompositeOperator } from '@imagemagick/magick-wasm';
 import * as fg from 'fast-glob';
 import * as fs from 'fs';
@@ -77,7 +75,7 @@ yargs(hideBin(process.argv))
         });
     }
   )
-  .version('1.0')
+  .version(process.env.APP_VERSION ?? 'Unknown')
   .option('composite-type', {
     alias: 'c',
     type: 'string',
