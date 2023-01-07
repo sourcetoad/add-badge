@@ -60,19 +60,23 @@ yargs(hideBin(process.argv))
           describe: 'badge image file',
           type: 'string',
         }),
-    (argv) => {
-      execute(
-        argv.inputGlob,
-        argv.badgeImage,
-        getCompositeOperator(argv.compositeType),
-        parseInt(`${argv.opacityThreshold}`, 10),
-        Boolean(argv.dryRun)
-      )
-        .then((exitCode) => process.exit(exitCode))
-        .catch((err) => {
-          console.error(`Caught error: ${err}`);
-          process.exit(1);
-        });
+    async (argv) => {
+      try {
+        const exitCode = await execute(
+          argv.inputGlob,
+          argv.badgeImage,
+          getCompositeOperator(argv.compositeType),
+          parseInt(`${argv.opacityThreshold}`, 10),
+          Boolean(argv.dryRun)
+        );
+
+        process.exit(exitCode);
+      } catch (error) {
+        console.error(
+          `Caught error: ${error instanceof Error ? error.message : error}`
+        );
+        process.exit(1);
+      }
     }
   )
   .version(process.env.APP_VERSION ?? 'Unknown')
