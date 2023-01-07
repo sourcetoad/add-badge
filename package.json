@@ -1,9 +1,14 @@
 {
-  "version": "0.0",
+  "name": "add-badge-testing",
+  "version": "0.0.1",
   "bin": {
     "add-badge": "./bin/add-badge.js",
     "add-badges": "./bin/add-badges.js"
   },
+  "files": [
+    "./bin/add-badge.js",
+    "./bin/add-badges.js"
+  ],
   "scripts": {
     "add-badge": "node ./bin/add-badge.js",
     "add-badges": "node ./bin/add-badges.js",
