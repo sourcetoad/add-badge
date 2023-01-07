@@ -10,8 +10,6 @@
     "./bin/add-badges.js"
   ],
   "scripts": {
-    "add-badge": "node ./bin/add-badge.js",
-    "add-badges": "node ./bin/add-badges.js",
     "build": "node ./build.js",
     "check-code": "npm run lint && npm run check-types",
     "check-types": "tsc --noEmit",
