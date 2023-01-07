@@ -39,4 +39,4 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 |---------------------------------|----------------------------------------------------|---------|
 | `--composite-type`/<br/>`-c`    | Change the composite type, recommended: Atop or Over | Atop    |
 | `--opacity-threshold`/<br/>`-o` | The opacity level required for the inset comparison | 29      |
-| `--dry-run`<br/>`-d`            | Does not perform actions                           |         |
+| `--dry-run`/<br/>`-d`           | Does not perform actions                           |         |

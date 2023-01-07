@@ -5,7 +5,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import addImageOverlay from '../utils/addImageOverlay';
-import { getCompositeOperator } from '../utils/getCompositeOperator';
+import getCompositeOperator from '../utils/getCompositeOperator';
 
 async function execute(
   inputGlob: string | undefined,
@@ -88,7 +88,6 @@ yargs(hideBin(process.argv))
           argv.opacityThreshold,
           argv.dryRun
         );
-
         process.exit(exitCode);
       } catch (error) {
         console.error(
