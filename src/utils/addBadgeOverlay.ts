@@ -1,7 +1,6 @@
 import {
   ImageMagick,
   initializeImageMagick,
-  MagickColors,
   MagickFormat,
 } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
