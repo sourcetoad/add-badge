@@ -22,8 +22,6 @@ export default async function addBadgeOverlay(
   ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
     combineBadgeAndImage(image, createBadgeImage(options), gravity, 29);
 
-    image.backgroundColor = MagickColors.Transparent;
-
     image.write((data) => fs.writeFileSync(outputFile, data), MagickFormat.Png);
   });
 }
