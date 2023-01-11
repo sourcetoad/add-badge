@@ -37,8 +37,8 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 | Option               | Descripton                                                            | Default                |
 |----------------------|-----------------------------------------------------------------------|------------------------|
-| `--font-file`        | The TTF font file to use for the text                                 | Roboto Black (Bundled) |
-| `--font-size`        | The TTF font file to use for the text                                 | 24                     |
+| `--font-file`        | The font file to use for the text                                     | Roboto Black (Bundled) |
+| `--font-size`        | The font file to use for the text                                     | 24                     |
 | `--text-color`       | The text color of badge (`rgba(0,0,0,0)` for transparent)             | #666666                |
 | `--background-color` | The background color badge                                            | #ffffff                |
 | `--shadow-color`     | The shadow color badge                                                | #000000                |

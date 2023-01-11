@@ -79,7 +79,7 @@ yargs(hideBin(process.argv))
           type: 'string',
         })
         .option('font-file', {
-          description: 'The font file to use (TTF)',
+          description: 'The font file to use',
           type: 'string',
         })
         .option('font-size', {
