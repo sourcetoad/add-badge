@@ -1,6 +1,7 @@
 {
-  "name": "add-badge-testing",
+  "name": "@sourcetoad/add-badge",
   "version": "0.0.1",
+  "license": "MIT",
   "bin": {
     "add-badge": "./bin/add-badge.js",
     "add-badges": "./bin/add-badges.js"

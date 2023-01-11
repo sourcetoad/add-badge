@@ -8,13 +8,13 @@ insets.
 Using npm:
 
 ```shell
-$ npm install --save-dev add-badge-testing
+$ npm install --save-dev @sourcetoad/add-badge
 ```
 
 Using yarn:
 
 ```shell
-$ yarn add --dev add-badge-testing
+$ yarn add --dev @sourcetoad/add-badge
 ```
 
 ## Usage
