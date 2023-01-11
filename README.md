@@ -1,6 +1,6 @@
 # Add Badge
 
-A set of node commands to add an overlay badge, inset to the non-transparent area.  Meant for PNG app icons with square
+A set of node commands to add an overlay badge, inset to the non-transparent area. Meant for PNG app icons with square
 insets.
 
 ## Installation
@@ -22,20 +22,25 @@ $ yarn add --dev add-badge-testing
 Add a badge to a single image:
 
 ```shell
-$ npx add-badge <input-image> <badge-image> <output-image> [options]
+$ npx add-badge <input-image> <badge-text> <output-image> [options]
 ```
 
 Add a badge to multiple images, modifying them in-place:
 
 ```shell
-$ npx add-badges <input-glob> <badge-image> [options]
+$ npx add-badges <input-glob> <badge-text> [options]
 ```
 
 See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
-| Option                          | Descripton                                         | Default |
-|---------------------------------|----------------------------------------------------|---------|
-| `--opacity-threshold`/<br/>`-o` | The opacity level required for the inset comparison | 29      |
-| `--dry-run`/<br/>`-d`           | Does not perform actions                           |         |
+| Option               | Descripton                                                            | Default                |
+|----------------------|-----------------------------------------------------------------------|------------------------|
+| `--font-file`        | The TTF font file to use for the text                                 | Roboto Black (Bundled) |
+| `--font-size`        | The TTF font file to use for the text                                 | 24                     |
+| `--text-color`       | The text color of badge (`rgba(0,0,0,0)` for transparent)             | #666666                |
+| `--background-color` | The background color badge                                            | #ffffff                |
+| `--shadow-color`     | The shadow color badge                                                | #000000                |
+| `--gravity`          | The gravity of the badge (northwest, northeast, southwest, southeast) | southeast              |
+| `--dry-run`/`-d`     | Does not perform actions                                              |                        |

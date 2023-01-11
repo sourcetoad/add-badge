@@ -1,18 +1,25 @@
-import { CompositeOperator } from '@imagemagick/magick-wasm';
+import { MagickColor } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import addImageOverlay from '../utils/addImageOverlay';
+import { getBadgeGravityFromString } from '../types/BadgeGravity';
+import addBadgeOverlay from '../utils/addBadgeOverlay';
+import setBadgeFont from '../utils/setBadgeFont';
 
 async function execute(
   imageFile: string | undefined,
-  badgeFile: string | undefined,
+  badgeText: string | undefined,
   outputFile: string | undefined,
-  opacityThreshold: number,
+  fontFile: string | undefined,
+  fontSize: number,
+  textColor: string,
+  backgroundColor: string,
+  shadowColor: string,
+  gravity: string,
   dryRun: boolean
 ) {
-  if (!imageFile || !badgeFile || !outputFile) {
+  if (!imageFile || !badgeText || !outputFile) {
     throw new Error('Missing parameter');
   }
 
@@ -21,20 +28,32 @@ async function execute(
     return 1;
   }
 
-  if (!fs.existsSync(badgeFile)) {
-    console.error(`Badge file "${badgeFile}" not found`);
+  if (fontFile && !fs.existsSync(fontFile)) {
+    console.error(`Font file "${fontFile}" not found`);
     return 1;
   }
 
   console.info(`${dryRun ? 'Would process' : 'Processing'} ${imageFile}`);
 
   if (!dryRun) {
-    await addImageOverlay(
-      badgeFile,
+    await setBadgeFont(fontFile ?? './assets/fonts/Roboto-Black.ttf');
+
+    const badgeOptions = {
+      text: {
+        text: badgeText,
+        font: 'BadgeFont',
+        fontPointSize: fontSize,
+        color: new MagickColor(textColor),
+      },
+      backgroundColor: new MagickColor(backgroundColor),
+      shadowColor: new MagickColor(shadowColor),
+    };
+
+    await addBadgeOverlay(
       imageFile,
       outputFile,
-      opacityThreshold,
-      CompositeOperator.Atop
+      badgeOptions,
+      getBadgeGravityFromString(gravity)
     );
   }
 
@@ -43,7 +62,7 @@ async function execute(
 
 yargs(hideBin(process.argv))
   .command(
-    '* <input-image> <badge-image> <output-image>',
+    '* <input-image> <badge-text> <output-image>',
     'Add a badge to an image',
     (yargs) =>
       yargs
@@ -51,19 +70,42 @@ yargs(hideBin(process.argv))
           describe: 'input image file',
           type: 'string',
         })
-        .positional('badge-image', {
-          describe: 'badge image file',
+        .positional('badge-text', {
+          describe: 'badge text',
           type: 'string',
         })
         .positional('output-image', {
           describe: 'output file',
           type: 'string',
         })
-        .option('opacity-threshold', {
-          alias: 'o',
-          default: 29,
-          description: 'The opacity level required for the inset comparison',
+        .option('font-file', {
+          description: 'The font file to use (TTF)',
+          type: 'string',
+        })
+        .option('font-size', {
+          default: 24,
+          description: 'The font size',
           type: 'number',
+        })
+        .option('text-color', {
+          default: '#666666',
+          description: 'The text color',
+          type: 'string',
+        })
+        .option('background-color', {
+          default: '#ffffff',
+          description: 'The background color',
+          type: 'string',
+        })
+        .option('shadow-color', {
+          default: '#000000',
+          description: 'The shadow color',
+          type: 'string',
+        })
+        .option('gravity', {
+          default: 'southeast',
+          description: 'Where on the icon to render the badge',
+          type: 'string',
         })
         .option('dry-run', {
           alias: 'd',
@@ -76,9 +118,14 @@ yargs(hideBin(process.argv))
       try {
         const exitCode = await execute(
           argv.inputImage,
-          argv.badgeImage,
+          argv.badgeText,
           argv.outputImage,
-          argv.opacityThreshold,
+          argv.fontFile,
+          argv.fontSize,
+          argv.textColor,
+          argv.backgroundColor,
+          argv.shadowColor,
+          argv.gravity,
           argv.dryRun
         );
         process.exit(exitCode);
