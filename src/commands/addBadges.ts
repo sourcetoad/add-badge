@@ -29,7 +29,7 @@ async function execute(
   }
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? './assets/fonts/Roboto-Black.ttf');
+    await setBadgeFont(fontFile ?? './fonts/Roboto-Black.ttf');
   }
 
   for (const inputFile of inputFiles) {

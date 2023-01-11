@@ -36,7 +36,7 @@ async function execute(
   console.info(`${dryRun ? 'Would process' : 'Processing'} ${imageFile}`);
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? './assets/fonts/Roboto-Black.ttf');
+    await setBadgeFont(fontFile ?? './fonts/Roboto-Black.ttf');
 
     const badgeOptions = {
       text: {
