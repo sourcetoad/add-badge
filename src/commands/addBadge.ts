@@ -4,13 +4,11 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import addImageOverlay from '../utils/addImageOverlay';
-import getCompositeOperator from '../utils/getCompositeOperator';
 
 async function execute(
   imageFile: string | undefined,
   badgeFile: string | undefined,
   outputFile: string | undefined,
-  compositeOperator: CompositeOperator,
   opacityThreshold: number,
   dryRun: boolean
 ) {
@@ -36,7 +34,7 @@ async function execute(
       imageFile,
       outputFile,
       opacityThreshold,
-      compositeOperator
+      CompositeOperator.Atop
     );
   }
 
@@ -61,12 +59,6 @@ yargs(hideBin(process.argv))
           describe: 'output file',
           type: 'string',
         })
-        .option('composite-type', {
-          alias: 'c',
-          default: CompositeOperator[CompositeOperator.Atop],
-          description: 'Change the composite type, recommended: Atop or Over',
-          type: 'string',
-        })
         .option('opacity-threshold', {
           alias: 'o',
           default: 29,
@@ -86,7 +78,6 @@ yargs(hideBin(process.argv))
           argv.inputImage,
           argv.badgeImage,
           argv.outputImage,
-          getCompositeOperator(argv.compositeType),
           argv.opacityThreshold,
           argv.dryRun
         );
