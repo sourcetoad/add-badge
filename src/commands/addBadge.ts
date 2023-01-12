@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
+import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import addBadgeOverlay from '../utils/addBadgeOverlay';
 import setBadgeFont from '../utils/setBadgeFont';
@@ -83,27 +84,27 @@ yargs(hideBin(process.argv))
           type: 'string',
         })
         .option('font-size', {
-          default: 24,
+          default: defaultOptions.fontSize,
           description: 'The font size',
           type: 'number',
         })
         .option('text-color', {
-          default: '#666666',
+          default: defaultOptions.textColor,
           description: 'The text color',
           type: 'string',
         })
         .option('background-color', {
-          default: '#ffffff',
+          default: defaultOptions.backgroundColor,
           description: 'The background color',
           type: 'string',
         })
         .option('shadow-color', {
-          default: '#000000',
+          default: defaultOptions.shadowColor,
           description: 'The shadow color',
           type: 'string',
         })
         .option('gravity', {
-          default: 'southeast',
+          default: defaultOptions.gravity,
           description: 'Where on the icon to render the badge',
           type: 'string',
         })
