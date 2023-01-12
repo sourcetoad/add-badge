@@ -14,6 +14,7 @@
   "scripts": {
     "build": "node ./build.js",
     "check-code": "npm run lint && npm run check-types",
+    "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
     "generate-samples": "npm run build && node ./samples/generate.js",
     "lint": "eslint ./src/**",
