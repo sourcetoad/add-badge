@@ -8,19 +8,18 @@ import * as fs from 'fs';
 import BadgeGravity from '../types/BadgeGravity';
 import BadgeOptions from '../types/BadgeOptions';
 import combineBadgeAndImage from './combineBadgeAndImage';
-import createBadgeImage from './createBadgeImage';
 import removeDateMetadata from './removeDateMetadata';
 
 export default async function addBadgeOverlay(
   inputFile: string,
   outputFile: string,
-  options: BadgeOptions,
-  gravity: BadgeGravity
+  badgeOptions: BadgeOptions,
+  badgeGravity: BadgeGravity
 ): Promise<void> {
   await initializeImageMagick();
 
   ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
-    combineBadgeAndImage(image, createBadgeImage(options), gravity, 29);
+    combineBadgeAndImage(image, badgeOptions, badgeGravity, 29);
 
     // Strip date based metadata in an attempt at producing the same image from
     // the same input every time. This lets us test things like the samples

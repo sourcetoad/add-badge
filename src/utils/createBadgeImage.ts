@@ -11,30 +11,48 @@ import {
 import BadgeOptions from '../types/BadgeOptions';
 import drawCenteredText from './drawCenteredText';
 
-export default function createBadgeImage({
-  backgroundColor,
-  shadowColor,
-  text,
-}: BadgeOptions): IMagickImage {
-  const height = 36;
-  const width = 140;
-  const shadowSize = 5;
+export default function createBadgeImage(
+  badgeOptions: BadgeOptions,
+  expectedWidth: number
+): IMagickImage {
+  const baseHeight = 30;
+  const baseWidth = 130;
+  const baseShadowSize = 3;
+  const baseRatio = baseHeight / baseWidth;
 
+  // Scale the sizes up to the expected badge size if larger
+  const width = Math.max(baseWidth, expectedWidth);
+  const height = Math.round(width * baseRatio);
+  const scale = width / baseWidth;
+  const shadowSize = Math.floor(baseShadowSize * scale);
+  const fontPointSize = Math.floor(badgeOptions.text.fontPointSize * scale);
+
+  const heightWithShadow = height + shadowSize * 2;
+
+  // Create the shadow canvas filled with the shadow color
   const shadow = MagickImage.create();
-  shadow.read(shadowColor, width, height);
+  shadow.backgroundColor = MagickColors.None;
+  shadow.read(badgeOptions.shadowColor, width, height);
+
+  // Expand the canvas by the shadow size and blur by the shadow amount
   shadow.extent(
-    new MagickGeometry(width, height + shadowSize * 2),
+    new MagickGeometry(width, heightWithShadow),
     Gravity.Center,
     MagickColors.Transparent
   );
-  shadow.blur(shadowSize, 3);
+  shadow.blur(shadowSize, shadowSize);
 
+  // Create the background canvas filled with the background color
   const background = MagickImage.create();
-  background.read(backgroundColor, width, height);
+  background.backgroundColor = MagickColors.None;
+  background.read(badgeOptions.backgroundColor, width, height);
 
+  // Create the badge canvas
   const badge = MagickImage.create();
-  badge.read(MagickColors.Transparent, width, height + shadowSize * 2);
+  badge.backgroundColor = MagickColors.None;
+  badge.read(MagickColors.Transparent, width, heightWithShadow);
 
+  // Add the shadow layer to the middle
   badge.compositeGravity(
     shadow,
     Gravity.Center,
@@ -42,6 +60,7 @@ export default function createBadgeImage({
     new Point(0)
   );
 
+  // Add the background layer to the middle
   badge.compositeGravity(
     background,
     Gravity.Center,
@@ -49,7 +68,11 @@ export default function createBadgeImage({
     new Point(0)
   );
 
-  drawCenteredText(badge, text);
+  // Draw the text in the center
+  drawCenteredText(badge, {
+    ...badgeOptions.text,
+    fontPointSize,
+  });
 
   return badge;
 }

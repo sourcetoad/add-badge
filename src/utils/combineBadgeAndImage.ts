@@ -8,43 +8,65 @@ import {
 import BadgeGravity, {
   getGravityFromBadgeGravity,
 } from '../types/BadgeGravity';
+import BadgeOptions from '../types/BadgeOptions';
+import createBadgeImage from './createBadgeImage';
 import getInsetPosition from './getInsetPosition';
 
-export default function combineBadgeAndImage(
-  image: IMagickImage,
-  badge: IMagickImage,
-  gravity: BadgeGravity,
-  opacityCutoff: number
-): void {
-  const insetPosition = getInsetPosition(image, opacityCutoff);
-
+function getRotatedBadgeWidth(
+  imageWidth: number,
+  imageHeight: number,
+  insetPosition: number
+): number {
   const topCenterPosition = {
-    x: Math.round(image.width / 2),
+    x: Math.round(imageWidth / 2),
     y: Math.round(insetPosition),
   };
   const leftCenterPosition = {
     x: Math.round(insetPosition),
-    y: Math.round(image.height / 2),
+    y: Math.round(imageHeight / 2),
   };
 
-  const updatedBadgeWidth =
+  return Math.round(
+    Math.hypot(
+      topCenterPosition.x - leftCenterPosition.x,
+      topCenterPosition.y - leftCenterPosition.y
+    )
+  );
+}
+
+export default function combineBadgeAndImage(
+  image: IMagickImage,
+  badgeOptions: BadgeOptions,
+  gravity: BadgeGravity,
+  opacityCutoff: number
+): void {
+  const insetPosition = getInsetPosition(image, opacityCutoff);
+  const rotatedBadgeWidth =
+    // We need to increase the badge width so we can overlap the side by enough
+    // to cover the corner including shadow
     // TODO Figure out a better way to calculate this that doesn't involve a
     //      magic percent
-    1.2 *
-    Math.round(
-      Math.hypot(
-        topCenterPosition.x - leftCenterPosition.x,
-        topCenterPosition.y - leftCenterPosition.y
-      )
-    );
+    1.5 * getRotatedBadgeWidth(image.width, image.height, insetPosition);
 
-  const updatedBadgeHeight = Math.round(
-    updatedBadgeWidth * (badge.height / badge.width)
+  const badge = createBadgeImage(badgeOptions, rotatedBadgeWidth);
+
+  // badge.getPixels((pixels) => {
+  //   pixels.setPixel(0, Math.round(badge.height / 2), [0, 255, 255, 255]);
+  //   pixels.setPixel(
+  //     badge.width - 1,
+  //     Math.round(badge.height / 2),
+  //     [0, 255, 255, 255]
+  //   );
+  // });
+
+  const rotatedBadgeHeight = Math.round(
+    rotatedBadgeWidth * (badge.height / badge.width)
   );
 
-  badge.resize(updatedBadgeWidth, updatedBadgeHeight);
+  badge.resize(rotatedBadgeWidth, rotatedBadgeHeight);
 
   badge.backgroundColor = MagickColors.None;
+  // badge.backgroundColor = new MagickColor(255, 0, 0, 50);
 
   switch (gravity) {
     case BadgeGravity.Northwest:
@@ -63,6 +85,19 @@ export default function combineBadgeAndImage(
     CompositeOperator.Atop,
     // TODO Figure out a better way to calculate this that doesn't involve a
     //      magic percent
-    new Point(insetPosition - updatedBadgeHeight * 0.65)
+    new Point(insetPosition - Math.round(rotatedBadgeHeight * 0.7))
   );
+
+  // image.getPixels((pixels) => {
+  //   pixels.setPixel(
+  //     Math.round(image.width / 2),
+  //     insetPosition,
+  //     [255, 0, 255, 255]
+  //   );
+  //   pixels.setPixel(
+  //     insetPosition,
+  //     Math.round(image.height / 2),
+  //     [255, 0, 255, 255]
+  //   );
+  // });
 }
