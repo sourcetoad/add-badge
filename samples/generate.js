@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
 ['ic_launcher-xxxhdpi.png', 'ic_launcher_round-xxxhdpi.png'].forEach(

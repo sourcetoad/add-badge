@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { execSync } = require('child_process');
 
 console.log(execSync(`npm run generate-samples`, { encoding: 'utf-8' }));
