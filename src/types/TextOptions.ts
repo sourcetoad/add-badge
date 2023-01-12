@@ -1,10 +1,10 @@
 import { MagickColor } from '@imagemagick/magick-wasm';
 
-type TextOptions = {
+interface TextOptions {
   text: string;
   font: string;
   fontPointSize: number;
   color: MagickColor;
-};
+}
 
 export default TextOptions;

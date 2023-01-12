@@ -8,12 +8,17 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts'],
-      extends: ['plugin:@typescript-eslint/recommended'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/strict',
+      ],
     },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: ['./tsconfig.json'],
   },
   plugins: ['prettier', 'simple-import-sort'],
   rules: {

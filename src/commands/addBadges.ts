@@ -60,7 +60,7 @@ async function execute(
   return 0;
 }
 
-yargs(hideBin(process.argv))
+void yargs(hideBin(process.argv))
   .command(
     '* <input-glob> <badge-text>',
     'Add a badge to a set of images, in-place',
@@ -126,7 +126,9 @@ yargs(hideBin(process.argv))
         process.exit(exitCode);
       } catch (error) {
         console.error(
-          `Caught error: ${error instanceof Error ? error.message : error}`
+          `Caught error: ${
+            error instanceof Error ? error.message : (error as string)
+          }`
         );
         process.exit(1);
       }

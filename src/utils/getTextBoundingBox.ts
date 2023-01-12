@@ -10,11 +10,11 @@ import {
 
 import TextOptions from '../types/TextOptions';
 
-type BoundingBox = {
+interface BoundingBox {
   width: number;
   height: number;
   offset: number;
-};
+}
 
 /**
  * This draws the text starting at Y position 1, moving up until the entire

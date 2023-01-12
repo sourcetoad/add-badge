@@ -18,7 +18,7 @@ export default async function addBadgeOverlay(
 ): Promise<void> {
   await initializeImageMagick();
 
-  ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
+  await ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
     combineBadgeAndImage(image, badgeOptions, badgeGravity, 29);
 
     // Strip date based metadata in an attempt at producing the same image from
@@ -26,6 +26,9 @@ export default async function addBadgeOverlay(
     // being generated in the CI.
     removeDateMetadata(image);
 
-    image.write((data) => fs.writeFileSync(outputFile, data), MagickFormat.Png);
+    await image.write(
+      (data) => fs.writeFileSync(outputFile, data),
+      MagickFormat.Png
+    );
   });
 }

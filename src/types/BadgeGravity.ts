@@ -1,10 +1,10 @@
 import { Gravity } from '@imagemagick/magick-wasm';
 
 enum BadgeGravity {
-  Northwest = Gravity.Northwest,
-  Northeast = Gravity.Northeast,
-  Southwest = Gravity.Southwest,
-  Southeast = Gravity.Southeast,
+  Northwest = 'northwest',
+  Northeast = 'northeast',
+  Southwest = 'southwest',
+  Southeast = 'southeast',
 }
 
 export function getGravityFromBadgeGravity(
@@ -20,8 +20,6 @@ export function getGravityFromBadgeGravity(
     case BadgeGravity.Southeast:
       return Gravity.Southeast;
   }
-
-  throw new Error(`Unknown gravity ${badgeGravity}`);
 }
 
 export function getBadgeGravityFromString(input: string): BadgeGravity {
