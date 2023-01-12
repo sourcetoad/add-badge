@@ -1,7 +1,10 @@
 # Add Badge
 
-A set of node commands to add an overlay badge, inset to the non-transparent area. Meant for PNG app icons with square
+A set of node commands to add an overlay badge, inset to the non-transparent area. Meant for PNG app icons with equal
 insets.
+
+| ![](./samples/output/ic_launcher-xxxhdpi.png) | ![](./samples/output/ic_launcher_round-xxxhdpi.png) |
+|-----------------------------------------------|-----------------------------------------------------|
 
 ## Installation
 
