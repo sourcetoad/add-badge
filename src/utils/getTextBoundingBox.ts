@@ -17,8 +17,9 @@ type BoundingBox = {
 };
 
 /**
- * This draws text with the specified options, then trims the image to obtain
- * the text size.
+ * This draws the text starting at Y position 1, moving up until the entire
+ * string is visible. Once it is fully visible we know the offset we need to
+ * properly center our renders as well as the bounding box of the text.
  */
 export default function getTextBoundingBox(
   options: TextOptions,
