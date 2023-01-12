@@ -6,7 +6,7 @@ const { execSync } = require('child_process');
   (image) => {
     console.log(
       execSync(
-        `node bin/add-badge.js "samples/input/${image}" ALPHA "samples/output/${image}"`,
+        `node bin/add-badge.js "samples/input/${image}" "samples/output/${image}" "ALPHA"`,
         { encoding: 'utf-8' }
       )
     );

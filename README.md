@@ -25,7 +25,7 @@ $ yarn add --dev @sourcetoad/add-badge
 Add a badge to a single image:
 
 ```shell
-$ npx add-badge <input-image> <badge-text> <output-image> [options]
+$ npx add-badge <input-image> <output-image> <badge-text> [options]
 ```
 
 Add a badge to multiple images, modifying them in-place:

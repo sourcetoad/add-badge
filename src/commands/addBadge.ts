@@ -10,8 +10,8 @@ import setBadgeFont from '../utils/setBadgeFont';
 
 async function execute(
   imageFile: string | undefined,
-  badgeText: string | undefined,
   outputFile: string | undefined,
+  badgeText: string | undefined,
   fontFile: string | undefined,
   fontSize: number,
   textColor: string,
@@ -61,7 +61,7 @@ async function execute(
 
 void yargs(hideBin(process.argv))
   .command(
-    '* <input-image> <badge-text> <output-image>',
+    '* <input-image> <output-image> <badge-text>',
     'Add a badge to an image',
     (yargs) =>
       yargs
@@ -69,12 +69,12 @@ void yargs(hideBin(process.argv))
           describe: 'input image file',
           type: 'string',
         })
-        .positional('badge-text', {
-          describe: 'badge text',
-          type: 'string',
-        })
         .positional('output-image', {
           describe: 'output file',
+          type: 'string',
+        })
+        .positional('badge-text', {
+          describe: 'badge text',
           type: 'string',
         })
         .option('font-file', {
@@ -117,8 +117,8 @@ void yargs(hideBin(process.argv))
       try {
         const exitCode = await execute(
           argv.inputImage,
-          argv.badgeText,
           argv.outputImage,
+          argv.badgeText,
           argv.fontFile,
           argv.fontSize,
           argv.textColor,
