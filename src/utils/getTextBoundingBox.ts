@@ -9,7 +9,6 @@ import {
 } from '@imagemagick/magick-wasm';
 
 import TextOptions from '../types/TextOptions';
-import getTextOffset from './getTextOffset';
 
 type BoundingBox = {
   width: number;
@@ -21,24 +20,40 @@ type BoundingBox = {
  * This draws text with the specified options, then trims the image to obtain
  * the text size.
  */
-export default function getTextBoundingBox(options: TextOptions): BoundingBox {
-  const image = MagickImage.create();
-  const offset = getTextOffset(options);
-
+export default function getTextBoundingBox(
+  options: TextOptions,
+  maxWidth = 130,
+  maxHeight = 30
+): BoundingBox {
   const drawables: IDrawable[] = [
     new DrawableFont(options.font),
     new DrawableFontPointSize(options.fontPointSize),
     new DrawableFillColor(MagickColors.Black),
-    new DrawableText(1, offset + 1, options.text),
   ];
+  let currentOffset = 1;
+  let lastFoundHeight = 0;
 
-  image.read(MagickColors.Transparent, 256, 256);
-  image.draw(drawables);
-  image.trim();
+  const image = MagickImage.create();
 
-  return {
-    width: image.width,
-    height: image.height,
-    offset,
-  };
+  while (currentOffset < 256) {
+    image.read(MagickColors.Transparent, maxWidth, maxHeight);
+    image.draw([
+      ...drawables,
+      new DrawableText(1, currentOffset, options.text),
+    ]);
+    image.trim();
+
+    if (lastFoundHeight === image.height) {
+      return {
+        width: image.width,
+        height: image.height,
+        offset: currentOffset,
+      };
+    }
+
+    lastFoundHeight = image.height;
+    currentOffset++;
+  }
+
+  throw new Error('Unable to determine font bounding box');
 }
