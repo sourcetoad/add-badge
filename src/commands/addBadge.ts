@@ -39,21 +39,19 @@ async function execute(
   if (!dryRun) {
     await setBadgeFont(fontFile ?? './fonts/Roboto-Black.ttf');
 
-    const badgeOptions = {
-      text: {
-        text: badgeText,
-        font: 'BadgeFont',
-        fontPointSize: fontSize,
-        color: new MagickColor(textColor),
-      },
-      backgroundColor: new MagickColor(backgroundColor),
-      shadowColor: new MagickColor(shadowColor),
-    };
-
     await addBadgeOverlay(
       imageFile,
       outputFile,
-      badgeOptions,
+      {
+        text: {
+          text: badgeText,
+          font: 'BadgeFont',
+          fontPointSize: fontSize,
+          color: new MagickColor(textColor),
+        },
+        backgroundColor: new MagickColor(backgroundColor),
+        shadowColor: new MagickColor(shadowColor),
+      },
       getBadgeGravityFromString(gravity)
     );
   }

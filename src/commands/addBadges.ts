@@ -37,21 +37,19 @@ async function execute(
     console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputFile}`);
 
     if (!dryRun) {
-      const badgeOptions = {
-        text: {
-          text: badgeText,
-          font: 'BadgeFont',
-          fontPointSize: fontSize,
-          color: new MagickColor(textColor),
-        },
-        backgroundColor: new MagickColor(backgroundColor),
-        shadowColor: new MagickColor(shadowColor),
-      };
-
       await addBadgeOverlay(
         inputFile,
         inputFile,
-        badgeOptions,
+        {
+          text: {
+            text: badgeText,
+            font: 'BadgeFont',
+            fontPointSize: fontSize,
+            color: new MagickColor(textColor),
+          },
+          backgroundColor: new MagickColor(backgroundColor),
+          shadowColor: new MagickColor(shadowColor),
+        },
         getBadgeGravityFromString(gravity)
       );
     }

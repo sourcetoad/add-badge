@@ -1,7 +1,7 @@
 export default {
-  fontSize: 22,
-  textColor: '#666666',
   backgroundColor: '#ffffff',
-  shadowColor: 'rgba(0,0,0,0.5)',
+  fontSize: 22,
   gravity: 'southeast',
+  shadowColor: 'rgba(0,0,0,0.5)',
+  textColor: '#666666',
 } as const;

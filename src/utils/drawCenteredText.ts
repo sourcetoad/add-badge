@@ -3,7 +3,6 @@ import {
   DrawableFont,
   DrawableFontPointSize,
   DrawableText,
-  IDrawable,
   IMagickImage,
 } from '@imagemagick/magick-wasm';
 
@@ -19,7 +18,7 @@ export default function drawCenteredText(
   const textOffsetX = Math.round((image.width - boundingBox.width) / 2);
   const textOffsetY = Math.round((image.height - boundingBox.height) / 2);
 
-  const drawables: IDrawable[] = [
+  image.draw([
     new DrawableFont(options.font),
     new DrawableFontPointSize(options.fontPointSize),
     new DrawableFillColor(options.color),
@@ -28,7 +27,5 @@ export default function drawCenteredText(
       textOffsetY + boundingBox.offset,
       options.text
     ),
-  ];
-
-  image.draw(drawables);
+  ]);
 }
