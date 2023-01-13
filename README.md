@@ -3,8 +3,8 @@
 A set of node commands to add an overlay badge, inset to the non-transparent area. Meant for PNG app icons with equal
 insets.
 
-| ![](./samples/output/ic_launcher-xxxhdpi.png) | ![](./samples/output/ic_launcher_round-xxxhdpi.png) |
-|-----------------------------------------------|-----------------------------------------------------|
+| ![](https://github.com/sourcetoad/add-badge/raw/master/samples/output/ic_launcher-xxxhdpi.png) | ![](https://github.com/sourcetoad/add-badge/raw/master/samples/output/ic_launcher_round-xxxhdpi.png) |
+|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
 
 ## Installation
 
