@@ -11,28 +11,7 @@ import BadgeGravity, {
 import BadgeOptions from '../types/BadgeOptions';
 import createBadgeImage from './createBadgeImage';
 import getInsetPosition from './getInsetPosition';
-
-function getRotatedBadgeWidth(
-  imageWidth: number,
-  imageHeight: number,
-  insetPosition: number
-): number {
-  const topCenterPosition = {
-    x: Math.round(imageWidth / 2),
-    y: Math.round(insetPosition),
-  };
-  const leftCenterPosition = {
-    x: Math.round(insetPosition),
-    y: Math.round(imageHeight / 2),
-  };
-
-  return Math.round(
-    Math.hypot(
-      topCenterPosition.x - leftCenterPosition.x,
-      topCenterPosition.y - leftCenterPosition.y
-    )
-  );
-}
+import getRotatedBadgeWidth from './getRotatedBadgeWidth';
 
 export default function combineBadgeAndImage(
   image: IMagickImage,
