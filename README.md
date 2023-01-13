@@ -38,7 +38,7 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
-| Option               | Descripton                                                            | Default                |
+| Option               | Description                                                           | Default                |
 |----------------------|-----------------------------------------------------------------------|------------------------|
 | `--font-file`        | The font file to use for the text                                     | Roboto Black (Bundled) |
 | `--font-size`        | The font file to use for the text                                     | 22                     |
