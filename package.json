@@ -17,7 +17,7 @@
     "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
     "generate-samples": "npm run build && node ./samples/generate.js",
-    "lint": "eslint ./src/**",
+    "lint": "eslint .",
     "prepare": "npm run build"
   },
   "dependencies": {
