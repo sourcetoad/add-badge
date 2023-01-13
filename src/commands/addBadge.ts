@@ -81,32 +81,32 @@ void yargs(hideBin(process.argv))
           type: 'string',
         })
         .option('font-file', {
-          description: 'The font file to use',
+          description: 'Text font file',
           type: 'string',
         })
         .option('font-size', {
           default: defaultOptions.fontSize,
-          description: 'The font size',
+          description: 'Text size',
           type: 'number',
         })
         .option('text-color', {
           default: defaultOptions.textColor,
-          description: 'The text color',
+          description: 'Text color',
           type: 'string',
         })
         .option('background-color', {
           default: defaultOptions.backgroundColor,
-          description: 'The background color',
+          description: 'Badge background color',
           type: 'string',
         })
         .option('shadow-color', {
           default: defaultOptions.shadowColor,
-          description: 'The shadow color',
+          description: 'Badge shadow color',
           type: 'string',
         })
         .option('gravity', {
           default: defaultOptions.gravity,
-          description: 'Where on the icon to render the badge',
+          description: 'Badge gravity',
           type: 'string',
         })
         .option('dry-run', {

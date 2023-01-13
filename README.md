@@ -38,12 +38,12 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
-| Option               | Description                                                           | Default                |
-|----------------------|-----------------------------------------------------------------------|------------------------|
-| `--font-file`        | The font file to use for the text                                     | Roboto Black (Bundled) |
-| `--font-size`        | The font file to use for the text                                     | 22                     |
-| `--text-color`       | The text color of badge (`rgba(0,0,0,0)` for transparent)             | #666666                |
-| `--background-color` | The background color badge                                            | #ffffff                |
-| `--shadow-color`     | The shadow color badge                                                | rgba(0,0,0,0.5)        |
-| `--gravity`          | The gravity of the badge (northwest, northeast, southwest, southeast) | southeast              |
-| `--dry-run`/`-d`     | Does not perform actions                                              |                        |
+| Option               | Description                                                | Default                |
+|----------------------|------------------------------------------------------------|------------------------|
+| `--font-file`        | Text font file                                             | Roboto Black (Bundled) |
+| `--font-size`        | Text size (pt, scaled up for larger images)                | 22                     |
+| `--text-color`       | Text color (`rgba(0,0,0,0)` for transparent)               | #666666                |
+| `--background-color` | Badge background color                                     | #ffffff                |
+| `--shadow-color`     | Badge shadow color                                         | rgba(0,0,0,0.5)        |
+| `--gravity`          | Badge gravity (northwest, northeast, southwest, southeast) | southeast              |
+| `--dry-run`/`-d`     | Does not perform actions                                   |                        |
