@@ -32,7 +32,7 @@ async function execute(
 
   if (!dryRun) {
     await setBadgeFont(
-      fontFile ?? path.resolve(__dirname, '../fonts/Roboto-Black.ttf')
+      fontFile ?? path.resolve(__dirname, defaultOptions.fontFile)
     );
   }
 
