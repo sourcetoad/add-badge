@@ -1,0 +1,27 @@
+name: Publish to NPM
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    environment: deploy
+    runs-on: ubuntu-latest
+
+    name: Publish
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: NPM Install
+        run: npm ci
+
+      - name: Publish (NPM)
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
