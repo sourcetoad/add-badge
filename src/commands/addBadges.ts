@@ -1,5 +1,6 @@
 import { MagickColor } from '@imagemagick/magick-wasm';
 import * as fg from 'fast-glob';
+import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -30,7 +31,9 @@ async function execute(
   }
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? './fonts/Roboto-Black.ttf');
+    await setBadgeFont(
+      fontFile ?? path.resolve(__dirname, '../fonts/Roboto-Black.ttf')
+    );
   }
 
   for (const inputFile of inputFiles) {

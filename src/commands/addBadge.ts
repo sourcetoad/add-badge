@@ -1,5 +1,6 @@
 import { MagickColor } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
+import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
@@ -37,7 +38,9 @@ async function execute(
   console.info(`${dryRun ? 'Would process' : 'Processing'} ${imageFile}`);
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? './fonts/Roboto-Black.ttf');
+    await setBadgeFont(
+      fontFile ?? path.resolve(__dirname, '../fonts/Roboto-Black.ttf')
+    );
 
     await addBadgeOverlay(
       imageFile,
