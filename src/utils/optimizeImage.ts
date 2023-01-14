@@ -1,8 +1,7 @@
 import { ImagePool } from '@squoosh/lib';
-import { cpus } from 'os';
 
 export default async function optimizeImage(input: Uint8Array) {
-  const imagePool = new ImagePool(cpus().length);
+  const imagePool = new ImagePool(1);
 
   const image = imagePool.ingestImage(input);
   const result = await image.encode({
