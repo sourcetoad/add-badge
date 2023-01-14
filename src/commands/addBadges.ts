@@ -18,7 +18,8 @@ async function execute(
   backgroundColor: string,
   shadowColor: string,
   gravity: string,
-  dryRun: boolean
+  dryRun: boolean,
+  skipOptimize: boolean
 ) {
   if (!inputGlob || !badgeText) {
     throw new Error('Missing parameter');
@@ -53,7 +54,8 @@ async function execute(
           backgroundColor: new MagickColor(backgroundColor),
           shadowColor: new MagickColor(shadowColor),
         },
-        getBadgeGravityFromString(gravity)
+        getBadgeGravityFromString(gravity),
+        !skipOptimize
       );
     }
   }
@@ -110,6 +112,11 @@ void yargs(hideBin(process.argv))
           description: 'Does not perform actions',
           type: 'boolean',
         })
+        .option('skip-optimize', {
+          description: 'Skips image optimization',
+          default: false,
+          type: 'boolean',
+        })
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
@@ -122,7 +129,8 @@ void yargs(hideBin(process.argv))
           argv.backgroundColor,
           argv.shadowColor,
           argv.gravity,
-          argv.dryRun
+          argv.dryRun,
+          argv.skipOptimize
         );
         process.exit(exitCode);
       } catch (error) {
