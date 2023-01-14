@@ -20,6 +20,9 @@
     "lint": "eslint .",
     "prepare": "npm run build"
   },
+  "engines" : {
+    "node" : ">=16.0.0"
+  },
   "dependencies": {
     "@imagemagick/magick-wasm": "^0.0.18",
     "fast-glob": "^3.2.12",
