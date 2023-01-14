@@ -42,7 +42,7 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 |----------------------|------------------------------------------------------------|------------------------|
 | `--font-file`        | Text font file                                             | Roboto Black (Bundled) |
 | `--font-size`        | Text size (pt, scaled up for larger images)                | 22                     |
-| `--text-color`       | Text color (`rgba(0,0,0,0)` for transparent)               | #666666                |
+| `--text-color`       | Text color (`transparent` for transparent)                 | #666666                |
 | `--background-color` | Badge background color                                     | #ffffff                |
 | `--shadow-color`     | Badge shadow color                                         | rgba(0,0,0,0.5)        |
 | `--gravity`          | Badge gravity (northwest, northeast, southwest, southeast) | southeast              |
