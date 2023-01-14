@@ -1,11 +1,17 @@
-import { IMagickImage } from '@imagemagick/magick-wasm';
+import { IMagickImage, VirtualPixelMethod } from '@imagemagick/magick-wasm';
 
 const PIXEL_ALPHA_INDEX = 3;
 
 export default function getInsetPosition(
   image: IMagickImage,
   alphaCutoff: number
-) {
+): number {
+  // Change the virtual pixel method to transparent before checking the pixels.
+  // Without this some older images are reporting areas that are opaque as
+  // semi-transparent and causing the wrong inset to be detected.
+  const previousMethod = image.virtualPixelMethod;
+  image.virtualPixelMethod = VirtualPixelMethod.Transparent;
+
   // If we make it to the center of the image we can cancel out since the inset
   // is expected to be equal on both sides
   const maxLineX = Math.floor(image.width / 2) - 1;
@@ -21,6 +27,8 @@ export default function getInsetPosition(
       }
     }
   });
+
+  image.virtualPixelMethod = previousMethod;
 
   return insetPosition;
 }
