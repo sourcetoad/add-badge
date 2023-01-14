@@ -17,7 +17,7 @@ export default function combineBadgeAndImage(
   image: IMagickImage,
   badgeOptions: BadgeOptions,
   gravity: BadgeGravity,
-  alphaCutoff: number
+  alphaCutoff: number,
 ): void {
   const insetPosition = getInsetPosition(image, alphaCutoff);
 
@@ -26,7 +26,7 @@ export default function combineBadgeAndImage(
   const rotatedBadgeWidth = getRotatedBadgeWidth(
     image.width,
     image.height,
-    insetPosition
+    insetPosition,
   );
 
   // Increase the badge width so we overlap the side by enough to cover the
@@ -46,7 +46,7 @@ export default function combineBadgeAndImage(
   // });
 
   const rotatedBadgeHeight = Math.round(
-    updatedBadgeWidth * (badge.height / badge.width)
+    updatedBadgeWidth * (badge.height / badge.width),
   );
 
   badge.resize(updatedBadgeWidth, rotatedBadgeHeight);
@@ -74,7 +74,7 @@ export default function combineBadgeAndImage(
     badge,
     getGravityFromBadgeGravity(gravity),
     CompositeOperator.Atop,
-    new Point(insetPosition - badgeInsetOffset)
+    new Point(insetPosition - badgeInsetOffset),
   );
 
   // image.getPixels((pixels) => {

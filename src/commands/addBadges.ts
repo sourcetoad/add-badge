@@ -18,7 +18,7 @@ async function execute(
   backgroundColor: string,
   shadowColor: string,
   gravity: string,
-  dryRun: boolean
+  dryRun: boolean,
 ) {
   if (!inputGlob || !badgeText) {
     throw new Error('Missing parameter');
@@ -32,7 +32,7 @@ async function execute(
 
   if (!dryRun) {
     await setBadgeFont(
-      fontFile ?? path.resolve(__dirname, defaultOptions.fontFile)
+      fontFile ?? path.resolve(__dirname, defaultOptions.fontFile),
     );
   }
 
@@ -53,7 +53,7 @@ async function execute(
           backgroundColor: new MagickColor(backgroundColor),
           shadowColor: new MagickColor(shadowColor),
         },
-        getBadgeGravityFromString(gravity)
+        getBadgeGravityFromString(gravity),
       );
     }
   }
@@ -122,17 +122,17 @@ void yargs(hideBin(process.argv))
           argv.backgroundColor,
           argv.shadowColor,
           argv.gravity,
-          argv.dryRun
+          argv.dryRun,
         );
         process.exit(exitCode);
       } catch (error) {
         console.error(
           `Caught error: ${
             error instanceof Error ? error.message : (error as string)
-          }`
+          }`,
         );
         process.exit(1);
       }
-    }
+    },
   )
   .parse();

@@ -15,6 +15,6 @@ readdirSync(inputPath)
     console.log(
       execSync(`node bin/add-badge.js "${input}" "${output}" "ALPHA"`, {
         encoding: 'utf-8',
-      }).trimEnd()
+      }).trimEnd(),
     );
   });

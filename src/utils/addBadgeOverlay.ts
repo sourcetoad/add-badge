@@ -14,7 +14,7 @@ export default async function addBadgeOverlay(
   inputFile: string,
   outputFile: string,
   badgeOptions: BadgeOptions,
-  badgeGravity: BadgeGravity
+  badgeGravity: BadgeGravity,
 ): Promise<void> {
   await initializeImageMagick();
 
@@ -28,7 +28,7 @@ export default async function addBadgeOverlay(
 
     await image.write(
       (data) => fs.writeFileSync(outputFile, data),
-      MagickFormat.Png
+      MagickFormat.Png,
     );
   });
 }

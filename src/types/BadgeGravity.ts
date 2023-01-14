@@ -8,7 +8,7 @@ enum BadgeGravity {
 }
 
 export function getGravityFromBadgeGravity(
-  badgeGravity: BadgeGravity
+  badgeGravity: BadgeGravity,
 ): Gravity {
   switch (badgeGravity) {
     case BadgeGravity.Northwest:

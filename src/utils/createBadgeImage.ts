@@ -13,7 +13,7 @@ import drawCenteredText from './drawCenteredText';
 
 export default function createBadgeImage(
   badgeOptions: BadgeOptions,
-  expectedWidth: number
+  expectedWidth: number,
 ): IMagickImage {
   const baseHeight = 30;
   const baseWidth = 130;
@@ -38,7 +38,7 @@ export default function createBadgeImage(
   shadow.extent(
     new MagickGeometry(width, heightWithShadow),
     Gravity.Center,
-    MagickColors.Transparent
+    MagickColors.Transparent,
   );
   shadow.blur(shadowSize, shadowSize);
 
@@ -57,7 +57,7 @@ export default function createBadgeImage(
     shadow,
     Gravity.Center,
     CompositeOperator.Over,
-    new Point(0)
+    new Point(0),
   );
 
   // Add the background layer to the middle
@@ -65,7 +65,7 @@ export default function createBadgeImage(
     background,
     Gravity.Center,
     CompositeOperator.Over,
-    new Point(0)
+    new Point(0),
   );
 
   // Draw the text in the center

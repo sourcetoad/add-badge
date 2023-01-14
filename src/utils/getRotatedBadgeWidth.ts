@@ -1,7 +1,7 @@
 export default function getRotatedBadgeWidth(
   imageWidth: number,
   imageHeight: number,
-  insetPosition: number
+  insetPosition: number,
 ): number {
   const topCenterPosition = {
     x: Math.round(imageWidth / 2),
@@ -15,7 +15,7 @@ export default function getRotatedBadgeWidth(
   return Math.round(
     Math.hypot(
       topCenterPosition.x - leftCenterPosition.x,
-      topCenterPosition.y - leftCenterPosition.y
-    )
+      topCenterPosition.y - leftCenterPosition.y,
+    ),
   );
 }

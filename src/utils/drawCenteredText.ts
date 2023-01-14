@@ -11,7 +11,7 @@ import getTextBoundingBox from './getTextBoundingBox';
 
 export default function drawCenteredText(
   image: IMagickImage,
-  options: TextOptions
+  options: TextOptions,
 ): void {
   const boundingBox = getTextBoundingBox(options, image.width, image.height);
 
@@ -25,7 +25,7 @@ export default function drawCenteredText(
     new DrawableText(
       textOffsetX,
       textOffsetY + boundingBox.offset,
-      options.text
+      options.text,
     ),
   ]);
 }

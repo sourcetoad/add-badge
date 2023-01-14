@@ -4,7 +4,7 @@ const PIXEL_ALPHA_INDEX = 3;
 
 export default function getInsetPosition(
   image: IMagickImage,
-  alphaCutoff: number
+  alphaCutoff: number,
 ): number {
   // Change the virtual pixel method to transparent before checking the pixels.
   // Without this some older images are reporting areas that are opaque as

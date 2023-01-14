@@ -24,7 +24,7 @@ interface BoundingBox {
 export default function getTextBoundingBox(
   options: TextOptions,
   maxWidth = 130,
-  maxHeight = 30
+  maxHeight = 30,
 ): BoundingBox {
   const drawables: IDrawable[] = [
     new DrawableFont(options.font),
