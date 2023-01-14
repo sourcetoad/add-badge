@@ -20,14 +20,21 @@ export default function combineBadgeAndImage(
   opacityCutoff: number
 ): void {
   const insetPosition = getInsetPosition(image, opacityCutoff);
-  const rotatedBadgeWidth =
-    // We need to increase the badge width so we can overlap the side by enough
-    // to cover the corner including shadow
-    // TODO Figure out a better way to calculate this that doesn't involve a
-    //      magic percent
-    1.5 * getRotatedBadgeWidth(image.width, image.height, insetPosition);
 
-  const badge = createBadgeImage(badgeOptions, rotatedBadgeWidth);
+  // Obtain distance between the middle X and Y position at the inset to use as
+  // the rotated badge width
+  const rotatedBadgeWidth = getRotatedBadgeWidth(
+    image.width,
+    image.height,
+    insetPosition
+  );
+
+  // Increase the badge width so we overlap the side by enough to cover the
+  // corner and shadow
+  // TODO Figure out a way to calculate this that doesn't involve a magic number
+  const updatedBadgeWidth = 1.5 * rotatedBadgeWidth;
+
+  const badge = createBadgeImage(badgeOptions, updatedBadgeWidth);
 
   // badge.getPixels((pixels) => {
   //   pixels.setPixel(0, Math.round(badge.height / 2), [0, 255, 255, 255]);
@@ -39,10 +46,10 @@ export default function combineBadgeAndImage(
   // });
 
   const rotatedBadgeHeight = Math.round(
-    rotatedBadgeWidth * (badge.height / badge.width)
+    updatedBadgeWidth * (badge.height / badge.width)
   );
 
-  badge.resize(rotatedBadgeWidth, rotatedBadgeHeight);
+  badge.resize(updatedBadgeWidth, rotatedBadgeHeight);
 
   badge.backgroundColor = MagickColors.None;
   // badge.backgroundColor = new MagickColor(255, 0, 0, 50);
@@ -58,13 +65,16 @@ export default function combineBadgeAndImage(
       break;
   }
 
+  // We need to adjust the inset position we're rendering at by the badge height
+  // badge height so the sides are within the inset
+  // TODO Figure out a way to calculate this that doesn't involve a magic number
+  const badgeInsetOffset = Math.round(rotatedBadgeHeight * 0.75);
+
   image.compositeGravity(
     badge,
     getGravityFromBadgeGravity(gravity),
     CompositeOperator.Atop,
-    // TODO Figure out a better way to calculate this that doesn't involve a
-    //      magic percent
-    new Point(insetPosition - Math.round(rotatedBadgeHeight * 0.75))
+    new Point(insetPosition - badgeInsetOffset)
   );
 
   // image.getPixels((pixels) => {
