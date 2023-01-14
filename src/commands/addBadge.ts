@@ -118,7 +118,7 @@ void yargs(hideBin(process.argv))
           type: 'boolean',
         })
         .option('skip-optimize', {
-          description: 'Skips image optimization',
+          description: 'Do not optimize images',
           default: false,
           type: 'boolean',
         })

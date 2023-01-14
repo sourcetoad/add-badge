@@ -47,3 +47,4 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 | `--shadow-color`     | Badge shadow color                                         | rgba(0,0,0,0.5)        |
 | `--gravity`          | Badge gravity (northwest, northeast, southwest, southeast) | southeast              |
 | `--dry-run`/`-d`     | Does not perform actions                                   |                        |
+| `--skip-optimize`    | Do not optimize images                                     |                        |
