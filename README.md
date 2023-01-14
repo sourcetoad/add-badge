@@ -11,13 +11,13 @@ insets.
 Using npm:
 
 ```shell
-$ npm install --save-dev @sourcetoad/add-badge
+npm install --save-dev @sourcetoad/add-badge
 ```
 
 Using yarn:
 
 ```shell
-$ yarn add --dev @sourcetoad/add-badge
+yarn add --dev @sourcetoad/add-badge
 ```
 
 ## Usage
@@ -25,13 +25,13 @@ $ yarn add --dev @sourcetoad/add-badge
 Add a badge to a single image:
 
 ```shell
-$ npx add-badge <input-image> <output-image> <badge-text> [options]
+npx add-badge <input-image> <output-image> <badge-text> [options]
 ```
 
 Add a badge to multiple images, modifying them in-place:
 
 ```shell
-$ npx add-badges <input-glob> <badge-text> [options]
+npx add-badges <input-glob> <badge-text> [options]
 ```
 
 See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
