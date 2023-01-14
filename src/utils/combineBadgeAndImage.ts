@@ -17,9 +17,9 @@ export default function combineBadgeAndImage(
   image: IMagickImage,
   badgeOptions: BadgeOptions,
   gravity: BadgeGravity,
-  opacityCutoff: number
+  alphaCutoff: number
 ): void {
-  const insetPosition = getInsetPosition(image, opacityCutoff);
+  const insetPosition = getInsetPosition(image, alphaCutoff);
 
   // Obtain distance between the middle X and Y position at the inset to use as
   // the rotated badge width
