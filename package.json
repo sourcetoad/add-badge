@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@imagemagick/magick-wasm": "^0.0.18",
-    "@squoosh/lib": "^0.5.3",
     "fast-glob": "^3.2.12",
     "yargs": "^17.6.2"
   },

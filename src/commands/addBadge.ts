@@ -19,8 +19,7 @@ async function execute(
   backgroundColor: string,
   shadowColor: string,
   gravity: string,
-  dryRun: boolean,
-  skipOptimize: boolean
+  dryRun: boolean
 ) {
   if (!imageFile || !badgeText || !outputFile) {
     throw new Error('Missing parameter');
@@ -56,8 +55,7 @@ async function execute(
         backgroundColor: new MagickColor(backgroundColor),
         shadowColor: new MagickColor(shadowColor),
       },
-      getBadgeGravityFromString(gravity),
-      !skipOptimize
+      getBadgeGravityFromString(gravity)
     );
   }
 
@@ -117,11 +115,6 @@ void yargs(hideBin(process.argv))
           default: false,
           type: 'boolean',
         })
-        .option('skip-optimize', {
-          description: 'Do not optimize images',
-          default: false,
-          type: 'boolean',
-        })
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
@@ -135,8 +128,7 @@ void yargs(hideBin(process.argv))
           argv.backgroundColor,
           argv.shadowColor,
           argv.gravity,
-          argv.dryRun,
-          argv.skipOptimize
+          argv.dryRun
         );
         process.exit(exitCode);
       } catch (error) {
