@@ -64,7 +64,7 @@ export default function combineBadgeAndImage(
     CompositeOperator.Atop,
     // TODO Figure out a better way to calculate this that doesn't involve a
     //      magic percent
-    new Point(insetPosition - Math.round(rotatedBadgeHeight * 0.7))
+    new Point(insetPosition - Math.round(rotatedBadgeHeight * 0.75))
   );
 
   // image.getPixels((pixels) => {
