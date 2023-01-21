@@ -18,7 +18,8 @@
     "check-types": "tsc --noEmit",
     "generate-samples": "npm run build && node ./samples/generate.js",
     "lint": "eslint .",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -39,6 +40,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "prettier": "2.8.2",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.27.3"
   }
 }
