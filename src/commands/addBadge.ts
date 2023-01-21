@@ -9,24 +9,42 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import addBadgeOverlay from '../utils/addBadgeOverlay';
 import setBadgeFont from '../utils/setBadgeFont';
 
-async function execute(
-  imageFile: string | undefined,
-  outputFile: string | undefined,
-  badgeText: string | undefined,
-  fontFile: string | undefined,
-  fontSize: number,
-  textColor: string,
-  backgroundColor: string,
-  shadowColor: string,
-  gravity: string,
-  dryRun: boolean,
-) {
-  if (!imageFile || !badgeText || !outputFile) {
+interface Arguments {
+  backgroundColor: string;
+  badgeText: string;
+  dryRun: boolean;
+  fontFile: string | undefined;
+  fontSize: number;
+  gravity: string;
+  inputImage: string;
+  outputImage: string;
+  paddingX: number;
+  paddingY: number;
+  shadowColor: string;
+  textColor: string;
+}
+
+async function execute({
+  backgroundColor,
+  badgeText,
+  dryRun,
+  fontFile,
+  fontSize,
+  gravity,
+  inputImage,
+  outputImage,
+  paddingX,
+  paddingY,
+  shadowColor,
+  textColor,
+}: Arguments) {
+  if (!inputImage || !badgeText || !outputImage) {
+    console.log(inputImage, badgeText, outputImage);
     throw new Error('Missing parameter');
   }
 
-  if (!fs.existsSync(imageFile)) {
-    console.error(`Input file "${imageFile}" not found`);
+  if (!fs.existsSync(inputImage)) {
+    console.error(`Input file "${inputImage}" not found`);
     return 1;
   }
 
@@ -35,7 +53,7 @@ async function execute(
     return 1;
   }
 
-  console.info(`${dryRun ? 'Would process' : 'Processing'} ${imageFile}`);
+  console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputImage}`);
 
   if (!dryRun) {
     await setBadgeFont(
@@ -43,10 +61,12 @@ async function execute(
     );
 
     await addBadgeOverlay(
-      imageFile,
-      outputFile,
+      inputImage,
+      outputImage,
       {
         backgroundColor: new MagickColor(backgroundColor),
+        paddingX,
+        paddingY,
         shadowColor: new MagickColor(shadowColor),
       },
       {
@@ -63,7 +83,7 @@ async function execute(
 }
 
 void yargs(hideBin(process.argv))
-  .command(
+  .command<Arguments>(
     '* <input-image> <output-image> <badge-text>',
     'Add a badge to an image',
     (yargs) =>
@@ -99,6 +119,16 @@ void yargs(hideBin(process.argv))
           description: 'Badge background color',
           type: 'string',
         })
+        .option('padding-x', {
+          default: defaultOptions.paddingX,
+          description: 'Badge padding X (left and right)',
+          type: 'number',
+        })
+        .option('padding-y', {
+          default: defaultOptions.paddingY,
+          description: 'Badge padding Y (top and bottom)',
+          type: 'number',
+        })
         .option('shadow-color', {
           default: defaultOptions.shadowColor,
           description: 'Badge shadow color',
@@ -111,25 +141,14 @@ void yargs(hideBin(process.argv))
         })
         .option('dry-run', {
           alias: 'd',
-          description: 'Does not perform actions',
           default: false,
+          description: 'Does not perform actions',
           type: 'boolean',
         })
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
-        const exitCode = await execute(
-          argv.inputImage,
-          argv.outputImage,
-          argv.badgeText,
-          argv.fontFile,
-          argv.fontSize,
-          argv.textColor,
-          argv.backgroundColor,
-          argv.shadowColor,
-          argv.gravity,
-          argv.dryRun,
-        );
+        const exitCode = await execute(argv);
         process.exit(exitCode);
       } catch (error) {
         console.error(

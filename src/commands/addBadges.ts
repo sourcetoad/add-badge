@@ -9,17 +9,33 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import addBadgeOverlay from '../utils/addBadgeOverlay';
 import setBadgeFont from '../utils/setBadgeFont';
 
-async function execute(
-  inputGlob: string | undefined,
-  badgeText: string | undefined,
-  fontFile: string | undefined,
-  fontSize: number,
-  textColor: string,
-  backgroundColor: string,
-  shadowColor: string,
-  gravity: string,
-  dryRun: boolean,
-) {
+interface Arguments {
+  backgroundColor: string;
+  badgeText: string;
+  dryRun: boolean;
+  fontFile: string | undefined;
+  fontSize: number;
+  gravity: string;
+  inputGlob: string;
+  paddingX: number;
+  paddingY: number;
+  shadowColor: string;
+  textColor: string;
+}
+
+async function execute({
+  backgroundColor,
+  badgeText,
+  dryRun,
+  fontFile,
+  fontSize,
+  gravity,
+  inputGlob,
+  paddingX,
+  paddingY,
+  shadowColor,
+  textColor,
+}: Arguments) {
   if (!inputGlob || !badgeText) {
     throw new Error('Missing parameter');
   }
@@ -45,6 +61,8 @@ async function execute(
         inputFile,
         {
           backgroundColor: new MagickColor(backgroundColor),
+          paddingX,
+          paddingY,
           shadowColor: new MagickColor(shadowColor),
         },
         {
@@ -62,7 +80,7 @@ async function execute(
 }
 
 void yargs(hideBin(process.argv))
-  .command(
+  .command<Arguments>(
     '* <input-glob> <badge-text>',
     'Add a badge to a set of images, in-place',
     (yargs) =>
@@ -94,6 +112,16 @@ void yargs(hideBin(process.argv))
           description: 'Badge background color',
           type: 'string',
         })
+        .option('padding-x', {
+          default: defaultOptions.paddingX,
+          description: 'Badge padding X (left and right)',
+          type: 'number',
+        })
+        .option('padding-y', {
+          default: defaultOptions.paddingY,
+          description: 'Badge padding Y (top and bottom)',
+          type: 'number',
+        })
         .option('shadow-color', {
           default: defaultOptions.shadowColor,
           description: 'Badge shadow color',
@@ -113,17 +141,7 @@ void yargs(hideBin(process.argv))
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
-        const exitCode = await execute(
-          argv.inputGlob,
-          argv.badgeText,
-          argv.fontFile,
-          argv.fontSize,
-          argv.textColor,
-          argv.backgroundColor,
-          argv.shadowColor,
-          argv.gravity,
-          argv.dryRun,
-        );
+        const exitCode = await execute(argv);
         process.exit(exitCode);
       } catch (error) {
         console.error(

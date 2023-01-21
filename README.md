@@ -38,12 +38,14 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
-| Option               | Description                                                | Default                |
-|----------------------|------------------------------------------------------------|------------------------|
-| `--font-file`        | Text font file                                             | Roboto Black (Bundled) |
-| `--font-size`        | Text size (pt, scaled up for larger images)                | 22                     |
-| `--text-color`       | Text color (`transparent` for transparent)                 | #666666                |
-| `--background-color` | Badge background color                                     | #ffffff                |
-| `--shadow-color`     | Badge shadow color                                         | rgba(0,0,0,0.5)        |
-| `--gravity`          | Badge gravity (northwest, northeast, southwest, southeast) | southeast              |
-| `--dry-run`/`-d`     | Does not perform actions                                   |                        |
+| Option               | Description                                                              | Default                |
+|----------------------|--------------------------------------------------------------------------|------------------------|
+| `--font-file`        | Text font file                                                           | Roboto Black (Bundled) |
+| `--font-size`        | Text size (pt, scaled for images not 192px)                              | 22                     |
+| `--text-color`       | Text color (`transparent` for transparent)                               | #666666                |
+| `--background-color` | Badge background color                                                   | #ffffff                |
+| `--gravity`          | Badge gravity (northwest, north, northeast, southwest, south, southeast) | southeast              |
+| `--padding-x`        | Badge padding X (left and right)                                         | 6                      |
+| `--padding-y`        | Badge padding Y (top and bottom)                                         | 6                      |
+| `--shadow-color`     | Badge shadow color                                                       | rgba(0,0,0,0.5)        |
+| `--dry-run`/`-d`     | Does not perform actions                                                 |                        |

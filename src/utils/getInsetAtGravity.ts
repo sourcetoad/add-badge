@@ -11,6 +11,7 @@ export default function getInsetAtGravity(
   image: IMagickImage,
   gravity: Gravity,
   alphaCutoff: number,
+  axisOffset?: number,
 ): number {
   // Change the virtual pixel method to transparent before checking the pixels.
   // Without this some older images are reporting areas that are opaque as
@@ -36,7 +37,7 @@ export default function getInsetAtGravity(
 
       case Gravity.North:
         for (let y = 0; y < centerPointY; y++) {
-          const pixel = pixels.getPixel(centerPointX, y);
+          const pixel = pixels.getPixel(centerPointX + (axisOffset ?? 0), y);
           if (pixel[PIXEL_ALPHA_INDEX] > alphaCutoff) {
             insetPosition = y;
             break;
@@ -60,7 +61,7 @@ export default function getInsetAtGravity(
 
       case Gravity.West:
         for (let x = image.width - 1; x > centerPointX; x--) {
-          const pixel = pixels.getPixel(x, centerPointY);
+          const pixel = pixels.getPixel(x, centerPointY + (axisOffset ?? 0));
           if (pixel[PIXEL_ALPHA_INDEX] > alphaCutoff) {
             insetPosition = image.width - 1 - x;
             break;
@@ -70,7 +71,7 @@ export default function getInsetAtGravity(
 
       case Gravity.East:
         for (let x = 0; x < centerPointX; x++) {
-          const pixel = pixels.getPixel(x, centerPointY);
+          const pixel = pixels.getPixel(x, centerPointY + (axisOffset ?? 0));
           if (pixel[PIXEL_ALPHA_INDEX] > alphaCutoff) {
             insetPosition = x;
             break;
@@ -94,7 +95,7 @@ export default function getInsetAtGravity(
 
       case Gravity.South:
         for (let y = image.height - 1; y > centerPointY; y--) {
-          const pixel = pixels.getPixel(centerPointX, y);
+          const pixel = pixels.getPixel(centerPointX + (axisOffset ?? 0), y);
           if (pixel[PIXEL_ALPHA_INDEX] > alphaCutoff) {
             insetPosition = image.height - 1 - y;
             break;
