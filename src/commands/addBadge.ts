@@ -46,14 +46,14 @@ async function execute(
       imageFile,
       outputFile,
       {
-        text: {
-          text: badgeText,
-          font: 'BadgeFont',
-          fontPointSize: fontSize,
-          color: new MagickColor(textColor),
-        },
         backgroundColor: new MagickColor(backgroundColor),
         shadowColor: new MagickColor(shadowColor),
+      },
+      {
+        text: badgeText,
+        font: 'BadgeFont',
+        fontPointSize: fontSize,
+        color: new MagickColor(textColor),
       },
       getBadgeGravityFromString(gravity),
     );

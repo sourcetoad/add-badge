@@ -9,13 +9,15 @@ import BadgeGravity, {
   getGravityFromBadgeGravity,
 } from '../types/BadgeGravity';
 import BadgeOptions from '../types/BadgeOptions';
+import TextOptions from '../types/TextOptions';
 import createBadgeImage from './createBadgeImage';
 import getInsetPosition from './getInsetPosition';
 import getRotatedBadgeWidth from './getRotatedBadgeWidth';
 
-export default function combineBadgeAndImage(
+export default function createBadgeComposite(
   image: IMagickImage,
   badgeOptions: BadgeOptions,
+  textOptions: TextOptions,
   gravity: BadgeGravity,
   alphaCutoff: number,
 ): void {
@@ -34,7 +36,7 @@ export default function combineBadgeAndImage(
   // TODO Figure out a way to calculate this that doesn't involve a magic number
   const updatedBadgeWidth = 1.5 * rotatedBadgeWidth;
 
-  const badge = createBadgeImage(badgeOptions, updatedBadgeWidth);
+  const badge = createBadgeImage(badgeOptions, textOptions, updatedBadgeWidth);
 
   // badge.getPixels((pixels) => {
   //   pixels.setPixel(0, Math.round(badge.height / 2), [0, 255, 255, 255]);

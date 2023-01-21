@@ -9,10 +9,12 @@ import {
 } from '@imagemagick/magick-wasm';
 
 import BadgeOptions from '../types/BadgeOptions';
+import TextOptions from '../types/TextOptions';
 import drawCenteredText from './drawCenteredText';
 
 export default function createBadgeImage(
   badgeOptions: BadgeOptions,
+  textOptions: TextOptions,
   expectedWidth: number,
 ): IMagickImage {
   const baseHeight = 30;
@@ -25,7 +27,7 @@ export default function createBadgeImage(
   const height = Math.round(width * baseRatio);
   const scale = width / baseWidth;
   const shadowSize = Math.floor(baseShadowSize * scale);
-  const fontPointSize = Math.floor(badgeOptions.text.fontPointSize * scale);
+  const fontPointSize = Math.floor(textOptions.fontPointSize * scale);
 
   const heightWithShadow = height + shadowSize * 2;
 
@@ -70,7 +72,7 @@ export default function createBadgeImage(
 
   // Draw the text in the center
   drawCenteredText(badge, {
-    ...badgeOptions.text,
+    ...textOptions,
     fontPointSize,
   });
 
