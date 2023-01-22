@@ -24,7 +24,6 @@ export default function createImageBadgeComposite(
 
   // We need to set a background before rotating, or it may fill it with white.
   badge.backgroundColor = MagickColors.None;
-  // badge.backgroundColor = new MagickColor(255, 0, 0, 50);
 
   switch (gravity) {
     case BadgeGravity.Northwest:
@@ -37,6 +36,7 @@ export default function createImageBadgeComposite(
       break;
   }
 
+  const edgeScale = 1.1;
   let offsetX = 0;
   let offsetY = 0;
 
@@ -48,7 +48,12 @@ export default function createImageBadgeComposite(
     case BadgeGravity.North:
       offsetX = 0;
       offsetY = Math.round(
-        getInsetAtGravity(composite, Gravity.North, Math.round(badgeWidth / 2)),
+        edgeScale *
+          getInsetAtGravity(
+            composite,
+            Gravity.North,
+            Math.round(badgeWidth / 2),
+          ),
       );
       break;
     case BadgeGravity.Northeast:
@@ -62,10 +67,13 @@ export default function createImageBadgeComposite(
       break;
     case BadgeGravity.South:
       offsetX = 0;
-      offsetY = getInsetAtGravity(
-        composite,
-        Gravity.South,
-        Math.round(badgeWidth / 2),
+      offsetY = Math.round(
+        edgeScale *
+          getInsetAtGravity(
+            composite,
+            Gravity.South,
+            Math.round(badgeWidth / 2),
+          ),
       );
       break;
     case BadgeGravity.Southeast:

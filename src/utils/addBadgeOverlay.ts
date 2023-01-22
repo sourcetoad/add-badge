@@ -1,4 +1,5 @@
 import {
+  Gravity,
   ImageMagick,
   initializeImageMagick,
   MagickFormat,
@@ -11,7 +12,7 @@ import TextOptions from '../types/TextOptions';
 import addShadow from './addShadow';
 import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
-import { HIGHEST_ANDROID_SHADOW_ALPHA } from './getInsetAtGravity';
+import getInsetAtGravity from './getInsetAtGravity';
 import roundToEven from './roundToEven';
 
 export default async function addBadgeOverlay(
@@ -24,7 +25,11 @@ export default async function addBadgeOverlay(
   await initializeImageMagick();
 
   await ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
-    const badgeScale = image.width / 192;
+    const insetWidth =
+      image.width -
+      getInsetAtGravity(image, Gravity.East) -
+      getInsetAtGravity(image, Gravity.West);
+    const badgeScale = insetWidth / 192;
     const badge = createBadgeImage(badgeOptions, textOptions, badgeScale);
     const badgeWithShadow = addShadow(
       badge,

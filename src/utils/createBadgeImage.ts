@@ -1,8 +1,4 @@
-import {
-  IMagickImage,
-  MagickColors,
-  MagickImage,
-} from '@imagemagick/magick-wasm';
+import { IMagickImage, MagickImage } from '@imagemagick/magick-wasm';
 
 import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
 import TextOptions, { scaleTextOptions } from '../types/TextOptions';
