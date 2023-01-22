@@ -1,7 +1,7 @@
 import { IMagickImage, MagickImage } from '@imagemagick/magick-wasm';
 
-import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
-import TextOptions, { scaleTextOptions } from '../types/TextOptions';
+import BadgeOptions from '../types/BadgeOptions';
+import TextOptions from '../types/TextOptions';
 import drawCenteredText from './drawCenteredText';
 import getTextBoundingBox from './getTextBoundingBox';
 import roundToEven from './roundToEven';
