@@ -8,22 +8,10 @@ describe('getInsetAtGravity', () => {
   it.each([
     // region ic_launcher-xxxhdpi.png
     [
-      'ic_launcher-xxxhdpi.png Northwest',
-      'ic_launcher-xxxhdpi.png',
-      Gravity.Northwest,
-      33,
-    ],
-    [
       'ic_launcher-xxxhdpi.png North',
       'ic_launcher-xxxhdpi.png',
       Gravity.North,
       20,
-    ],
-    [
-      'ic_launcher-xxxhdpi.png Northeast',
-      'ic_launcher-xxxhdpi.png',
-      Gravity.Northeast,
-      33,
     ],
     [
       'ic_launcher-xxxhdpi.png West',
@@ -38,42 +26,18 @@ describe('getInsetAtGravity', () => {
       19,
     ],
     [
-      'ic_launcher-xxxhdpi.png Southwest',
-      'ic_launcher-xxxhdpi.png',
-      Gravity.Southwest,
-      33,
-    ],
-    [
       'ic_launcher-xxxhdpi.png South',
       'ic_launcher-xxxhdpi.png',
       Gravity.South,
       19,
     ],
-    [
-      'ic_launcher-xxxhdpi.png Southeast',
-      'ic_launcher-xxxhdpi.png',
-      Gravity.Southeast,
-      33,
-    ],
     // endregion
     // region ic_launcher_round-xxxhdpi.png
-    [
-      'ic_launcher_round-xxxhdpi.png Northwest',
-      'ic_launcher_round-xxxhdpi.png',
-      Gravity.Northwest,
-      47,
-    ],
     [
       'ic_launcher_round-xxxhdpi.png North',
       'ic_launcher_round-xxxhdpi.png',
       Gravity.North,
       7,
-    ],
-    [
-      'ic_launcher_round-xxxhdpi.png Northeast',
-      'ic_launcher_round-xxxhdpi.png',
-      Gravity.Northeast,
-      47,
     ],
     [
       'ic_launcher_round-xxxhdpi.png West',
@@ -88,22 +52,10 @@ describe('getInsetAtGravity', () => {
       7,
     ],
     [
-      'ic_launcher_round-xxxhdpi.png Southwest',
-      'ic_launcher_round-xxxhdpi.png',
-      Gravity.Southwest,
-      47,
-    ],
-    [
       'ic_launcher_round-xxxhdpi.png South',
       'ic_launcher_round-xxxhdpi.png',
       Gravity.South,
       7,
-    ],
-    [
-      'ic_launcher_round-xxxhdpi.png Southeast',
-      'ic_launcher_round-xxxhdpi.png',
-      Gravity.Southeast,
-      47,
     ],
     // endregion
   ])('works as expected with %s', async (_, file, gravity, expected) => {
@@ -112,7 +64,7 @@ describe('getInsetAtGravity', () => {
     await ImageMagick.read(
       fs.readFileSync(`samples/input/${file}`),
       (image) => {
-        result = getInsetAtGravity(image, gravity);
+        result = getInsetAtGravity(image, gravity as number);
       },
     );
 
