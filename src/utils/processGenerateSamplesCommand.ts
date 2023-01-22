@@ -81,7 +81,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     badgeText: 'UAT',
     fontSize: 40,
     paddingX: 4,
-    paddingY: 2,
+    paddingY: 4,
   });
 
   return 0;

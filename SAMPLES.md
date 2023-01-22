@@ -1,6 +1,6 @@
 ## Samples
 
-### Gravity Variants
+### Gravity
 
 | `--gravity northwest`                                         | `--gravity north`                                         | `--gravity northeast`                                         |
 |---------------------------------------------------------------|-----------------------------------------------------------|---------------------------------------------------------------|
@@ -12,18 +12,18 @@
 | ![](./samples/output/ic_launcher-xxxhdpi-southwest.png)       | ![](./samples/output/ic_launcher-xxxhdpi-south.png)       | ![](./samples/output/ic_launcher-xxxhdpi.png)       |
 | ![](./samples/output/ic_launcher_round-xxxhdpi-southwest.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-south.png) | ![](./samples/output/ic_launcher_round-xxxhdpi.png) |
 
-### Size Variants
+### Size
 
 | Adaptive                                         | MDPI                                       | MDPI Round                                       |
 |--------------------------------------------------|--------------------------------------------|--------------------------------------------------|
 | ![](./samples/output/ic_launcher_foreground.png) | ![](./samples/output/ic_launcher-mdpi.png) | ![](./samples/output/ic_launcher_round-mdpi.png) |
 
-### Appearance Variants
+### Appearance
 
-| `--background-color "rgba(0,0,0,0.75)" --text-color transparent` |
-|------------------------------------------------------------------|
-| ![](./samples/output/ic_launcher-xxxhdpi-dark-transparent.png)   |
+| `--background-color "rgba(0,0,0,0.75)"` `--text-color transparent` |
+|--------------------------------------------------------------------|
+| ![](./samples/output/ic_launcher-xxxhdpi-dark-transparent.png)     |
 
-| `--font-size 40  --padding-x 4 --padding-y 2`              |
+| `--font-size 40` `--padding-x 4` `--padding-y 4`           |
 |------------------------------------------------------------|
 | ![](./samples/output/ic_launcher_round-xxxhdpi-larger.png) |
