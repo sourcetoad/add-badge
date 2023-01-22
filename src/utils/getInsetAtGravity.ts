@@ -4,8 +4,8 @@ import {
   VirtualPixelMethod,
 } from '@imagemagick/magick-wasm';
 
-export const PIXEL_ALPHA_INDEX = 3;
-export const HIGHEST_ANDROID_SHADOW_ALPHA = 52;
+const PIXEL_ALPHA_INDEX = 3;
+const HIGHEST_ANDROID_SHADOW_ALPHA = 52;
 
 export default function getInsetAtGravity(
   image: IMagickImage,
