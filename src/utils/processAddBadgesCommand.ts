@@ -29,9 +29,9 @@ export default async function processAddBadgesCommand({
     throw new Error('Missing parameter');
   }
 
-  const inputFiles = globSync(inputGlob).filter((file) => /\.png$/i.test(file));
+  const inputFiles = globSync(inputGlob);
   if (!inputFiles.length) {
-    console.error(`No input PNG files found using glob "${inputGlob}"`);
+    console.error(`No input files found using glob "${inputGlob}"`);
     return 1;
   }
 
