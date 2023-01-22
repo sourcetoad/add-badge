@@ -24,6 +24,6 @@
 |--------------------------------------------------------------------|
 | ![](./samples/output/ic_launcher-xxxhdpi-dark-transparent.png)     |
 
-| `--font-size 40`                               `           |
+| `--font-size 50`                                           |
 |------------------------------------------------------------|
 | ![](./samples/output/ic_launcher_round-xxxhdpi-larger.png) |

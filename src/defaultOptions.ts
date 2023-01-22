@@ -3,7 +3,7 @@ import BadgeGravity from './types/BadgeGravity';
 export default {
   backgroundColor: '#ffffff',
   fontFile: '../fonts/Roboto-Black.ttf',
-  fontSize: 26,
+  fontSize: 28,
   gravity: BadgeGravity.Southeast,
   paddingX: 6,
   paddingY: 6,

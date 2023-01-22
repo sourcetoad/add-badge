@@ -80,7 +80,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
     outputImage: join(outputRoot, `ic_launcher_round-xxxhdpi-larger.png`),
     badgeText: 'UAT',
-    fontSize: 40,
+    fontSize: 50,
   });
 
   return 0;
