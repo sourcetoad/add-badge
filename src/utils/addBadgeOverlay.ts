@@ -1,4 +1,4 @@
-import { Gravity, ImageMagick, MagickFormat } from '@imagemagick/magick-wasm';
+import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 
 import BadgeGravity from '../types/BadgeGravity';
@@ -48,7 +48,7 @@ export default async function addBadgeOverlay(
 
     await composite.write(
       (data) => fs.writeFileSync(outputFile, data),
-      MagickFormat.Png,
+      image.format,
     );
   });
 }
