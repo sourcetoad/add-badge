@@ -17,13 +17,13 @@ describe('getInsetAtGravity', () => {
       'ic_launcher-xxxhdpi.png West',
       'ic_launcher-xxxhdpi.png',
       Gravity.West,
-      19,
+      20,
     ],
     [
       'ic_launcher-xxxhdpi.png East',
       'ic_launcher-xxxhdpi.png',
       Gravity.East,
-      19,
+      20,
     ],
     [
       'ic_launcher-xxxhdpi.png South',
@@ -37,19 +37,19 @@ describe('getInsetAtGravity', () => {
       'ic_launcher_round-xxxhdpi.png North',
       'ic_launcher_round-xxxhdpi.png',
       Gravity.North,
-      7,
+      8,
     ],
     [
       'ic_launcher_round-xxxhdpi.png West',
       'ic_launcher_round-xxxhdpi.png',
       Gravity.West,
-      7,
+      8,
     ],
     [
       'ic_launcher_round-xxxhdpi.png East',
       'ic_launcher_round-xxxhdpi.png',
       Gravity.East,
-      7,
+      8,
     ],
     [
       'ic_launcher_round-xxxhdpi.png South',
