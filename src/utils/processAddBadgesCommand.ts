@@ -1,4 +1,4 @@
-import { MagickColor } from '@imagemagick/magick-wasm';
+import { initializeImageMagick, MagickColor } from '@imagemagick/magick-wasm';
 import { sync as globSync } from 'fast-glob';
 import { resolve } from 'path';
 
@@ -36,7 +36,9 @@ export default async function processAddBadgesCommand({
   }
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
+    await initializeImageMagick();
+
+    setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
   }
 
   for (const inputFile of inputFiles) {

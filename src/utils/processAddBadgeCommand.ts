@@ -1,4 +1,4 @@
-import { MagickColor } from '@imagemagick/magick-wasm';
+import { initializeImageMagick, MagickColor } from '@imagemagick/magick-wasm';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 
@@ -45,7 +45,9 @@ export default async function processAddBadgeCommand({
   console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputImage}`);
 
   if (!dryRun) {
-    await setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
+    await initializeImageMagick();
+
+    setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
 
     await addBadgeOverlay(
       inputImage,

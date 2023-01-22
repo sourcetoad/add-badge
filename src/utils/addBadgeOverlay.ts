@@ -1,9 +1,4 @@
-import {
-  Gravity,
-  ImageMagick,
-  initializeImageMagick,
-  MagickFormat,
-} from '@imagemagick/magick-wasm';
+import { Gravity, ImageMagick, MagickFormat } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 
 import BadgeGravity from '../types/BadgeGravity';
@@ -22,8 +17,6 @@ export default async function addBadgeOverlay(
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
 ): Promise<void> {
-  await initializeImageMagick();
-
   await ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
     const insetWidth =
       image.width -
