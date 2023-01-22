@@ -14,9 +14,9 @@
 
 ### Size
 
-| Adaptive                                         | MDPI                                       | MDPI Round                                       |
-|--------------------------------------------------|--------------------------------------------|--------------------------------------------------|
-| ![](./samples/output/ic_launcher_foreground.png) | ![](./samples/output/ic_launcher-mdpi.png) | ![](./samples/output/ic_launcher_round-mdpi.png) |
+| Adaptive                                          | MDPI                                       | MDPI Round                                       |
+|---------------------------------------------------|--------------------------------------------|--------------------------------------------------|
+| ![](./samples/output/ic_launcher_foreground.webp) | ![](./samples/output/ic_launcher-mdpi.png) | ![](./samples/output/ic_launcher_round-mdpi.png) |
 
 ### Appearance
 
