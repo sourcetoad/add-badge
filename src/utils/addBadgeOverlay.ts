@@ -2,8 +2,8 @@ import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 
 import BadgeGravity from '../types/BadgeGravity';
-import BadgeOptions from '../types/BadgeOptions';
-import TextOptions from '../types/TextOptions';
+import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
+import TextOptions, { scaleTextOptions } from '../types/TextOptions';
 import addShadow from './addShadow';
 import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
@@ -22,8 +22,20 @@ export default async function addBadgeOverlay(
       image.width -
       getInsetAtGravity(image, Gravity.East) -
       getInsetAtGravity(image, Gravity.West);
+
+    // The default sizes are based on usage in 192px icons, anything above or
+    // below that will be scaled relative to it.
     const badgeScale = insetWidth / 192;
-    const badge = createBadgeImage(badgeOptions, textOptions, badgeScale);
+
+    const scaledBadgeOptions = scaleBadgeOptions(badgeOptions, badgeScale);
+    const scaledTextOptions = scaleTextOptions(textOptions, badgeScale);
+
+    const badge = createBadgeImage(
+      scaledBadgeOptions,
+      scaledTextOptions,
+      insetWidth,
+      insetWidth,
+    );
     const badgeWithShadow = addShadow(
       badge,
       badgeOptions.shadowColor,

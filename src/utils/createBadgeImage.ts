@@ -9,28 +9,22 @@ import roundToEven from './roundToEven';
 export default function createBadgeImage(
   badgeOptions: BadgeOptions,
   textOptions: TextOptions,
-  scale: number,
+  maxWidth: number,
+  maxHeight: number,
 ): IMagickImage {
-  const scaledBadgeOptions = scaleBadgeOptions(badgeOptions, scale);
-  const scaledTextOptions = scaleTextOptions(textOptions, scale);
-
-  const textBox = getTextBoundingBox(
-    scaledTextOptions,
-    192 * scale,
-    192 * scale,
-  );
+  const textBox = getTextBoundingBox(textOptions, maxWidth, maxHeight);
 
   const badgeWidth = roundToEven(
-    textBox.width + Math.max(1, scaledBadgeOptions.paddingX) * 2,
+    textBox.width + Math.max(1, badgeOptions.paddingX) * 2,
   );
   const badgeHeight = roundToEven(
-    textBox.height + Math.max(1, scaledBadgeOptions.paddingY) * 2,
+    textBox.height + Math.max(1, badgeOptions.paddingY) * 2,
   );
 
   const badge = MagickImage.create();
   badge.read(badgeOptions.backgroundColor, badgeWidth, badgeHeight);
 
-  drawCenteredText(badge, scaledTextOptions);
+  drawCenteredText(badge, textOptions);
 
   return badge;
 }
