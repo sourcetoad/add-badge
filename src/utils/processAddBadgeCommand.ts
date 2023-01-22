@@ -6,7 +6,7 @@ import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from './addBadgeOverlay';
-import setBadgeFont from './setBadgeFont';
+import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
 export interface WriteBadgeArguments extends CommonArguments {
   inputImage: string;
@@ -58,7 +58,7 @@ export default async function processAddBadgeCommand({
       },
       {
         color: new MagickColor(textColor),
-        font: 'BadgeFont',
+        font: BADGE_FONT_NAME,
         fontPointSize: fontSize,
         text: badgeText.replace(/\\n/g, '\n'),
       },
