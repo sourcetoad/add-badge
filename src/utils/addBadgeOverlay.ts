@@ -42,6 +42,7 @@ export default async function addBadgeOverlay(
       image,
       badgeWithShadow,
       badgeGravity,
+      insetWidth,
       badge.width,
     );
 

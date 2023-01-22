@@ -12,10 +12,21 @@ import BadgeGravity, {
 } from '../types/BadgeGravity';
 import getInsetAtGravity from './getInsetAtGravity';
 
+function getCornerOffset(
+  insetWidth: number,
+  finalBadgeWidth: number,
+  finalBadgeHeight: number,
+): number {
+  // TODO Figure out a better way to calculate this that doesn't rely on magic
+  //      numbers.
+  return Math.round(insetWidth / 2 - finalBadgeWidth + finalBadgeHeight * 0.2);
+}
+
 export default function createImageBadgeComposite(
   image: IMagickImage,
   badge: IMagickImage,
   gravity: BadgeGravity,
+  insetWidth: number,
   badgeWidth: number,
 ): IMagickImage {
   const composite = MagickImage.create();
@@ -37,17 +48,25 @@ export default function createImageBadgeComposite(
   }
 
   const edgeScale = 1.1;
-  let offsetX = 0;
-  let offsetY = 0;
+  const offset = new Point(0, 0);
 
   switch (gravity) {
     case BadgeGravity.Northwest:
-      offsetX = getInsetAtGravity(composite, Gravity.West);
-      offsetY = getInsetAtGravity(composite, Gravity.North);
+    case BadgeGravity.Northeast: {
+      const cornerOffset = getInsetAtGravity(
+        composite,
+        Gravity.North,
+        getCornerOffset(insetWidth, badge.width, badge.height),
+      );
+
+      offset.x = cornerOffset;
+      offset.y = cornerOffset;
       break;
+    }
+
     case BadgeGravity.North:
-      offsetX = 0;
-      offsetY = Math.round(
+      offset.x = 0;
+      offset.y = Math.round(
         edgeScale *
           getInsetAtGravity(
             composite,
@@ -56,18 +75,23 @@ export default function createImageBadgeComposite(
           ),
       );
       break;
-    case BadgeGravity.Northeast:
-      offsetX = getInsetAtGravity(composite, Gravity.East);
-      offsetY = getInsetAtGravity(composite, Gravity.North);
-      break;
 
     case BadgeGravity.Southwest:
-      offsetX = getInsetAtGravity(composite, Gravity.West);
-      offsetY = getInsetAtGravity(composite, Gravity.South);
+    case BadgeGravity.Southeast: {
+      const cornerOffset = getInsetAtGravity(
+        composite,
+        Gravity.South,
+        getCornerOffset(insetWidth, badge.width, badge.height),
+      );
+
+      offset.x = cornerOffset;
+      offset.y = cornerOffset;
       break;
+    }
+
     case BadgeGravity.South:
-      offsetX = 0;
-      offsetY = Math.round(
+      offset.x = 0;
+      offset.y = Math.round(
         edgeScale *
           getInsetAtGravity(
             composite,
@@ -76,17 +100,13 @@ export default function createImageBadgeComposite(
           ),
       );
       break;
-    case BadgeGravity.Southeast:
-      offsetX = getInsetAtGravity(composite, Gravity.East);
-      offsetY = getInsetAtGravity(composite, Gravity.South);
-      break;
   }
 
   composite.compositeGravity(
     badge,
     getGravityFromBadgeGravity(gravity),
     CompositeOperator.Atop,
-    new Point(offsetX, offsetY),
+    offset,
   );
 
   return composite;
