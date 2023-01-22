@@ -18,6 +18,7 @@ export function scaleBadgeOptions(
     ...options,
     paddingX: roundToEven(options.paddingX * scale),
     paddingY: roundToEven(options.paddingY * scale),
+    shadowSize: Math.max(1, options.shadowSize * scale),
   };
 }
 

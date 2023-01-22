@@ -8,7 +8,6 @@ import addShadow from './addShadow';
 import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
 import getInsetAtGravity from './getInsetAtGravity';
-import roundToEven from './roundToEven';
 
 export default async function addBadgeOverlay(
   inputFile: string,
@@ -38,9 +37,9 @@ export default async function addBadgeOverlay(
     );
     const badgeWithShadow = addShadow(
       badge,
-      badgeOptions.shadowColor,
-      Math.max(1, roundToEven(badgeOptions.shadowSize * badgeScale)),
-      Math.max(1, roundToEven(badgeOptions.shadowSize * 0.75 * badgeScale)),
+      scaledBadgeOptions.shadowColor,
+      scaledBadgeOptions.shadowSize,
+      Math.max(1, scaledBadgeOptions.shadowSize * 0.75 * badgeScale),
     );
 
     const composite = createImageBadgeComposite(
