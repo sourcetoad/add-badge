@@ -6,22 +6,13 @@ import { hideBin } from 'yargs/helpers';
 
 import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';
+import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from '../utils/addBadgeOverlay';
 import setBadgeFont from '../utils/setBadgeFont';
 
-interface Arguments {
-  backgroundColor: string;
-  badgeText: string;
-  dryRun: boolean;
-  fontFile: string | undefined;
-  fontSize: number;
-  gravity: string;
+interface Arguments extends CommonArguments {
   inputImage: string;
   outputImage: string;
-  paddingX: number;
-  paddingY: number;
-  shadowColor: string;
-  textColor: string;
 }
 
 async function execute({
