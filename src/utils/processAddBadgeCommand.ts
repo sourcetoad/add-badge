@@ -13,7 +13,7 @@ export interface WriteBadgeArguments extends CommonArguments {
   outputImage: string;
 }
 
-export default async function writeBadgeToFile({
+export default async function processAddBadgeCommand({
   backgroundColor,
   badgeText,
   dryRun,

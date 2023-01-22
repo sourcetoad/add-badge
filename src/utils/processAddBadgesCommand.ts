@@ -12,7 +12,7 @@ export interface WriteBadgesArguments extends CommonArguments {
   inputGlob: string;
 }
 
-export default async function writeBadgesToGlob({
+export default async function processAddBadgesCommand({
   backgroundColor,
   badgeText,
   dryRun,

@@ -2,9 +2,9 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import defaultOptions from '../defaultOptions';
-import writeBadgeToFile, {
+import processAddBadgeCommand, {
   WriteBadgeArguments,
-} from '../utils/writeBadgeToFile';
+} from '../utils/processAddBadgeCommand';
 
 void yargs(hideBin(process.argv))
   .command<WriteBadgeArguments>(
@@ -72,7 +72,7 @@ void yargs(hideBin(process.argv))
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
-        const exitCode = await writeBadgeToFile(argv);
+        const exitCode = await processAddBadgeCommand(argv);
         process.exit(exitCode);
       } catch (error) {
         console.error(
