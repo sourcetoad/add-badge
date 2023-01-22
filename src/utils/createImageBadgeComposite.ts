@@ -22,6 +22,14 @@ function getCornerOffset(
   return Math.round(insetWidth / 2 - finalBadgeWidth + finalBadgeHeight * 0.2);
 }
 
+function isEqualWithinThreshold(
+  insetX: number,
+  insetY: number,
+  threshold = 15,
+): boolean {
+  return Math.abs(((insetY - insetX) * 100) / insetX) <= threshold;
+}
+
 export default function createImageBadgeComposite(
   image: IMagickImage,
   badge: IMagickImage,
@@ -53,14 +61,24 @@ export default function createImageBadgeComposite(
   switch (gravity) {
     case BadgeGravity.Northwest:
     case BadgeGravity.Northeast: {
-      const cornerOffset = getInsetAtGravity(
+      const xInset = getInsetAtGravity(
         composite,
-        Gravity.North,
-        getCornerOffset(insetWidth, badge.width, badge.height),
+        gravity === BadgeGravity.Northwest ? Gravity.West : Gravity.East,
       );
+      const yInset = getInsetAtGravity(composite, Gravity.North);
 
-      offset.x = cornerOffset;
-      offset.y = cornerOffset;
+      if (isEqualWithinThreshold(xInset, yInset)) {
+        const cornerOffset = getInsetAtGravity(
+          composite,
+          Gravity.North,
+          getCornerOffset(insetWidth, badge.width, badge.height),
+        );
+        offset.x = cornerOffset;
+        offset.y = cornerOffset;
+      } else {
+        offset.x = xInset;
+        offset.y = yInset;
+      }
       break;
     }
 
@@ -78,14 +96,24 @@ export default function createImageBadgeComposite(
 
     case BadgeGravity.Southwest:
     case BadgeGravity.Southeast: {
-      const cornerOffset = getInsetAtGravity(
+      const xInset = getInsetAtGravity(
         composite,
-        Gravity.South,
-        getCornerOffset(insetWidth, badge.width, badge.height),
+        gravity === BadgeGravity.Southwest ? Gravity.West : Gravity.East,
       );
+      const yInset = getInsetAtGravity(composite, Gravity.South);
 
-      offset.x = cornerOffset;
-      offset.y = cornerOffset;
+      if (isEqualWithinThreshold(xInset, yInset)) {
+        const cornerOffset = getInsetAtGravity(
+          composite,
+          Gravity.South,
+          getCornerOffset(insetWidth, badge.width, badge.height),
+        );
+        offset.x = cornerOffset;
+        offset.y = cornerOffset;
+      } else {
+        offset.x = xInset;
+        offset.y = yInset;
+      }
       break;
     }
 
