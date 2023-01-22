@@ -84,4 +84,5 @@ void yargs(hideBin(process.argv))
       }
     },
   )
+  .strict()
   .parse();
