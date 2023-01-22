@@ -1,7 +1,7 @@
 export default {
   backgroundColor: '#ffffff',
   fontFile: '../fonts/Roboto-Black.ttf',
-  fontSize: 22,
+  fontSize: 26,
   gravity: 'southeast',
   paddingX: 6,
   paddingY: 6,
