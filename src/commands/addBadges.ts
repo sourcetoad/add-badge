@@ -1,77 +1,13 @@
-import { MagickColor } from '@imagemagick/magick-wasm';
-import * as fg from 'fast-glob';
-import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import defaultOptions from '../defaultOptions';
-import { getBadgeGravityFromString } from '../types/BadgeGravity';
-import CommonArguments from '../types/CommonArguments';
-import addBadgeOverlay from '../utils/addBadgeOverlay';
-import setBadgeFont from '../utils/setBadgeFont';
-
-interface Arguments extends CommonArguments {
-  inputGlob: string;
-}
-
-async function execute({
-  backgroundColor,
-  badgeText,
-  dryRun,
-  fontFile,
-  fontSize,
-  gravity,
-  inputGlob,
-  paddingX,
-  paddingY,
-  shadowColor,
-  textColor,
-}: Arguments) {
-  if (!inputGlob || !badgeText) {
-    throw new Error('Missing parameter');
-  }
-
-  const inputFiles = fg.sync(inputGlob).filter((file) => /\.png$/i.test(file));
-  if (!inputFiles.length) {
-    console.error(`No input PNG files found using glob "${inputGlob}"`);
-    return 1;
-  }
-
-  if (!dryRun) {
-    await setBadgeFont(
-      fontFile ?? path.resolve(__dirname, defaultOptions.fontFile),
-    );
-  }
-
-  for (const inputFile of inputFiles) {
-    console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputFile}`);
-
-    if (!dryRun) {
-      await addBadgeOverlay(
-        inputFile,
-        inputFile,
-        {
-          backgroundColor: new MagickColor(backgroundColor),
-          paddingX,
-          paddingY,
-          shadowColor: new MagickColor(shadowColor),
-        },
-        {
-          color: new MagickColor(textColor),
-          font: 'BadgeFont',
-          fontPointSize: fontSize,
-          text: badgeText.replace(/\\n/g, '\n'),
-        },
-        getBadgeGravityFromString(gravity),
-      );
-    }
-  }
-
-  return 0;
-}
+import writeBadgesToGlob, {
+  WriteBadgesArguments,
+} from '../utils/writeBadgesToGlob';
 
 void yargs(hideBin(process.argv))
-  .command<Arguments>(
+  .command<WriteBadgesArguments>(
     '* <input-glob> <badge-text>',
     'Add a badge to a set of images, in-place',
     (yargs) =>
@@ -132,7 +68,7 @@ void yargs(hideBin(process.argv))
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
-        const exitCode = await execute(argv);
+        const exitCode = await writeBadgesToGlob(argv);
         process.exit(exitCode);
       } catch (error) {
         console.error(

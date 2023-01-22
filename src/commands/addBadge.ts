@@ -1,80 +1,13 @@
-import { MagickColor } from '@imagemagick/magick-wasm';
-import * as fs from 'fs';
-import * as path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import defaultOptions from '../defaultOptions';
-import { getBadgeGravityFromString } from '../types/BadgeGravity';
-import CommonArguments from '../types/CommonArguments';
-import addBadgeOverlay from '../utils/addBadgeOverlay';
-import setBadgeFont from '../utils/setBadgeFont';
-
-interface Arguments extends CommonArguments {
-  inputImage: string;
-  outputImage: string;
-}
-
-async function execute({
-  backgroundColor,
-  badgeText,
-  dryRun,
-  fontFile,
-  fontSize,
-  gravity,
-  inputImage,
-  outputImage,
-  paddingX,
-  paddingY,
-  shadowColor,
-  textColor,
-}: Arguments) {
-  if (!inputImage || !badgeText || !outputImage) {
-    console.log(inputImage, badgeText, outputImage);
-    throw new Error('Missing parameter');
-  }
-
-  if (!fs.existsSync(inputImage)) {
-    console.error(`Input file "${inputImage}" not found`);
-    return 1;
-  }
-
-  if (fontFile && !fs.existsSync(fontFile)) {
-    console.error(`Font file "${fontFile}" not found`);
-    return 1;
-  }
-
-  console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputImage}`);
-
-  if (!dryRun) {
-    await setBadgeFont(
-      fontFile ?? path.resolve(__dirname, defaultOptions.fontFile),
-    );
-
-    await addBadgeOverlay(
-      inputImage,
-      outputImage,
-      {
-        backgroundColor: new MagickColor(backgroundColor),
-        paddingX,
-        paddingY,
-        shadowColor: new MagickColor(shadowColor),
-      },
-      {
-        color: new MagickColor(textColor),
-        font: 'BadgeFont',
-        fontPointSize: fontSize,
-        text: badgeText.replace(/\\n/g, '\n'),
-      },
-      getBadgeGravityFromString(gravity),
-    );
-  }
-
-  return 0;
-}
+import writeBadgeToFile, {
+  WriteBadgeArguments,
+} from '../utils/writeBadgeToFile';
 
 void yargs(hideBin(process.argv))
-  .command<Arguments>(
+  .command<WriteBadgeArguments>(
     '* <input-image> <output-image> <badge-text>',
     'Add a badge to an image',
     (yargs) =>
@@ -139,7 +72,7 @@ void yargs(hideBin(process.argv))
         .version(process.env.APP_VERSION ?? 'Unknown'),
     async (argv) => {
       try {
-        const exitCode = await execute(argv);
+        const exitCode = await writeBadgeToFile(argv);
         process.exit(exitCode);
       } catch (error) {
         console.error(
