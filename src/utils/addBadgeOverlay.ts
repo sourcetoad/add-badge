@@ -39,6 +39,8 @@ export default async function addBadgeOverlay(
       badge.width,
     );
 
+    composite.quality = 80;
+
     // Strip date based metadata in an attempt at producing the same image from
     // the same input every time. This lets us test things like the samples
     // being generated in the CI.
