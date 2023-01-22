@@ -22,8 +22,6 @@ export default async function processAddBadgeCommand({
   gravity,
   inputImage,
   outputImage,
-  paddingX,
-  paddingY,
   shadowColor,
   textColor,
 }: WriteBadgeArguments) {
@@ -54,8 +52,8 @@ export default async function processAddBadgeCommand({
       outputImage,
       {
         backgroundColor: new MagickColor(backgroundColor),
-        paddingX,
-        paddingY,
+        paddingX: defaultOptions.paddingX,
+        paddingY: defaultOptions.paddingY,
         shadowColor: new MagickColor(shadowColor),
       },
       {

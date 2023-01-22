@@ -39,16 +39,6 @@ void yargs(hideBin(process.argv))
           description: 'Badge background color',
           type: 'string',
         })
-        .option('padding-x', {
-          default: defaultOptions.paddingX,
-          description: 'Badge padding X (left and right)',
-          type: 'number',
-        })
-        .option('padding-y', {
-          default: defaultOptions.paddingY,
-          description: 'Badge padding Y (top and bottom)',
-          type: 'number',
-        })
         .option('shadow-color', {
           default: defaultOptions.shadowColor,
           description: 'Badge shadow color',

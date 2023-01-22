@@ -4,7 +4,9 @@ import { join, resolve } from 'path';
 
 import defaultOptions from '../defaultOptions';
 import BadgeGravity from '../types/BadgeGravity';
-import processAddBadgeCommand from './processAddBadgeCommand';
+import processAddBadgeCommand, {
+  WriteBadgeArguments,
+} from './processAddBadgeCommand';
 import setBadgeFont from './setBadgeFont';
 
 export default async function processGenerateSamplesCommand(): Promise<number> {
@@ -19,16 +21,15 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     lstatSync(join(inputRoot, file)).isFile(),
   );
 
-  const defaultInputs = {
-    backgroundColor: defaultOptions.backgroundColor,
-    badgeText: 'ALPHA',
-    fontSize: defaultOptions.fontSize,
-    gravity: defaultOptions.gravity,
-    paddingX: defaultOptions.paddingX,
-    paddingY: defaultOptions.paddingY,
-    shadowColor: defaultOptions.shadowColor,
-    textColor: defaultOptions.textColor,
-  };
+  const defaultInputs: Omit<WriteBadgeArguments, 'inputImage' | 'outputImage'> =
+    {
+      backgroundColor: defaultOptions.backgroundColor,
+      badgeText: 'ALPHA',
+      fontSize: defaultOptions.fontSize,
+      gravity: defaultOptions.gravity,
+      shadowColor: defaultOptions.shadowColor,
+      textColor: defaultOptions.textColor,
+    };
 
   for (const file of files) {
     await processAddBadgeCommand({
@@ -80,8 +81,6 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     outputImage: join(outputRoot, `ic_launcher_round-xxxhdpi-larger.png`),
     badgeText: 'UAT',
     fontSize: 40,
-    paddingX: 4,
-    paddingY: 4,
   });
 
   return 0;

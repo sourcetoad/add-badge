@@ -44,7 +44,5 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 | `--text-color`       | Text color (`transparent` for transparent)                               | #666666                |
 | `--background-color` | Badge background color                                                   | #ffffff                |
 | `--gravity`          | Badge gravity (northwest, north, northeast, southwest, south, southeast) | southeast              |
-| `--padding-x`        | Badge padding X (left and right)                                         | 6                      |
-| `--padding-y`        | Badge padding Y (top and bottom)                                         | 6                      |
 | `--shadow-color`     | Badge shadow color                                                       | rgba(0,0,0,0.6)        |
 | `--dry-run`/`-d`     | Does not perform actions                                                 |                        |

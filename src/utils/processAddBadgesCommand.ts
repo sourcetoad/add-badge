@@ -20,8 +20,6 @@ export default async function processAddBadgesCommand({
   fontSize,
   gravity,
   inputGlob,
-  paddingX,
-  paddingY,
   shadowColor,
   textColor,
 }: WriteBadgesArguments) {
@@ -50,8 +48,8 @@ export default async function processAddBadgesCommand({
         inputFile,
         {
           backgroundColor: new MagickColor(backgroundColor),
-          paddingX,
-          paddingY,
+          paddingX: defaultOptions.paddingX,
+          paddingY: defaultOptions.paddingY,
           shadowColor: new MagickColor(shadowColor),
         },
         {
