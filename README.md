@@ -37,6 +37,8 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
+See [samples](https://github.com/sourcetoad/add-badge/blob/master/SAMPLES.md) for some previews.
+
 | Option               | Description                                                              | Default                |
 |----------------------|--------------------------------------------------------------------------|------------------------|
 | `--font-file`        | Text font file                                                           | Roboto Black (Bundled) |
