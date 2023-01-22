@@ -32,6 +32,9 @@ for (const gravity of [
   'south',
   'southeast',
 ]) {
+  if (gravity === 'southeast') {
+    continue;
+  }
   createBadge(
     'ic_launcher-xxxhdpi.png',
     `ic_launcher-xxxhdpi-${gravity}.png`,

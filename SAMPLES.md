@@ -7,10 +7,10 @@
 | ![](./samples/output/ic_launcher-xxxhdpi-northwest.png)       | ![](./samples/output/ic_launcher-xxxhdpi-north.png)       | ![](./samples/output/ic_launcher-xxxhdpi-northeast.png)       |
 | ![](./samples/output/ic_launcher_round-xxxhdpi-northwest.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-north.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-northeast.png) |
 
-| `--gravity southwest`                                         | `--gravity south`                                         | `--gravity southeast`                                         |
-|---------------------------------------------------------------|-----------------------------------------------------------|---------------------------------------------------------------|
-| ![](./samples/output/ic_launcher-xxxhdpi-southwest.png)       | ![](./samples/output/ic_launcher-xxxhdpi-south.png)       | ![](./samples/output/ic_launcher-xxxhdpi-southeast.png)       |
-| ![](./samples/output/ic_launcher_round-xxxhdpi-southwest.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-south.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-southeast.png) |
+| `--gravity southwest`                                         | `--gravity south`                                         | `--gravity southeast`                               |
+|---------------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
+| ![](./samples/output/ic_launcher-xxxhdpi-southwest.png)       | ![](./samples/output/ic_launcher-xxxhdpi-south.png)       | ![](./samples/output/ic_launcher-xxxhdpi.png)       |
+| ![](./samples/output/ic_launcher_round-xxxhdpi-southwest.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-south.png) | ![](./samples/output/ic_launcher_round-xxxhdpi.png) |
 
 ### Size Variants
 
