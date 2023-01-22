@@ -10,16 +10,16 @@ import {
 export default function addShadow(
   image: IMagickImage,
   shadowColor: MagickColor,
-  radius: number,
-  sigma: number,
+  blurRadius: number,
+  blurSigma: number,
 ): IMagickImage {
   const imageWithShadow = MagickImage.create();
 
   // Create an empty canvas
   imageWithShadow.read(
     MagickColors.Transparent,
-    image.width + radius * 2,
-    image.height + radius * 2,
+    image.width + blurRadius * 2,
+    image.height + blurRadius * 2,
   );
 
   // Draw the image on to the canvas temporarily
@@ -45,7 +45,7 @@ export default function addShadow(
   );
 
   // Blur the shadow color
-  imageWithShadow.blur(radius, sigma);
+  imageWithShadow.blur(blurRadius, blurSigma);
 
   // Add the image on top of the shadow
   imageWithShadow.compositeGravity(

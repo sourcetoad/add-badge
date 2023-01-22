@@ -7,6 +7,7 @@ interface BadgeOptions {
   paddingX: number;
   paddingY: number;
   shadowColor: MagickColor;
+  shadowSize: number;
 }
 
 export function scaleBadgeOptions(

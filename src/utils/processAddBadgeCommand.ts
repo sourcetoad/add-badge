@@ -55,6 +55,7 @@ export default async function processAddBadgeCommand({
         paddingX: defaultOptions.paddingX,
         paddingY: defaultOptions.paddingY,
         shadowColor: new MagickColor(shadowColor),
+        shadowSize: defaultOptions.shadowSize,
       },
       {
         color: new MagickColor(textColor),

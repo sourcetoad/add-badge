@@ -27,8 +27,8 @@ export default async function addBadgeOverlay(
     const badgeWithShadow = addShadow(
       badge,
       badgeOptions.shadowColor,
-      Math.max(1, roundToEven(4 * badgeScale)),
-      Math.max(1, roundToEven(3 * badgeScale)),
+      Math.max(1, roundToEven(badgeOptions.shadowSize * badgeScale)),
+      Math.max(1, roundToEven(badgeOptions.shadowSize * 0.75 * badgeScale)),
     );
 
     const composite = createImageBadgeComposite(
