@@ -38,7 +38,6 @@ export default async function addBadgeOverlay(
       badgeWithShadow,
       badgeGravity,
       badge.width,
-      HIGHEST_ANDROID_SHADOW_ALPHA,
     );
 
     // Strip date based metadata in an attempt at producing the same image from

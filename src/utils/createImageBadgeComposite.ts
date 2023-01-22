@@ -17,7 +17,6 @@ export default function createImageBadgeComposite(
   badge: IMagickImage,
   gravity: BadgeGravity,
   badgeWidth: number,
-  alphaCutoff: number,
 ): IMagickImage {
   const composite = MagickImage.create();
   composite.read(MagickColors.Transparent, image.width, image.height);
@@ -43,41 +42,35 @@ export default function createImageBadgeComposite(
 
   switch (gravity) {
     case BadgeGravity.Northwest:
-      offsetX = getInsetAtGravity(composite, Gravity.West, alphaCutoff);
-      offsetY = getInsetAtGravity(composite, Gravity.North, alphaCutoff);
+      offsetX = getInsetAtGravity(composite, Gravity.West);
+      offsetY = getInsetAtGravity(composite, Gravity.North);
       break;
     case BadgeGravity.North:
       offsetX = 0;
       offsetY = Math.round(
-        getInsetAtGravity(
-          composite,
-          Gravity.North,
-          alphaCutoff,
-          Math.round(badgeWidth / 2),
-        ),
+        getInsetAtGravity(composite, Gravity.North, Math.round(badgeWidth / 2)),
       );
       break;
     case BadgeGravity.Northeast:
-      offsetX = getInsetAtGravity(composite, Gravity.East, alphaCutoff);
-      offsetY = getInsetAtGravity(composite, Gravity.North, alphaCutoff);
+      offsetX = getInsetAtGravity(composite, Gravity.East);
+      offsetY = getInsetAtGravity(composite, Gravity.North);
       break;
 
     case BadgeGravity.Southwest:
-      offsetX = getInsetAtGravity(composite, Gravity.West, alphaCutoff);
-      offsetY = getInsetAtGravity(composite, Gravity.South, alphaCutoff);
+      offsetX = getInsetAtGravity(composite, Gravity.West);
+      offsetY = getInsetAtGravity(composite, Gravity.South);
       break;
     case BadgeGravity.South:
       offsetX = 0;
       offsetY = getInsetAtGravity(
         composite,
         Gravity.South,
-        alphaCutoff,
         Math.round(badgeWidth / 2),
       );
       break;
     case BadgeGravity.Southeast:
-      offsetX = getInsetAtGravity(composite, Gravity.East, alphaCutoff);
-      offsetY = getInsetAtGravity(composite, Gravity.South, alphaCutoff);
+      offsetX = getInsetAtGravity(composite, Gravity.East);
+      offsetY = getInsetAtGravity(composite, Gravity.South);
       break;
   }
 

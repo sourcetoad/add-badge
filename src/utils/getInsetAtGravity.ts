@@ -10,8 +10,8 @@ export const HIGHEST_ANDROID_SHADOW_ALPHA = 52;
 export default function getInsetAtGravity(
   image: IMagickImage,
   gravity: Gravity,
-  alphaCutoff: number,
   axisOffset?: number,
+  alphaCutoff: number = HIGHEST_ANDROID_SHADOW_ALPHA,
 ): number {
   // Change the virtual pixel method to transparent before checking the pixels.
   // Without this some older images are reporting areas that are opaque as

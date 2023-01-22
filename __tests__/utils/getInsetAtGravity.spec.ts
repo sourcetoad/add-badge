@@ -2,9 +2,7 @@ import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 import { describe, expect, it } from 'vitest';
 
-import getInsetAtGravity, {
-  HIGHEST_ANDROID_SHADOW_ALPHA,
-} from '../../src/utils/getInsetAtGravity';
+import getInsetAtGravity from '../../src/utils/getInsetAtGravity';
 
 describe('getInsetAtGravity', () => {
   it.each([
@@ -114,11 +112,7 @@ describe('getInsetAtGravity', () => {
     await ImageMagick.read(
       fs.readFileSync(`samples/input/${file}`),
       (image) => {
-        result = getInsetAtGravity(
-          image,
-          gravity,
-          HIGHEST_ANDROID_SHADOW_ALPHA,
-        );
+        result = getInsetAtGravity(image, gravity);
       },
     );
 
