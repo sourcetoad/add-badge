@@ -27,3 +27,9 @@ build({
   entryPoints: ['src/commands/addBadges.ts'],
   outfile: 'bin/add-badges.js',
 }).catch(() => process.exit(1));
+
+build({
+  ...config,
+  entryPoints: ['src/commands/generateSamples.ts'],
+  outfile: 'bin/generate-samples.js',
+}).catch(() => process.exit(1));

@@ -20,7 +20,7 @@
     "check-code": "npm run test && npm run lint && npm run check-types",
     "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
-    "generate-samples": "npm run build && node ./samples/generate.js",
+    "generate-samples": "npm run build && node ./bin/generate-samples.js",
     "lint": "eslint .",
     "prepare": "npm run build",
     "test": "vitest run"
