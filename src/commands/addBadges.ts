@@ -57,10 +57,10 @@ async function execute({
           shadowColor: new MagickColor(shadowColor),
         },
         {
-          text: badgeText,
+          color: new MagickColor(textColor),
           font: 'BadgeFont',
           fontPointSize: fontSize,
-          color: new MagickColor(textColor),
+          text: badgeText.replace(/\\n/g, '\n'),
         },
         getBadgeGravityFromString(gravity),
       );
