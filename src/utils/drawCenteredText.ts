@@ -24,7 +24,7 @@ export default function drawCenteredText(
     new DrawableFillColor(options.color),
     new DrawableText(
       textOffsetX,
-      textOffsetY + boundingBox.offset,
+      textOffsetY + boundingBox.offset - 1,
       options.text,
     ),
   ]);

@@ -1,8 +1,8 @@
-import { initializeImageMagick, Magick } from '@imagemagick/magick-wasm';
+import { Magick } from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 
-export default async function setBadgeFont(fontFile: string): Promise<void> {
-  await initializeImageMagick();
+export const BADGE_FONT_NAME = 'BadgeFont';
 
-  Magick.addFont('BadgeFont', fs.readFileSync(fontFile));
+export default function setBadgeFont(fontFile: string): void {
+  Magick.addFont(BADGE_FONT_NAME, fs.readFileSync(fontFile));
 }

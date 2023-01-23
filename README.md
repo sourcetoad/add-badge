@@ -1,7 +1,6 @@
 # Add Badge
 
-A set of node commands to add an overlay badge, inset to the non-transparent area. Meant for PNG app icons with equal
-insets.
+Node commands to add an overlay badge, inset to the non-transparent area.
 
 | ![](https://github.com/sourcetoad/add-badge/raw/master/samples/output/ic_launcher-xxxhdpi.png) | ![](https://github.com/sourcetoad/add-badge/raw/master/samples/output/ic_launcher_round-xxxhdpi.png) |
 |------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
@@ -38,12 +37,14 @@ See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
 ### Options
 
-| Option               | Description                                                | Default                |
-|----------------------|------------------------------------------------------------|------------------------|
-| `--font-file`        | Text font file                                             | Roboto Black (Bundled) |
-| `--font-size`        | Text size (pt, scaled up for larger images)                | 22                     |
-| `--text-color`       | Text color (`transparent` for transparent)                 | #666666                |
-| `--background-color` | Badge background color                                     | #ffffff                |
-| `--shadow-color`     | Badge shadow color                                         | rgba(0,0,0,0.5)        |
-| `--gravity`          | Badge gravity (northwest, northeast, southwest, southeast) | southeast              |
-| `--dry-run`/`-d`     | Does not perform actions                                   |                        |
+See [samples](https://github.com/sourcetoad/add-badge/blob/master/SAMPLES.md) for some previews.
+
+| Option               | Description                                                              | Default                |
+|----------------------|--------------------------------------------------------------------------|------------------------|
+| `--font-file`        | Text font file                                                           | Roboto Black (Bundled) |
+| `--font-size`        | Text size (pt, scaled for images not 192px)                              | 28                     |
+| `--text-color`       | Text color (`transparent` for transparent)                               | #666666                |
+| `--background-color` | Badge background color                                                   | #ffffff                |
+| `--gravity`          | Badge gravity (northwest, north, northeast, southwest, south, southeast) | southeast              |
+| `--shadow-color`     | Badge shadow color                                                       | rgba(0,0,0,0.6)        |
+| `--dry-run`/`-d`     | Does not perform actions                                                 |                        |

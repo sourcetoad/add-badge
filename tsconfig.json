@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src"]
+  "include": ["./**/*.ts"]
 }

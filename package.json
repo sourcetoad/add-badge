@@ -2,6 +2,10 @@
   "name": "@sourcetoad/add-badge",
   "version": "0.9.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sourcetoad/add-badge.git"
+  },
   "bin": {
     "add-badge": "./bin/add-badge.js",
     "add-badges": "./bin/add-badges.js"
@@ -13,12 +17,13 @@
   ],
   "scripts": {
     "build": "node ./build.js",
-    "check-code": "npm run lint && npm run check-types",
+    "check-code": "npm run test && npm run lint && npm run check-types",
     "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
-    "generate-samples": "npm run build && node ./samples/generate.js",
+    "generate-samples": "npm run build && node ./bin/generate-samples.js",
     "lint": "eslint .",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "vitest run"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -30,15 +35,16 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "@types/yargs": "^17.0.19",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "@typescript-eslint/parser": "^5.48.1",
+    "@types/yargs": "^17.0.20",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "esbuild": "0.16.17",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
-    "prettier": "2.8.2",
-    "typescript": "^4.9.4"
+    "eslint-plugin-simple-import-sort": "^9.0.0",
+    "prettier": "2.8.3",
+    "typescript": "^4.9.4",
+    "vitest": "^0.27.3"
   }
 }

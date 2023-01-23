@@ -1,11 +1,25 @@
 import { MagickColor } from '@imagemagick/magick-wasm';
 
-import TextOptions from './TextOptions';
+import roundToEven from '../utils/roundToEven';
 
 interface BadgeOptions {
   backgroundColor: MagickColor;
+  paddingX: number;
+  paddingY: number;
   shadowColor: MagickColor;
-  text: TextOptions;
+  shadowSize: number;
+}
+
+export function scaleBadgeOptions(
+  options: BadgeOptions,
+  scale: number,
+): BadgeOptions {
+  return {
+    ...options,
+    paddingX: roundToEven(options.paddingX * scale),
+    paddingY: roundToEven(options.paddingY * scale),
+    shadowSize: Math.max(1, options.shadowSize * scale),
+  };
 }
 
 export default BadgeOptions;
