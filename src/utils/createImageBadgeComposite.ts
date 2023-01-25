@@ -133,7 +133,7 @@ export default function createImageBadgeComposite(
   composite.compositeGravity(
     badge,
     getGravityFromBadgeGravity(gravity),
-    CompositeOperator.Atop,
+    CompositeOperator.Over,
     offset,
   );
 
