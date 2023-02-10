@@ -47,7 +47,7 @@ export default async function processAddBadgeCommand({
 
     setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
 
-    await addBadgeOverlay(
+    addBadgeOverlay(
       inputImage,
       outputImage,
       {

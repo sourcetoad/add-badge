@@ -43,7 +43,7 @@ export default async function processAddBadgesCommand({
     console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputFile}`);
 
     if (!dryRun) {
-      await addBadgeOverlay(
+      addBadgeOverlay(
         inputFile,
         inputFile,
         {

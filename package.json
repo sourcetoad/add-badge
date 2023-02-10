@@ -29,22 +29,22 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@imagemagick/magick-wasm": "^0.0.18",
+    "@imagemagick/magick-wasm": "^0.0.19",
     "fast-glob": "^3.2.12",
     "yargs": "^17.6.2"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@types/yargs": "^17.0.20",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
-    "esbuild": "0.16.17",
-    "eslint": "^8.32.0",
+    "@types/node": "^18.13.0",
+    "@types/yargs": "^17.0.22",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "esbuild": "0.17.7",
+    "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^9.0.0",
-    "prettier": "2.8.3",
-    "typescript": "^4.9.4",
-    "vitest": "^0.27.3"
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "2.8.4",
+    "typescript": "^4.9.5",
+    "vitest": "^0.28.4"
   }
 }
