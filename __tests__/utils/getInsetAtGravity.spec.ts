@@ -58,15 +58,12 @@ describe('getInsetAtGravity', () => {
       7,
     ],
     // endregion
-  ])('works as expected with %s', async (_, file, gravity, expected) => {
+  ])('works as expected with %s', (_, file, gravity, expected) => {
     let result: number | undefined = undefined;
 
-    await ImageMagick.read(
-      fs.readFileSync(`samples/input/${file}`),
-      (image) => {
-        result = getInsetAtGravity(image, gravity as number);
-      },
-    );
+    ImageMagick.read(fs.readFileSync(`samples/input/${file}`), (image) => {
+      result = getInsetAtGravity(image, gravity as number);
+    });
 
     expect(result).toEqual(expected);
   });

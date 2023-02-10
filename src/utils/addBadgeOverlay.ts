@@ -9,14 +9,14 @@ import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
 import getInsetAtGravity from './getInsetAtGravity';
 
-export default async function addBadgeOverlay(
+export default function addBadgeOverlay(
   inputFile: string,
   outputFile: string,
   badgeOptions: BadgeOptions,
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
-): Promise<void> {
-  await ImageMagick.read(fs.readFileSync(inputFile), async (image) => {
+): void {
+  ImageMagick.read(fs.readFileSync(inputFile), (image) => {
     const insetWidth =
       image.width -
       getInsetAtGravity(image, Gravity.East) -
@@ -59,9 +59,6 @@ export default async function addBadgeOverlay(
       .filter((name) => /date:/i.test(name))
       .forEach((name) => composite.removeAttribute(name));
 
-    await composite.write(
-      (data) => fs.writeFileSync(outputFile, data),
-      image.format,
-    );
+    composite.write((data) => fs.writeFileSync(outputFile, data), image.format);
   });
 }
