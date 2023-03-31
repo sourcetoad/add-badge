@@ -29,22 +29,30 @@ function getRectanglePosition(
   gravity: BadgeGravity,
 ): { x: number; y: number } {
   let angle = 0;
+  // Todo: Improve to handle 0 and 180 degree situations.
   switch (gravity) {
     case BadgeGravity.Northwest:
+      angle = 135;
+      break;
     case BadgeGravity.Southeast:
       angle = -45;
       break;
     case BadgeGravity.Northeast:
+      angle = -135;
+      break;
     case BadgeGravity.Southwest:
       angle = 45;
       break;
     case BadgeGravity.North:
+      angle = 180;
+      break;
     case BadgeGravity.South:
       angle = 0;
       break;
   }
 
   const radianAngle = (angle * Math.PI) / 180;
+  const normalAngle = ((angle - 90) * Math.PI) / 180;
 
   const rotatedWidth =
     rectangle.width * Math.abs(Math.cos(radianAngle)) +
@@ -53,53 +61,24 @@ function getRectanglePosition(
     rectangle.width * Math.abs(Math.sin(radianAngle)) +
     rectangle.height * Math.abs(Math.cos(radianAngle));
 
-  let x = circle.centerX - rotatedWidth / 2;
-  let y = circle.centerY - rotatedHeight / 2;
-
-  switch (gravity) {
-    case BadgeGravity.Northwest:
-      x -= circle.radius / Math.sqrt(2);
-      y -= circle.radius / Math.sqrt(2);
-      break;
-    case BadgeGravity.North:
-      y -= circle.radius;
-      break;
-    case BadgeGravity.Northeast:
-      x += circle.radius / Math.sqrt(2);
-      y -= circle.radius / Math.sqrt(2);
-      break;
-    case BadgeGravity.Southwest:
-      x -= circle.radius / Math.sqrt(2);
-      y += circle.radius / Math.sqrt(2);
-      break;
-    case BadgeGravity.South:
-      y += circle.radius;
-      break;
-    case BadgeGravity.Southeast:
-      x += circle.radius / Math.sqrt(2);
-      y += circle.radius / Math.sqrt(2);
-      break;
-  }
-
-  const distanceFromCenterX = x + rotatedWidth / 2 - circle.centerX;
-  const distanceFromCenterY = y + rotatedHeight / 2 - circle.centerY;
-
-  const distanceFromCenter = Math.sqrt(
-    distanceFromCenterX * distanceFromCenterX +
-      distanceFromCenterY * distanceFromCenterY,
+  // rectangleLowerDistanceFromCircleCenter
+  const d = Math.sqrt(
+    Math.pow(circle.radius, 2) - Math.pow(rectangle.width / 2, 2),
   );
 
-  if (
-    distanceFromCenter + Math.max(rotatedWidth, rotatedHeight) / 2 >
-    circle.radius
-  ) {
-    const scale =
-      (circle.radius - Math.max(rotatedWidth, rotatedHeight) / 2) /
-      distanceFromCenter;
+  const x =
+    container.width / 2 -
+    (d - rectangle.height / 2) * Math.cos(normalAngle) +
+    -rotatedHeight / 2;
 
-    x = circle.centerX + distanceFromCenterX * scale - rotatedWidth / 2;
-    y = circle.centerY + distanceFromCenterY * scale - rotatedHeight / 2;
-  }
+  const y =
+    Math.abs(angle) < 90
+      ? container.width / 2 -
+        (d - rectangle.height / 2) * Math.sin(normalAngle) +
+        (Math.sign(Math.sin(normalAngle)) * rotatedWidth) / 2
+      : container.width / 2 +
+        (-d + rectangle.height / 2) * Math.sin(normalAngle) +
+        -(Math.sign(Math.sin(normalAngle)) * rotatedWidth) / 2;
 
   return { x, y };
 }
