@@ -2,32 +2,106 @@ import {
   CompositeOperator,
   Gravity,
   IMagickImage,
+  MagickColor,
   MagickColors,
   MagickImage,
   Point,
 } from '@imagemagick/magick-wasm';
 
-import BadgeGravity, {
-  getGravityFromBadgeGravity,
-} from '../types/BadgeGravity';
+import BadgeGravity from '../types/BadgeGravity';
 import getInsetAtGravity from './getInsetAtGravity';
 
-function getCornerOffset(
-  insetWidth: number,
-  finalBadgeWidth: number,
-  finalBadgeHeight: number,
-): number {
-  // TODO Figure out a better way to calculate this that doesn't rely on magic
-  //      numbers.
-  return Math.round(insetWidth / 2 - finalBadgeWidth + finalBadgeHeight * 0.2);
+interface Rectangle {
+  width: number;
+  height: number;
 }
 
-function isEqualWithinThreshold(
-  insetX: number,
-  insetY: number,
-  threshold = 15,
-): boolean {
-  return Math.abs(((insetY - insetX) * 100) / insetX) <= threshold;
+interface Circle {
+  centerX: number;
+  centerY: number;
+  radius: number;
+}
+
+function getRectanglePosition(
+  container: Rectangle,
+  circle: Circle,
+  rectangle: Rectangle,
+  gravity: BadgeGravity,
+): { x: number; y: number } {
+  let angle = 0;
+  switch (gravity) {
+    case BadgeGravity.Northwest:
+    case BadgeGravity.Southeast:
+      angle = -45;
+      break;
+    case BadgeGravity.Northeast:
+    case BadgeGravity.Southwest:
+      angle = 45;
+      break;
+    case BadgeGravity.North:
+    case BadgeGravity.South:
+      angle = 0;
+      break;
+  }
+
+  const radianAngle = (angle * Math.PI) / 180;
+
+  const rotatedWidth =
+    rectangle.width * Math.abs(Math.cos(radianAngle)) +
+    rectangle.height * Math.abs(Math.sin(radianAngle));
+  const rotatedHeight =
+    rectangle.width * Math.abs(Math.sin(radianAngle)) +
+    rectangle.height * Math.abs(Math.cos(radianAngle));
+
+  let x = circle.centerX - rotatedWidth / 2;
+  let y = circle.centerY - rotatedHeight / 2;
+
+  switch (gravity) {
+    case BadgeGravity.Northwest:
+      x -= circle.radius / Math.sqrt(2);
+      y -= circle.radius / Math.sqrt(2);
+      break;
+    case BadgeGravity.North:
+      y -= circle.radius;
+      break;
+    case BadgeGravity.Northeast:
+      x += circle.radius / Math.sqrt(2);
+      y -= circle.radius / Math.sqrt(2);
+      break;
+    case BadgeGravity.Southwest:
+      x -= circle.radius / Math.sqrt(2);
+      y += circle.radius / Math.sqrt(2);
+      break;
+    case BadgeGravity.South:
+      y += circle.radius;
+      break;
+    case BadgeGravity.Southeast:
+      x += circle.radius / Math.sqrt(2);
+      y += circle.radius / Math.sqrt(2);
+      break;
+  }
+
+  const distanceFromCenterX = x + rotatedWidth / 2 - circle.centerX;
+  const distanceFromCenterY = y + rotatedHeight / 2 - circle.centerY;
+
+  const distanceFromCenter = Math.sqrt(
+    distanceFromCenterX * distanceFromCenterX +
+      distanceFromCenterY * distanceFromCenterY,
+  );
+
+  if (
+    distanceFromCenter + Math.max(rotatedWidth, rotatedHeight) / 2 >
+    circle.radius
+  ) {
+    const scale =
+      (circle.radius - Math.max(rotatedWidth, rotatedHeight) / 2) /
+      distanceFromCenter;
+
+    x = circle.centerX + distanceFromCenterX * scale - rotatedWidth / 2;
+    y = circle.centerY + distanceFromCenterY * scale - rotatedHeight / 2;
+  }
+
+  return { x, y };
 }
 
 export default function createImageBadgeComposite(
@@ -43,6 +117,20 @@ export default function createImageBadgeComposite(
 
   // We need to set a background before rotating, or it may fill it with white.
   badge.backgroundColor = MagickColors.None;
+  badge.backgroundColor = new MagickColor(255, 0, 0, 50);
+
+  const eastInset = getInsetAtGravity(composite, Gravity.East);
+
+  const offset = getRectanglePosition(
+    { width: composite.width, height: composite.height },
+    {
+      centerX: composite.width / 2,
+      centerY: composite.height / 2,
+      radius: (composite.width - eastInset * 2) / 2,
+    },
+    { width: badge.width, height: badge.height },
+    gravity,
+  );
 
   switch (gravity) {
     case BadgeGravity.Northwest:
@@ -55,86 +143,11 @@ export default function createImageBadgeComposite(
       break;
   }
 
-  const edgeScale = 1.1;
-  const offset = new Point(0, 0);
-
-  switch (gravity) {
-    case BadgeGravity.Northwest:
-    case BadgeGravity.Northeast: {
-      const xInset = getInsetAtGravity(
-        composite,
-        gravity === BadgeGravity.Northwest ? Gravity.West : Gravity.East,
-      );
-      const yInset = getInsetAtGravity(composite, Gravity.North);
-
-      if (isEqualWithinThreshold(xInset, yInset)) {
-        const cornerOffset = getInsetAtGravity(
-          composite,
-          Gravity.North,
-          getCornerOffset(insetWidth, badge.width, badge.height),
-        );
-        offset.x = cornerOffset;
-        offset.y = cornerOffset;
-      } else {
-        offset.x = xInset;
-        offset.y = yInset;
-      }
-      break;
-    }
-
-    case BadgeGravity.North:
-      offset.x = 0;
-      offset.y = Math.round(
-        edgeScale *
-          getInsetAtGravity(
-            composite,
-            Gravity.North,
-            Math.round(badgeWidth / 2),
-          ),
-      );
-      break;
-
-    case BadgeGravity.Southwest:
-    case BadgeGravity.Southeast: {
-      const xInset = getInsetAtGravity(
-        composite,
-        gravity === BadgeGravity.Southwest ? Gravity.West : Gravity.East,
-      );
-      const yInset = getInsetAtGravity(composite, Gravity.South);
-
-      if (isEqualWithinThreshold(xInset, yInset)) {
-        const cornerOffset = getInsetAtGravity(
-          composite,
-          Gravity.South,
-          getCornerOffset(insetWidth, badge.width, badge.height),
-        );
-        offset.x = cornerOffset;
-        offset.y = cornerOffset;
-      } else {
-        offset.x = xInset;
-        offset.y = yInset;
-      }
-      break;
-    }
-
-    case BadgeGravity.South:
-      offset.x = 0;
-      offset.y = Math.round(
-        edgeScale *
-          getInsetAtGravity(
-            composite,
-            Gravity.South,
-            Math.round(badgeWidth / 2),
-          ),
-      );
-      break;
-  }
-
   composite.compositeGravity(
     badge,
-    getGravityFromBadgeGravity(gravity),
+    Gravity.Northwest,
     CompositeOperator.Over,
-    offset,
+    new Point(offset.x, offset.y),
   );
 
   return composite;
