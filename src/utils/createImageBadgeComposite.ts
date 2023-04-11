@@ -52,7 +52,6 @@ function getRectanglePosition(
   }
 
   const radianAngle = (angle * Math.PI) / 180;
-  const normalAngle = ((angle - 90) * Math.PI) / 180;
 
   const rotatedWidth =
     rectangle.width * Math.abs(Math.cos(radianAngle)) +
@@ -66,19 +65,17 @@ function getRectanglePosition(
     Math.pow(circle.radius, 2) - Math.pow(rectangle.width / 2, 2),
   );
 
+  const trigAngle = ((angle - 90) * Math.PI) / 180;
+
   const x =
     container.width / 2 -
-    (d - rectangle.height / 2) * Math.cos(normalAngle) +
+    (d - rectangle.height / 2) * Math.cos(trigAngle) +
     -rotatedHeight / 2;
 
   const y =
-    Math.abs(angle) < 90
-      ? container.width / 2 -
-        (d - rectangle.height / 2) * Math.sin(normalAngle) +
-        (Math.sign(Math.sin(normalAngle)) * rotatedWidth) / 2
-      : container.width / 2 +
-        (-d + rectangle.height / 2) * Math.sin(normalAngle) +
-        -(Math.sign(Math.sin(normalAngle)) * rotatedWidth) / 2;
+    container.width / 2 +
+    (-d + rectangle.height / 2) * Math.sin(trigAngle) +
+    -rotatedWidth / 2;
 
   return { x, y };
 }
