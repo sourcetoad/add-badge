@@ -70,12 +70,12 @@ function getRectanglePosition(
   const x =
     container.width / 2 -
     (d - rectangle.height / 2) * Math.cos(trigAngle) +
-    -rotatedHeight / 2;
+    -rotatedWidth / 2;
 
   const y =
-    container.width / 2 +
+    container.height / 2 +
     (-d + rectangle.height / 2) * Math.sin(trigAngle) +
-    -rotatedWidth / 2;
+    -rotatedHeight / 2;
 
   return { x, y };
 }
