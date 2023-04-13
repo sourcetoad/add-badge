@@ -20,7 +20,7 @@ export default function getCircularBadgePosition(
     gravity,
   );
 
-  // Calculate the distance from the center of the container to the center of
+  // Calculate the distance from the center of the container to the bottom-center of
   // the badge.
   const distance = Math.sqrt(
     Math.pow(circleRadius, 2) - Math.pow(badge.width / 2, 2),
