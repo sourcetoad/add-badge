@@ -47,7 +47,6 @@ export default function addBadgeOverlay(
       badgeWithShadow,
       badgeGravity,
       insetWidth,
-      badge.width,
     );
 
     composite.quality = 80;
