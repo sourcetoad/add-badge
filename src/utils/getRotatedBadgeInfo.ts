@@ -2,21 +2,21 @@ import BadgeGravity from '../types/BadgeGravity';
 import Rectangle from '../types/Rectangle';
 
 const badgeGravityAngles: Record<BadgeGravity, number> = {
-  [BadgeGravity.Northwest]: 135,
-  [BadgeGravity.Southeast]: -45,
-  [BadgeGravity.Northeast]: -135,
-  [BadgeGravity.Southwest]: 45,
   [BadgeGravity.North]: 180,
+  [BadgeGravity.Northeast]: -135,
+  [BadgeGravity.Northwest]: 135,
   [BadgeGravity.South]: 0,
+  [BadgeGravity.Southeast]: -45,
+  [BadgeGravity.Southwest]: 45,
 };
 
 const badgeRotationDegrees: Record<BadgeGravity, number> = {
-  [BadgeGravity.Northwest]: -45,
-  [BadgeGravity.Southeast]: -45,
-  [BadgeGravity.Northeast]: 45,
-  [BadgeGravity.Southwest]: 45,
   [BadgeGravity.North]: 0,
+  [BadgeGravity.Northeast]: 45,
+  [BadgeGravity.Northwest]: -45,
   [BadgeGravity.South]: 0,
+  [BadgeGravity.Southeast]: -45,
+  [BadgeGravity.Southwest]: 45,
 };
 
 export default function getRotatedBadgeInfo(
