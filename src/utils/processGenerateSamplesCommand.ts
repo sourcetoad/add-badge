@@ -1,9 +1,9 @@
-import { initializeImageMagick } from '@imagemagick/magick-wasm';
 import { lstatSync, readdirSync } from 'fs';
 import { join, resolve } from 'path';
 
 import defaultOptions from '../defaultOptions';
 import BadgeGravity from '../types/BadgeGravity';
+import initializeImageMagick from './initializeImageMagick';
 import processAddBadgeCommand, {
   WriteBadgeArguments,
 } from './processAddBadgeCommand';

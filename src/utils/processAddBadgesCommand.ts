@@ -1,4 +1,4 @@
-import { initializeImageMagick, MagickColor } from '@imagemagick/magick-wasm';
+import { MagickColor } from '@imagemagick/magick-wasm';
 import { sync as globSync } from 'fast-glob';
 import { resolve } from 'path';
 
@@ -6,6 +6,7 @@ import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from './addBadgeOverlay';
+import initializeImageMagick from './initializeImageMagick';
 import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
 export interface WriteBadgesArguments extends CommonArguments {

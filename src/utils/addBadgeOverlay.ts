@@ -58,6 +58,6 @@ export default function addBadgeOverlay(
       .filter((name) => /date:/i.test(name))
       .forEach((name) => composite.removeAttribute(name));
 
-    composite.write((data) => fs.writeFileSync(outputFile, data), image.format);
+    composite.write(image.format, (data) => fs.writeFileSync(outputFile, data));
   });
 }
