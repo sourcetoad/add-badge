@@ -47,7 +47,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     BadgeGravity.South,
     BadgeGravity.Southeast,
   ]) {
-    if (gravity === 'southeast') {
+    if (gravity === BadgeGravity.Southeast) {
       continue;
     }
 
