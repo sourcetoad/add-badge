@@ -1,5 +1,6 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+
 import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
-import * as fs from 'fs';
 
 import BadgeGravity from '../types/BadgeGravity';
 import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
@@ -16,7 +17,7 @@ export default function addBadgeOverlay(
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
 ): void {
-  ImageMagick.read(fs.readFileSync(inputFile), (image) => {
+  ImageMagick.read(readFileSync(inputFile), (image) => {
     const insetWidth =
       image.width -
       getInsetAtGravity(image, Gravity.East) -
@@ -58,6 +59,6 @@ export default function addBadgeOverlay(
       .filter((name) => /date:/i.test(name))
       .forEach((name) => composite.removeAttribute(name));
 
-    composite.write(image.format, (data) => fs.writeFileSync(outputFile, data));
+    composite.write(image.format, (data) => writeFileSync(outputFile, data));
   });
 }

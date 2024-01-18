@@ -1,6 +1,7 @@
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import { MagickColor } from '@imagemagick/magick-wasm';
-import { existsSync } from 'fs';
-import { resolve } from 'path';
 
 import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';

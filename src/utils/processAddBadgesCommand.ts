@@ -1,6 +1,7 @@
+import { resolve } from 'node:path';
+
 import { MagickColor } from '@imagemagick/magick-wasm';
 import { sync as globSync } from 'fast-glob';
-import { resolve } from 'path';
 
 import defaultOptions from '../defaultOptions';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';

@@ -1,5 +1,5 @@
-import { lstatSync, readdirSync } from 'fs';
-import { join, resolve } from 'path';
+import { lstatSync, readdirSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 
 import defaultOptions from '../defaultOptions';
 import BadgeGravity from '../types/BadgeGravity';
