@@ -1,5 +1,6 @@
+import { readFileSync } from 'node:fs';
+
 import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
-import * as fs from 'fs';
 import { describe, expect, it } from 'vitest';
 
 import getInsetAtGravity from '../../src/utils/getInsetAtGravity';
@@ -61,7 +62,7 @@ describe('getInsetAtGravity', () => {
   ])('works as expected with %s', (_, file, gravity, expected) => {
     let result: number | undefined = undefined;
 
-    ImageMagick.read(fs.readFileSync(`samples/input/${file}`), (image) => {
+    ImageMagick.read(readFileSync(`samples/input/${file}`), (image) => {
       result = getInsetAtGravity(image, gravity as number);
     });
 

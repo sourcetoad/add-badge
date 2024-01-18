@@ -1,9 +1,9 @@
-import { initializeImageMagick } from '@imagemagick/magick-wasm';
-import { lstatSync, readdirSync } from 'fs';
-import { join, resolve } from 'path';
+import { lstatSync, readdirSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 
 import defaultOptions from '../defaultOptions';
 import BadgeGravity from '../types/BadgeGravity';
+import initializeImageMagick from './initializeImageMagick';
 import processAddBadgeCommand, {
   WriteBadgeArguments,
 } from './processAddBadgeCommand';
@@ -47,7 +47,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     BadgeGravity.South,
     BadgeGravity.Southeast,
   ]) {
-    if (gravity === 'southeast') {
+    if (gravity === BadgeGravity.Southeast) {
       continue;
     }
 
