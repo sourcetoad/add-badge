@@ -42,7 +42,9 @@ export default async function processAddBadgesCommand({
   }
 
   for (const inputFile of inputFiles) {
-    console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputFile}`);
+    console.info(
+      `${dryRun ? 'Would process' : 'Processing'} "${inputFile}" in place.`,
+    );
 
     if (!dryRun) {
       addBadgeOverlay(
