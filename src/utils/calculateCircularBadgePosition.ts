@@ -9,7 +9,7 @@ import getRotatedBadgeInfo from './getRotatedBadgeInfo';
  * Returns the position and rotation of the badge assuming the badge is circular
  * with equal insets.
  */
-export default function getCircularBadgePosition(
+export default function calculateCircularBadgePosition(
   container: Rectangle,
   badge: Rectangle,
   circleRadius: number,

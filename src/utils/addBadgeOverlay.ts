@@ -16,6 +16,7 @@ export default function addBadgeOverlay(
   badgeOptions: BadgeOptions,
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
+  position: number | undefined,
 ): void {
   ImageMagick.read(readFileSync(inputFile), (image) => {
     const insetWidth =
@@ -48,6 +49,7 @@ export default function addBadgeOverlay(
       badgeWithShadow,
       badgeGravity,
       insetWidth,
+      position,
     );
 
     composite.quality = 80;

@@ -49,6 +49,11 @@ void yargs(hideBin(process.argv))
           description: 'Badge gravity',
           type: 'string',
         })
+        .option('position', {
+          default: defaultOptions.position,
+          description: 'Badge position (percent from gravity)',
+          type: 'number',
+        })
         .option('dry-run', {
           alias: 'd',
           default: false,

@@ -24,6 +24,7 @@ export default async function processAddBadgeCommand({
   gravity,
   inputImage,
   outputImage,
+  position,
   shadowColor,
   textColor,
 }: WriteBadgeArguments) {
@@ -68,6 +69,7 @@ export default async function processAddBadgeCommand({
         text: badgeText.replace(/\\n/g, '\n'),
       },
       getBadgeGravityFromString(gravity),
+      position,
     );
   }
 

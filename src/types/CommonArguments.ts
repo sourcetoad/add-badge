@@ -5,6 +5,7 @@ export default interface CommonArguments {
   fontFile?: string;
   fontSize: number;
   gravity: string;
+  position?: number;
   shadowColor: string;
   textColor: string;
 }

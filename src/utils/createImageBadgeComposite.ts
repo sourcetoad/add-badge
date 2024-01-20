@@ -7,14 +7,15 @@ import {
 } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
-import getCircularBadgePosition from './getCircularBadgePosition';
-import getUnequalBadgePosition from './getUnequalBadgePosition';
+import calculateCircularBadgePosition from './calculateCircularBadgePosition';
+import calculateManualBadgePosition from './calculateManualBadgePosition';
 
 export default function createImageBadgeComposite(
   image: IMagickImage,
   badge: IMagickImage,
   gravity: BadgeGravity,
   insetWidth: number,
+  position: number | undefined,
 ): IMagickImage {
   const composite = MagickImage.create();
   composite.read(MagickColors.Transparent, image.width, image.height);
@@ -23,9 +24,12 @@ export default function createImageBadgeComposite(
   // We need to set a background before rotating, or it may fill it with white.
   badge.backgroundColor = MagickColors.None;
 
+  const radius = insetWidth / 2;
+
   const { rotation, point } =
-    getUnequalBadgePosition(composite, badge, gravity) ??
-    getCircularBadgePosition(composite, badge, insetWidth / 2, gravity);
+    position === undefined
+      ? calculateCircularBadgePosition(composite, badge, radius, gravity)
+      : calculateManualBadgePosition(composite, badge, position, gravity);
 
   if (rotation) {
     badge.rotate(rotation);
