@@ -11,8 +11,7 @@ module.exports = {
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
       extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/recommended-type-checked',
         'plugin:@typescript-eslint/strict',
       ],
     },
@@ -26,5 +25,6 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error'],
     'simple-import-sort/imports': 'error',
+    'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
   },
 };
