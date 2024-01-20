@@ -12,6 +12,12 @@
 | ![](./samples/output/ic_launcher-xxxhdpi-southwest.png)       | ![](./samples/output/ic_launcher-xxxhdpi-south.png)       | ![](./samples/output/ic_launcher-xxxhdpi.png)       |
 | ![](./samples/output/ic_launcher_round-xxxhdpi-southwest.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-south.png) | ![](./samples/output/ic_launcher_round-xxxhdpi.png) |
 
+### Position
+
+| `--position=0 --gravity northeast`                                       | `--position=50 --gravity northeast`                                       | `--position=100 --gravity northeast`                                       |
+|--------------------------------------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-0.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-50.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-100.png) |
+
 ### Size
 
 | Adaptive                                          | MDPI                                       | MDPI Round                                       |

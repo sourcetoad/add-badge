@@ -83,5 +83,19 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     fontSize: 50,
   });
 
+  for (const position of [0, 50, 100]) {
+    await processAddBadgeCommand({
+      ...defaultInputs,
+      gravity: BadgeGravity.Northeast,
+      inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+      outputImage: join(
+        outputRoot,
+        `ic_launcher_round-xxxhdpi-position-northeast-${position}.png`,
+      ),
+      badgeText: 'ALPHA',
+      position,
+    });
+  }
+
   return 0;
 }
