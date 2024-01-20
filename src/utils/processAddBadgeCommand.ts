@@ -29,7 +29,6 @@ export default async function processAddBadgeCommand({
   textColor,
 }: WriteBadgeArguments) {
   if (!inputImage || !badgeText || !outputImage) {
-    console.log(inputImage, badgeText, outputImage);
     throw new Error('Missing parameter');
   }
 
