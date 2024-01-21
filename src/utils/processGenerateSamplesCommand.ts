@@ -76,6 +76,12 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
         textColor: 'transparent',
       },
       {
+        inputImage: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
+        outputImage: 'shadow',
+        shadowColor: 'hsl(78,100%,37%)',
+        textColor: 'transparent',
+      },
+      {
         inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
         outputImage: 'larger',
         badgeText: 'UAT',

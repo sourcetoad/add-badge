@@ -24,9 +24,9 @@
 
 ### Appearance
 
-| `--background-color="rgba(0,0,0,0.75)"` <br/> `--text-color=transparent` |
-|:-------------------------------------------------------------------------|
-| ![](./samples/output/ic_launcher-xxxhdpi-dark-transparent.png)           |
+| `--background-color="rgba(0,0,0,0.75)"` <br/> `--text-color=transparent` | `--shadow-color="hsl(78,100%,37%)"` <br/> `--text-color=transparent` |
+|:-------------------------------------------------------------------------|:---------------------------------------------------------------------|
+| ![](./samples/output/ic_launcher-xxxhdpi-dark-transparent.png)           | ![](./samples/output/ic_launcher-xxxhdpi-shadow.png)                 |
 
 | `--font-size=50`                                           |
 |:-----------------------------------------------------------|
