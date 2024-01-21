@@ -7,6 +7,7 @@ import {
 } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
+import ManualPosition from '../types/ManualPosition';
 import calculateCircularBadgePosition from './calculateCircularBadgePosition';
 import calculateManualBadgePosition from './calculateManualBadgePosition';
 
@@ -15,7 +16,7 @@ export default function createImageBadgeComposite(
   badge: IMagickImage,
   gravity: BadgeGravity,
   insetWidth: number,
-  position: number | undefined,
+  position: ManualPosition | undefined,
 ): IMagickImage {
   const composite = MagickImage.create();
   composite.read(MagickColors.Transparent, image.width, image.height);

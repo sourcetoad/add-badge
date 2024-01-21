@@ -83,9 +83,12 @@ Default: `southeast`
 
 ### Position `--position`
 
-If set, the badge will be placed along the gravity axis at this percent instead of placing at the edge.
+If set, the badge will be placed manually instead of automatically. If only one number is provided, the badge will be placed on the gravity axis at the position. If two are provided, the first will be the `x` position and the second will be the `y` position.
 
-Type: `number` (0-100)
+Numbers are in percent of the image's dimensions (integer).
+
+Type: `number | number,number`  
+Default: `undefined`
 
 ### Dry Run `--dry-run`/`-d`
 

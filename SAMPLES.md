@@ -18,6 +18,10 @@
 |:-------------------------------------------------------------------------|:--------------------------------------------------------------------------|:---------------------------------------------------------------------------|
 | ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-0.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-50.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-position-northeast-100.png) |
 
+| `--position=10` <br/> `--gravity=north`                               | `--position=10,50` <br/> `--gravity=north`                               |                                      
+|:----------------------------------------------------------------------|:-------------------------------------------------------------------------|
+| ![](./samples/output/ic_launcher_round-xxxhdpi-position-north-10.png) | ![](./samples/output/ic_launcher_round-xxxhdpi-position-north-10x50.png) | 
+
 ### Appearance
 
 | `--background-color="rgba(0,0,0,0.75)"` <br/> `--text-color=transparent` |

@@ -4,6 +4,7 @@ import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
 import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
+import ManualPosition from '../types/ManualPosition';
 import TextOptions, { scaleTextOptions } from '../types/TextOptions';
 import addShadow from './addShadow';
 import createBadgeImage from './createBadgeImage';
@@ -16,7 +17,7 @@ export default function addBadgeOverlay(
   badgeOptions: BadgeOptions,
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
-  position: number | undefined,
+  position: ManualPosition | undefined,
 ): void {
   ImageMagick.read(readFileSync(inputFile), (image) => {
     const insetWidth =

@@ -55,8 +55,9 @@ void yargs(hideBin(process.argv))
         })
         .option('position', {
           default: defaultOptions.position,
-          description: 'Badge position (percent from gravity)',
-          type: 'number',
+          description:
+            'Badge position (percent along gravity axis, or x,y as percent)',
+          type: 'string',
         })
         .option('dry-run', {
           alias: 'd',

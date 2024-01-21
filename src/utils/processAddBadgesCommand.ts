@@ -8,6 +8,7 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from './addBadgeOverlay';
 import initializeImageMagick from './initializeImageMagick';
+import parseManualPosition from './parseManualPosition';
 import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
 export interface WriteBadgesArguments extends CommonArguments {
@@ -65,7 +66,7 @@ export default async function processAddBadgesCommand({
           text: badgeText.replace(/\\n/g, '\n'),
         },
         getBadgeGravityFromString(gravity),
-        position,
+        parseManualPosition(position),
       );
     }
   }

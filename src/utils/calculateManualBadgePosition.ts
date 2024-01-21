@@ -2,10 +2,23 @@ import { Point } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
 import BadgePosition from '../types/BadgePosition';
+import ManualPosition from '../types/ManualPosition';
 import Rectangle from '../types/Rectangle';
 import getRotatedBadgeInfo from './getRotatedBadgeInfo';
 
-function determinePointOnGravityAxis(
+function getPointAtPosition(
+  container: Rectangle,
+  badge: Rectangle,
+  x: number,
+  y: number,
+): Point {
+  return new Point(
+    (container.width - badge.width) * (x / 100),
+    (container.height - badge.height) * (y / 100),
+  );
+}
+
+function getPointOnGravityAxis(
   container: Rectangle,
   badge: Rectangle,
   position: number,
@@ -48,7 +61,7 @@ function determinePointOnGravityAxis(
 export default function calculateManualBadgePosition(
   container: Rectangle,
   badge: Rectangle,
-  position: number,
+  position: ManualPosition,
   gravity: BadgeGravity,
 ): BadgePosition {
   const { rotation, rotatedWidth, rotatedHeight } = getRotatedBadgeInfo(
@@ -62,12 +75,10 @@ export default function calculateManualBadgePosition(
   };
 
   return {
-    point: determinePointOnGravityAxis(
-      container,
-      rotatedBadge,
-      position,
-      gravity,
-    ),
+    point:
+      position.y !== undefined
+        ? getPointAtPosition(container, rotatedBadge, position.x, position.y)
+        : getPointOnGravityAxis(container, rotatedBadge, position.x, gravity),
     rotation,
   };
 }
