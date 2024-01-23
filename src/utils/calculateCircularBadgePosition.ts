@@ -23,7 +23,7 @@ export default function calculateCircularBadgePosition(
   // Calculate the distance from the center of the container to the bottom-center of
   // the badge.
   const distance = Math.sqrt(
-    Math.pow(circleRadius, 2) - Math.pow(badge.width / 2, 2),
+    Math.max(0, Math.pow(circleRadius, 2) - Math.pow(badge.width / 2, 2)),
   );
 
   const trigAngle = ((angle - 90) * Math.PI) / 180;
