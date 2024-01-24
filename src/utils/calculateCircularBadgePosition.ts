@@ -9,7 +9,7 @@ import getRotatedBadgeInfo from './getRotatedBadgeInfo';
  * Returns the position and rotation of the badge assuming the badge is circular
  * with equal insets.
  */
-export default function getCircularBadgePosition(
+export default function calculateCircularBadgePosition(
   container: Rectangle,
   badge: Rectangle,
   circleRadius: number,
@@ -23,7 +23,7 @@ export default function getCircularBadgePosition(
   // Calculate the distance from the center of the container to the bottom-center of
   // the badge.
   const distance = Math.sqrt(
-    Math.pow(circleRadius, 2) - Math.pow(badge.width / 2, 2),
+    Math.max(0, Math.pow(circleRadius, 2) - Math.pow(badge.width / 2, 2)),
   );
 
   const trigAngle = ((angle - 90) * Math.PI) / 180;

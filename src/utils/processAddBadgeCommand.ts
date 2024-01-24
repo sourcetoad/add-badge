@@ -8,6 +8,7 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from './addBadgeOverlay';
 import initializeImageMagick from './initializeImageMagick';
+import parseManualPosition from './parseManualPosition';
 import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
 export interface WriteBadgeArguments extends CommonArguments {
@@ -24,11 +25,11 @@ export default async function processAddBadgeCommand({
   gravity,
   inputImage,
   outputImage,
+  position,
   shadowColor,
   textColor,
 }: WriteBadgeArguments) {
   if (!inputImage || !badgeText || !outputImage) {
-    console.log(inputImage, badgeText, outputImage);
     throw new Error('Missing parameter');
   }
 
@@ -42,7 +43,9 @@ export default async function processAddBadgeCommand({
     return 1;
   }
 
-  console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputImage}`);
+  console.info(
+    `${dryRun ? 'Would process' : 'Processing'} "${inputImage}" to "${outputImage}".`,
+  );
 
   if (!dryRun) {
     await initializeImageMagick();
@@ -66,6 +69,7 @@ export default async function processAddBadgeCommand({
         text: badgeText.replace(/\\n/g, '\n'),
       },
       getBadgeGravityFromString(gravity),
+      parseManualPosition(position),
     );
   }
 

@@ -7,6 +7,7 @@ export default {
   gravity: BadgeGravity.Southeast,
   paddingX: 6,
   paddingY: 6,
+  position: undefined,
   shadowColor: 'rgba(0,0,0,0.6)',
   shadowSize: 4,
   textColor: '#666666',

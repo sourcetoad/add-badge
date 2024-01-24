@@ -8,6 +8,7 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import CommonArguments from '../types/CommonArguments';
 import addBadgeOverlay from './addBadgeOverlay';
 import initializeImageMagick from './initializeImageMagick';
+import parseManualPosition from './parseManualPosition';
 import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
 export interface WriteBadgesArguments extends CommonArguments {
@@ -22,6 +23,7 @@ export default async function processAddBadgesCommand({
   fontSize,
   gravity,
   inputGlob,
+  position,
   shadowColor,
   textColor,
 }: WriteBadgesArguments) {
@@ -42,7 +44,9 @@ export default async function processAddBadgesCommand({
   }
 
   for (const inputFile of inputFiles) {
-    console.info(`${dryRun ? 'Would process' : 'Processing'} ${inputFile}`);
+    console.info(
+      `${dryRun ? 'Would process' : 'Processing'} "${inputFile}" in place.`,
+    );
 
     if (!dryRun) {
       addBadgeOverlay(
@@ -62,6 +66,7 @@ export default async function processAddBadgesCommand({
           text: badgeText.replace(/\\n/g, '\n'),
         },
         getBadgeGravityFromString(gravity),
+        parseManualPosition(position),
       );
     }
   }
