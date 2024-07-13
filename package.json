@@ -17,12 +17,14 @@
   ],
   "scripts": {
     "build": "node ./build.js",
-    "check-code": "npm run test && npm run lint && npm run check-types",
+    "check-code": "npm run test && npm run lint && npm run prettier && npm run check-types",
     "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
     "generate-samples": "npm run build && node ./bin/generate-samples.js",
     "lint": "eslint .",
     "prepare": "npm run build",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "test": "vitest run"
   },
   "engines": {
@@ -40,10 +42,8 @@
     "@typescript-eslint/parser": "^6.21.0",
     "esbuild": "0.23.0",
     "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "prettier": "3.3.2",
+    "prettier": "3.3.3",
     "typescript": "^5.5.3",
     "vitest": "^2.0.2"
   }

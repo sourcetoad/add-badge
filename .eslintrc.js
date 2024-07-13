@@ -3,7 +3,7 @@ module.exports = {
     node: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', 'prettier'],
+  extends: ['eslint:recommended'],
   ignorePatterns: ['bin/'],
   overrides: [
     {
@@ -21,9 +21,8 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json'],
   },
-  plugins: ['prettier', 'simple-import-sort'],
+  plugins: ['simple-import-sort'],
   rules: {
-    'prettier/prettier': ['error'],
     'simple-import-sort/imports': 'error',
     'no-console': ['error', { allow: ['error', 'info', 'warn'] }],
   },
