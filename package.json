@@ -7,20 +7,20 @@
     "url": "https://github.com/sourcetoad/add-badge.git"
   },
   "bin": {
-    "add-badge": "./bin/add-badge.js",
-    "add-badges": "./bin/add-badges.js"
+    "add-badge": "./bin/add-badge.cjs",
+    "add-badges": "./bin/add-badges.cjs"
   },
   "files": [
     "./fonts",
-    "./bin/add-badge.js",
-    "./bin/add-badges.js"
+    "./bin/add-badge.cjs",
+    "./bin/add-badges.cjs"
   ],
   "scripts": {
     "build": "node ./build.js",
     "check-code": "npm run test && npm run lint && npm run prettier && npm run check-types",
-    "check-samples": "node ./samples/check.js",
+    "check-samples": "node samples/check.js",
     "check-types": "tsc --noEmit",
-    "generate-samples": "npm run build && node ./bin/generate-samples.js",
+    "generate-samples": "npm run build && node ./bin/generate-samples.cjs",
     "lint": "eslint .",
     "prepare": "npm run build",
     "prettier": "prettier --check .",
@@ -46,5 +46,6 @@
     "prettier": "3.3.3",
     "typescript": "^5.5.3",
     "vitest": "^2.0.2"
-  }
+  },
+  "type": "module"
 }
