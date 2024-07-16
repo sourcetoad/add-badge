@@ -1,10 +1,13 @@
+import { createRequire } from 'node:module';
+
 import { build } from 'esbuild';
 
-import data from './package.json' assert { type: 'json' };
+const require = createRequire(import.meta.url);
+const { version } = require('./package.json');
 
 const banners = [
   '#!/usr/bin/env node',
-  `process.env.APP_VERSION = ${JSON.stringify(data.version)};`,
+  `process.env.APP_VERSION = ${JSON.stringify(version)};`,
 ];
 
 const config = {
