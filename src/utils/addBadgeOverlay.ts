@@ -60,8 +60,12 @@ export default function addBadgeOverlay(
     // being generated in the CI.
     composite.attributeNames
       .filter((name) => /date:/i.test(name))
-      .forEach((name) => composite.removeAttribute(name));
+      .forEach((name) => {
+        composite.removeAttribute(name);
+      });
 
-    composite.write(image.format, (data) => writeFileSync(outputFile, data));
+    composite.write(image.format, (data) => {
+      writeFileSync(outputFile, data);
+    });
   });
 }

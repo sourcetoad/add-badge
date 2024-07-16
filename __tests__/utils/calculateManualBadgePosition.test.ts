@@ -211,11 +211,11 @@ describe('calculateManualBadgePosition', () => {
     expect(result.rotation).toEqual(expected.rotation);
     expect(
       Math.round(result.point.x),
-      `Expected x to be ${expected.point.x} but was ${Math.round(result.point.x)}`,
+      `Expected x to be ${expected.point.x.toString()} but was ${Math.round(result.point.x).toString()}`,
     ).toEqual(expected.point.x);
     expect(
       Math.round(result.point.y),
-      `Expected y to be ${expected.point.y} but was ${Math.round(result.point.y)}`,
+      `Expected y to be ${expected.point.y.toString()} but was ${Math.round(result.point.y).toString()}`,
     ).toEqual(expected.point.y);
   });
 });

@@ -18,10 +18,11 @@
   "scripts": {
     "build": "node ./build.js",
     "check-code": "npm run test && npm run lint && npm run prettier && npm run check-types",
-    "check-samples": "node samples/check.js",
+    "check-samples": "node ./samples/check.js",
     "check-types": "tsc --noEmit",
     "generate-samples": "npm run build && node ./bin/generate-samples.cjs",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "prepare": "npm run build",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
@@ -36,15 +37,17 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.14.10",
     "@types/yargs": "^17.0.32",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
     "esbuild": "0.23.0",
     "eslint": "^8.57.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^15.8.0",
     "prettier": "3.3.3",
     "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0",
     "vitest": "^2.0.2"
   },
   "type": "module"
