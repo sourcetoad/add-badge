@@ -2,6 +2,8 @@ name: Publish to NPM/GPR
 on:
   release:
     types: [published]
+permissions:
+  id-token: write
 
 jobs:
   publish:
@@ -23,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Publish (NPM)
-        run: npm publish --access public
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -32,6 +34,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Publish (GPR)
-        run: npm publish --access public
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
