@@ -29,7 +29,7 @@
     "test": "vitest run"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@imagemagick/magick-wasm": "^0.0.32",
