@@ -63,7 +63,7 @@ describe('getInsetAtGravity', () => {
     let result: number | undefined = undefined;
 
     ImageMagick.read(readFileSync(`samples/input/${file}`), (image) => {
-      result = getInsetAtGravity(image, gravity as number);
+      result = getInsetAtGravity(image, gravity);
     });
 
     expect(result).toEqual(expected);
