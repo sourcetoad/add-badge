@@ -4,6 +4,7 @@ on:
     types: [published]
 permissions:
   id-token: write
+  packages: write
 
 jobs:
   publish:
