@@ -32,22 +32,22 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@imagemagick/magick-wasm": "^0.0.34",
+    "@imagemagick/magick-wasm": "^0.0.39",
     "fast-glob": "^3.3.3",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
-    "@types/node": "^22.14.0",
-    "@types/yargs": "^17.0.33",
-    "esbuild": "0.25.2",
-    "eslint": "^9.24.0",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^22.19.15",
+    "@types/yargs": "^17.0.35",
+    "esbuild": "0.27.4",
+    "eslint": "^9.39.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "globals": "^16.0.0",
-    "prettier": "3.5.3",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.29.1",
-    "vitest": "^3.1.1"
+    "globals": "^16.5.0",
+    "prettier": "3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^3.2.4"
   },
   "type": "module"
 }
