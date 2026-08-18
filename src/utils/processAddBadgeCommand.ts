@@ -10,23 +10,36 @@ import { getBadgeGravityFromString } from '../types/BadgeGravity';
 import addBadgeOverlay from './addBadgeOverlay';
 import initializeImageMagick from './initializeImageMagick';
 import parseManualPosition from './parseManualPosition';
+import processAddAdaptiveBadgeCommand from './processAddAdaptiveBadgeCommand';
 import setBadgeFont, { BADGE_FONT_NAME } from './setBadgeFont';
 
-export default async function processAddBadgeCommand({
-  backgroundColor,
-  dryRun,
-  fontFile,
-  fontSize,
-  gravity,
-  input,
-  output,
-  position,
-  shadowColor,
-  text,
-  textColor,
-}: AddBadgeArguments) {
+export default async function processAddBadgeCommand(args: AddBadgeArguments) {
+  const {
+    backgroundColor,
+    dryRun,
+    fontFile,
+    fontSize,
+    gravity,
+    input,
+    mode,
+    output,
+    position,
+    shadowColor,
+    text,
+    textColor,
+  } = args;
+
   if (!input || !text) {
     throw new Error('Missing parameter');
+  }
+
+  if (mode === 'android-adaptive') {
+    if (output !== undefined) {
+      console.error('Option --output is not supported in android-adaptive mode');
+      return 1;
+    }
+
+    return processAddAdaptiveBadgeCommand(args);
   }
 
   // A literal path is used as-is so paths that are not valid globs (such as

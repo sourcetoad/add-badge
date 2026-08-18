@@ -34,12 +34,14 @@
     "yargs": "^18.1.0"
   },
   "devDependencies": {
+    "@resvg/resvg-wasm": "^2.6.2",
     "@types/node": "^22.19.15",
     "@types/yargs": "^17.0.35",
     "esbuild": "^0.28.2",
     "oxfmt": "^0.63.0",
     "oxlint": "^1.78.0",
     "typescript": "^7.0.2",
+    "vector-drawable-svg": "^1.1.4",
     "vitest": "^4.1.10"
   },
   "engines": {
