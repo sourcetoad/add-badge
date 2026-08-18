@@ -32,6 +32,16 @@
 | :--------------------------------------------------------- |
 | ![](./samples/output/ic_launcher_round-xxxhdpi-larger.png) |
 
+### Android Adaptive
+
+`--mode=android-adaptive` badges an adaptive icon by layering a badge overlay
+above the original foreground drawable. Preview rendered with a circular
+launcher mask:
+
+| `--mode=android-adaptive`                          |
+| :------------------------------------------------- |
+| ![](./samples/output/android-adaptive-preview.png) |
+
 ### Size
 
 | Adaptive                                          | MDPI                                       | MDPI Round                                       |

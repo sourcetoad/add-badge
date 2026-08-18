@@ -88,8 +88,24 @@ Required
 
 The badge target mode.
 
-Type: `raster`  
+Type: `raster | android-adaptive`  
 Default: `raster`
+
+In `android-adaptive` mode, `--input` is an Android `res` directory
+containing `mipmap-anydpi-v26/ic_launcher.xml`. Instead of modifying images,
+the badge is written as per-density overlay drawables
+(`drawable-*/ic_badge_overlay.png`) layered above the original foreground via
+a generated `drawable/ic_launcher_foreground_badged.xml`, and the launcher
+icons are re-pointed at it. The original foreground drawable is never
+modified, so re-running replaces the badge instead of stacking it. The badge
+is positioned within the adaptive icon safe zone.
+
+```shell
+npx add-badge --input ./android/app/src/main/res --mode android-adaptive --text "ALPHA"
+```
+
+Note: the `<monochrome>` layer (Android 13+ themed icons) is left untouched,
+so themed home-screen icons show the icon without a badge.
 
 ### Config `--config`
 
