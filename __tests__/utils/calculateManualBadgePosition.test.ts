@@ -201,12 +201,7 @@ describe('calculateManualBadgePosition', () => {
       },
     ],
   ])('works for %s', (_, { position, gravity, expected }) => {
-    const result = calculateManualBadgePosition(
-      container,
-      badge,
-      position,
-      gravity,
-    );
+    const result = calculateManualBadgePosition(container, badge, position, gravity);
 
     expect(result.rotation).toEqual(expected.rotation);
     expect(

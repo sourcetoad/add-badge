@@ -10,10 +10,7 @@ interface BadgeOptions {
   shadowSize: number;
 }
 
-export function scaleBadgeOptions(
-  options: BadgeOptions,
-  scale: number,
-): BadgeOptions {
+export function scaleBadgeOptions(options: BadgeOptions, scale: number): BadgeOptions {
   return {
     ...options,
     paddingX: roundToEven(options.paddingX * scale),

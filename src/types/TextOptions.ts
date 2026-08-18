@@ -9,10 +9,7 @@ interface TextOptions {
   text: string;
 }
 
-export function scaleTextOptions(
-  options: TextOptions,
-  scale: number,
-): TextOptions {
+export function scaleTextOptions(options: TextOptions, scale: number): TextOptions {
   return {
     ...options,
     fontPointSize: roundToEven(options.fontPointSize * scale),

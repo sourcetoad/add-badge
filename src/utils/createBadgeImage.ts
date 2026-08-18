@@ -14,12 +14,8 @@ export default function createBadgeImage(
 ): IMagickImage {
   const textBox = getTextBoundingBox(textOptions, maxWidth, maxHeight);
 
-  const badgeWidth = roundToEven(
-    textBox.width + Math.max(1, badgeOptions.paddingX) * 2,
-  );
-  const badgeHeight = roundToEven(
-    textBox.height + Math.max(1, badgeOptions.paddingY) * 2,
-  );
+  const badgeWidth = roundToEven(textBox.width + Math.max(1, badgeOptions.paddingX) * 2);
+  const badgeHeight = roundToEven(textBox.height + Math.max(1, badgeOptions.paddingY) * 2);
 
   const badge = MagickImage.create();
   badge.read(badgeOptions.backgroundColor, badgeWidth, badgeHeight);

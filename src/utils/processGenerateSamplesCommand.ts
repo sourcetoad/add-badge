@@ -4,9 +4,7 @@ import { basename, join, resolve } from 'node:path';
 import defaultOptions from '../defaultOptions';
 import BadgeGravity from '../types/BadgeGravity';
 import initializeImageMagick from './initializeImageMagick';
-import processAddBadgeCommand, {
-  WriteBadgeArguments,
-} from './processAddBadgeCommand';
+import processAddBadgeCommand, { WriteBadgeArguments } from './processAddBadgeCommand';
 import setBadgeFont from './setBadgeFont';
 
 export default async function processGenerateSamplesCommand(): Promise<number> {
@@ -17,19 +15,16 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
   const inputRoot = resolve(__dirname, '../samples/input');
   const outputRoot = resolve(__dirname, '../samples/output');
 
-  const files = readdirSync(inputRoot).filter((file) =>
-    lstatSync(join(inputRoot, file)).isFile(),
-  );
+  const files = readdirSync(inputRoot).filter((file) => lstatSync(join(inputRoot, file)).isFile());
 
-  const defaultInputs: Omit<WriteBadgeArguments, 'inputImage' | 'outputImage'> =
-    {
-      backgroundColor: defaultOptions.backgroundColor,
-      badgeText: 'ALPHA',
-      fontSize: defaultOptions.fontSize,
-      gravity: defaultOptions.gravity,
-      shadowColor: defaultOptions.shadowColor,
-      textColor: defaultOptions.textColor,
-    };
+  const defaultInputs: Omit<WriteBadgeArguments, 'inputImage' | 'outputImage'> = {
+    backgroundColor: defaultOptions.backgroundColor,
+    badgeText: 'ALPHA',
+    fontSize: defaultOptions.fontSize,
+    gravity: defaultOptions.gravity,
+    shadowColor: defaultOptions.shadowColor,
+    textColor: defaultOptions.textColor,
+  };
 
   for (const file of files) {
     await processAddBadgeCommand({
@@ -123,10 +118,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
         ...sampleCase,
         outputImage: join(
           outputRoot,
-          basename(sampleCase.inputImage).replace(
-            /\.([a-z]+)$/u,
-            `-${sampleCase.outputImage}.$1`,
-          ),
+          basename(sampleCase.inputImage).replace(/\.([a-z]+)$/u, `-${sampleCase.outputImage}.$1`),
         ),
       }),
     ),

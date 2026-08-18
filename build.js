@@ -5,10 +5,7 @@ import { build } from 'esbuild';
 const require = createRequire(import.meta.url);
 const { version } = require('./package.json');
 
-const banners = [
-  '#!/usr/bin/env node',
-  `process.env.APP_VERSION = ${JSON.stringify(version)};`,
-];
+const banners = ['#!/usr/bin/env node', `process.env.APP_VERSION = ${JSON.stringify(version)};`];
 
 const config = {
   bundle: true,

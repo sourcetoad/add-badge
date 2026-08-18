@@ -14,10 +14,7 @@ export default function parseManualPosition(
     y: y ? parseInt(y.trim(), 10) : undefined,
   };
 
-  if (
-    isNaN(manualPosition.x) ||
-    (manualPosition.y !== undefined && isNaN(manualPosition.y))
-  ) {
+  if (isNaN(manualPosition.x) || (manualPosition.y !== undefined && isNaN(manualPosition.y))) {
     throw new Error(`Invalid position "${position}"`);
   }
 

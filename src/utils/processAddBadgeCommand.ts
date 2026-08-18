@@ -43,9 +43,7 @@ export default async function processAddBadgeCommand({
     return 1;
   }
 
-  console.info(
-    `${dryRun ? 'Would process' : 'Processing'} "${inputImage}" to "${outputImage}".`,
-  );
+  console.info(`${dryRun ? 'Would process' : 'Processing'} "${inputImage}" to "${outputImage}".`);
 
   if (!dryRun) {
     await initializeImageMagick();
