@@ -19,7 +19,7 @@
   "scripts": {
     "build": "node ./build.js",
     "check-code": "npm run test && npm run lint && npm run fmt:check && npm run check-types",
-    "check-samples": "node ./samples/check.js",
+    "check-samples": "node --experimental-strip-types ./samples/check.ts",
     "check-types": "tsc --noEmit",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
