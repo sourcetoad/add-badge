@@ -9,7 +9,5 @@ global.__filename = fileURLToPath(import.meta.url);
 global.__dirname = dirname(__filename);
 global.require = createRequire(import.meta.url);
 
-const wasmBytes = readFileSync(
-  require.resolve('@imagemagick/magick-wasm/magick.wasm'),
-);
+const wasmBytes = readFileSync(require.resolve('@imagemagick/magick-wasm/magick.wasm'));
 await initializeImageMagick(wasmBytes);

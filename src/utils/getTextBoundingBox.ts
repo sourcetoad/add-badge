@@ -38,10 +38,7 @@ export default function getTextBoundingBox(
 
   while (currentOffset < 256) {
     image.read(MagickColors.Transparent, maxWidth, maxHeight);
-    image.draw([
-      ...drawables,
-      new DrawableText(1, currentOffset, options.text),
-    ]);
+    image.draw([...drawables, new DrawableText(1, currentOffset, options.text)]);
     image.trim();
 
     if (lastFoundHeight === image.height) {

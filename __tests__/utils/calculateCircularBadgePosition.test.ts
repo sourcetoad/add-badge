@@ -52,12 +52,7 @@ describe('calculateManualBadgePosition', () => {
       },
     ],
   ])('works for %s', (_, { gravity, expected }) => {
-    const result = calculateCircularBadgePosition(
-      container,
-      badge,
-      circleRadius,
-      gravity,
-    );
+    const result = calculateCircularBadgePosition(container, badge, circleRadius, gravity);
 
     expect(result.rotation).toEqual(expected.rotation);
     expect(

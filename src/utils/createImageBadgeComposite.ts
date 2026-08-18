@@ -36,12 +36,7 @@ export default function createImageBadgeComposite(
     badge.rotate(rotation);
   }
 
-  composite.compositeGravity(
-    badge,
-    Gravity.Northwest,
-    CompositeOperator.Over,
-    point,
-  );
+  composite.compositeGravity(badge, Gravity.Northwest, CompositeOperator.Over, point);
 
   return composite;
 }
