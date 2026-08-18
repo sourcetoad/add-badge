@@ -124,7 +124,7 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
         outputImage: join(
           outputRoot,
           basename(sampleCase.inputImage).replace(
-            /\.([a-z]+)$/,
+            /\.([a-z]+)$/u,
             `-${sampleCase.outputImage}.$1`,
           ),
         ),

@@ -68,9 +68,7 @@ void yargs(hideBin(process.argv))
         process.exit(exitCode);
       } catch (error) {
         console.error(
-          `Caught error: ${
-            error instanceof Error ? error.message : (error as string)
-          }`,
+          `Caught error: ${error instanceof Error ? error.message : (error as string)}`,
         );
         process.exit(1);
       }

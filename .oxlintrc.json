@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript"],
+  "env": {
+    "builtin": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": ["bin"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error"
+  },
+  "rules": {
+    /* pedantic opt-outs */
+    "max-lines-per-function": "off",
+    "no-shadow": ["error", { "allow": ["yargs"] }],
+    "no-underscore-dangle": ["error", { "allow": ["__filename", "__dirname"] }],
+
+    /* restriction */
+    "no-console": ["error", { "allow": ["error", "info", "warn"] }],
+    "typescript/no-empty-object-type": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-namespace": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-require-imports": "error",
+
+    /* style */
+    "no-var": "error",
+    "prefer-const": "warn",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error"
+  }
+}

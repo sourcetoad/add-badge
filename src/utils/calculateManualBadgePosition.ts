@@ -76,9 +76,9 @@ export default function calculateManualBadgePosition(
 
   return {
     point:
-      position.y !== undefined
-        ? getPointAtPosition(container, rotatedBadge, position.x, position.y)
-        : getPointOnGravityAxis(container, rotatedBadge, position.x, gravity),
+      position.y === undefined
+        ? getPointOnGravityAxis(container, rotatedBadge, position.x, gravity)
+        : getPointAtPosition(container, rotatedBadge, position.x, position.y),
     rotation,
   };
 }

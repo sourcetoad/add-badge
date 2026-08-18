@@ -59,7 +59,7 @@ export default function addBadgeOverlay(
     // the same input every time. This lets us test things like the samples
     // being generated in the CI.
     composite.attributeNames
-      .filter((name) => /date:/i.test(name))
+      .filter((name) => /date:/iu.test(name))
       .forEach((name) => {
         composite.removeAttribute(name);
       });
