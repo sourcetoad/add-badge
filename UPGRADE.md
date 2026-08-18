@@ -4,7 +4,7 @@
 
 ### Upgrading from 1.x to 2.0
 
-- Minimum Node version increased from `v20` to `v22`.
+- Minimum Node version increased from `v20` to `v22.13`.
 
 ## v1
 

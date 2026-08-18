@@ -30,9 +30,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@imagemagick/magick-wasm": "^0.0.39",
+    "@imagemagick/magick-wasm": "^0.0.42",
     "fast-glob": "^3.3.3",
-    "yargs": "^17.7.2"
+    "yargs": "^18.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.19.15",
@@ -44,6 +44,6 @@
     "vitest": "^4.1.0"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.13.0"
   }
 }
