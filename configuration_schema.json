@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "add-badge configuration",
+  "description": "Configuration file for @sourcetoad/add-badge. Command line options override these values.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "input": {
+      "type": "string",
+      "description": "Input image file or glob (glob matches are modified in place)"
+    },
+    "output": {
+      "type": "string",
+      "description": "Output image file (requires the input to match a single file)"
+    },
+    "text": {
+      "type": "string",
+      "description": "Badge text"
+    },
+    "mode": {
+      "enum": ["raster"],
+      "description": "Badge target mode"
+    },
+    "fontFile": {
+      "type": "string",
+      "description": "Text font file"
+    },
+    "fontSize": {
+      "type": "number",
+      "description": "Text size"
+    },
+    "textColor": {
+      "type": "string",
+      "description": "Text color"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "description": "Badge background color"
+    },
+    "shadowColor": {
+      "type": "string",
+      "description": "Badge shadow color"
+    },
+    "gravity": {
+      "enum": ["northwest", "north", "northeast", "southwest", "south", "southeast"],
+      "description": "Badge gravity"
+    },
+    "position": {
+      "type": "string",
+      "description": "Badge position (percent along gravity axis, or x,y as percent)"
+    },
+    "dryRun": {
+      "type": "boolean",
+      "description": "Does not perform actions"
+    }
+  }
+}

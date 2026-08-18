@@ -2,9 +2,10 @@ import { lstatSync, readdirSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 
 import defaultOptions from '../defaultOptions';
+import AddBadgeArguments from '../types/AddBadgeArguments';
 import BadgeGravity from '../types/BadgeGravity';
 import initializeImageMagick from './initializeImageMagick';
-import processAddBadgeCommand, { WriteBadgeArguments } from './processAddBadgeCommand';
+import processAddBadgeCommand from './processAddBadgeCommand';
 import setBadgeFont from './setBadgeFont';
 
 export default async function processGenerateSamplesCommand(): Promise<number> {
@@ -17,9 +18,9 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
 
   const files = readdirSync(inputRoot).filter((file) => lstatSync(join(inputRoot, file)).isFile());
 
-  const defaultInputs: Omit<WriteBadgeArguments, 'inputImage' | 'outputImage'> = {
+  const defaultInputs: Omit<AddBadgeArguments, 'input' | 'output'> = {
     backgroundColor: defaultOptions.backgroundColor,
-    badgeText: 'ALPHA',
+    text: 'ALPHA',
     fontSize: defaultOptions.fontSize,
     gravity: defaultOptions.gravity,
     shadowColor: defaultOptions.shadowColor,
@@ -29,8 +30,8 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
   for (const file of files) {
     await processAddBadgeCommand({
       ...defaultInputs,
-      inputImage: join(inputRoot, file),
-      outputImage: join(outputRoot, file),
+      input: join(inputRoot, file),
+      output: join(outputRoot, file),
     });
   }
 
@@ -48,15 +49,15 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
 
     await processAddBadgeCommand({
       ...defaultInputs,
-      inputImage: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
-      outputImage: join(outputRoot, `ic_launcher-xxxhdpi-${gravity}.png`),
+      input: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
+      output: join(outputRoot, `ic_launcher-xxxhdpi-${gravity}.png`),
       gravity: gravity,
     });
 
     await processAddBadgeCommand({
       ...defaultInputs,
-      inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-      outputImage: join(outputRoot, `ic_launcher_round-xxxhdpi-${gravity}.png`),
+      input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+      output: join(outputRoot, `ic_launcher_round-xxxhdpi-${gravity}.png`),
       gravity: gravity,
     });
   }
@@ -64,61 +65,61 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
   await Promise.all(
     [
       {
-        inputImage: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
-        outputImage: 'dark-transparent',
+        input: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
+        output: 'dark-transparent',
         backgroundColor: 'rgba(0,0,0,0.75)',
-        badgeText: 'BETA',
+        text: 'BETA',
         textColor: 'transparent',
       },
       {
-        inputImage: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
-        outputImage: 'shadow',
+        input: join(inputRoot, 'ic_launcher-xxxhdpi.png'),
+        output: 'shadow',
         shadowColor: 'hsl(78,100%,37%)',
         textColor: 'transparent',
       },
       {
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'larger',
-        badgeText: 'UAT',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'larger',
+        text: 'UAT',
         fontSize: 50,
       },
       {
         gravity: BadgeGravity.Northeast,
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'position-northeast-0',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'position-northeast-0',
         position: '0',
       },
       {
         gravity: BadgeGravity.Northeast,
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'position-northeast-50',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'position-northeast-50',
         position: '50',
       },
       {
         gravity: BadgeGravity.Northeast,
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'position-northeast-100',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'position-northeast-100',
         position: '100',
       },
       {
         gravity: BadgeGravity.North,
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'position-north-10',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'position-north-10',
         position: '10',
       },
       {
         gravity: BadgeGravity.North,
-        inputImage: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
-        outputImage: 'position-north-10x50',
+        input: join(inputRoot, 'ic_launcher_round-xxxhdpi.png'),
+        output: 'position-north-10x50',
         position: '10,50',
       },
     ].map((sampleCase) =>
       processAddBadgeCommand({
         ...defaultInputs,
         ...sampleCase,
-        outputImage: join(
+        output: join(
           outputRoot,
-          basename(sampleCase.inputImage).replace(/\.([a-z]+)$/u, `-${sampleCase.outputImage}.$1`),
+          basename(sampleCase.input).replace(/\.([a-z]+)$/u, `-${sampleCase.output}.$1`),
         ),
       }),
     ),

@@ -7,13 +7,12 @@
     "url": "https://github.com/sourcetoad/add-badge.git"
   },
   "bin": {
-    "add-badge": "./bin/add-badge.cjs",
-    "add-badges": "./bin/add-badges.cjs"
+    "add-badge": "./bin/add-badge.cjs"
   },
   "files": [
     "./fonts",
     "./bin/add-badge.cjs",
-    "./bin/add-badges.cjs"
+    "./configuration_schema.json"
   ],
   "type": "module",
   "scripts": {

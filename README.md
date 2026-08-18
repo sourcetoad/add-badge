@@ -24,20 +24,79 @@ yarn add --dev @sourcetoad/add-badge
 Add a badge to a single image:
 
 ```shell
-npx add-badge <input-image> <output-image> <badge-text> [options]
+npx add-badge --input <input-image> --output <output-image> --text <badge-text> [options]
 ```
 
 Add a badge to multiple images, modifying them in-place:
 
 ```shell
-npx add-badges <input-glob> <badge-text> [options]
+npx add-badge --input <input-glob> --text <badge-text> [options]
 ```
 
 See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
+## Config File
+
+Any option can be provided through a JSON config file with `--config`. Options
+passed on the command line override values from the config file.
+
+```shell
+npx add-badge --config badge.json --text "$BUILD_LABEL"
+```
+
+```json
+{
+  "$schema": "./node_modules/@sourcetoad/add-badge/configuration_schema.json",
+  "input": "./android/app/src/main/res/mipmap-*/ic_launcher*.png",
+  "backgroundColor": "#cc0000",
+  "textColor": "#ffffff",
+  "gravity": "northwest"
+}
+```
+
+Keys use the camelCase name of the matching option (`fontSize` for
+`--font-size`). The `$schema` reference is optional and enables validation and
+autocompletion in editors that support JSON Schema.
+
 ## Options
 
 See [samples](https://github.com/sourcetoad/add-badge/blob/master/SAMPLES.md) for previews.
+
+### Input `--input`
+
+The input image file, or a glob matching multiple images to modify in-place.
+
+Type: `file | glob`  
+Required
+
+### Output `--output`
+
+The file to write the badged image to instead of modifying the input
+in-place. Requires the input to match a single file.
+
+Type: `file`  
+Default: `undefined` (in-place)
+
+### Text `--text`
+
+The badge text.
+
+Type: `string`  
+Required
+
+### Mode `--mode`
+
+The badge target mode.
+
+Type: `raster`  
+Default: `raster`
+
+### Config `--config`
+
+A JSON config file providing any of these options.
+
+Type: `file`  
+Default: `undefined`
 
 ### Font File `--font-file`
 
