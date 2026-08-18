@@ -63,7 +63,7 @@ export default async function processAddBadgesCommand({
           color: new MagickColor(textColor),
           font: BADGE_FONT_NAME,
           fontPointSize: fontSize,
-          text: badgeText.replace(/\\n/g, '\n'),
+          text: badgeText.replace(/\\n/gu, '\n'),
         },
         getBadgeGravityFromString(gravity),
         parseManualPosition(position),
