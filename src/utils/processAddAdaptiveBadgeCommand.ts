@@ -76,15 +76,23 @@ export default async function processAddAdaptiveBadgeCommand({
     return 1;
   }
 
-  const foregrounds = new Set<string | undefined>();
+  const foregrounds = new Set<string>();
   for (const launcherFile of launcherFiles) {
-    foregrounds.add(getOriginalForeground(input, readFileSync(launcherFile, 'utf-8')));
+    const launcherForeground = getOriginalForeground(input, readFileSync(launcherFile, 'utf-8'));
+    if (launcherForeground === undefined) {
+      console.error(
+        `Unable to determine the foreground drawable in "${launcherFile}", expected <foreground android:drawable="..." /> (inline child drawables are not supported)`,
+      );
+      return 1;
+    }
+
+    foregrounds.add(launcherForeground);
   }
 
   const [foreground] = foregrounds;
   if (foregrounds.size !== 1 || foreground === undefined) {
     console.error(
-      `Unable to determine the foreground drawable, expected each launcher file to reference the same foreground via <foreground android:drawable="..." />`,
+      `Expected each launcher file to reference the same foreground drawable, found: ${[...foregrounds].join(', ')}`,
     );
     return 1;
   }
