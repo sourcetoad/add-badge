@@ -88,6 +88,19 @@ describe('buildAddBadgeCommand', () => {
     expect(argv?.textColor).toBe('#123456');
   });
 
+  it('accepts kebab-case keys in the config file', () => {
+    const config = writeConfig('kebab.json', {
+      'font-size': 50,
+      input: 'icon.png',
+      text: 'ALPHA',
+    });
+
+    const { argv, failure } = parse(['--config', config]);
+
+    expect(failure).toBeUndefined();
+    expect(argv?.fontSize).toBe(50);
+  });
+
   it('ignores the $schema key in the config file', () => {
     const config = writeConfig('schema.json', {
       $schema: 'https://example.com/schema.json',
