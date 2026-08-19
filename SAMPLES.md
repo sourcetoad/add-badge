@@ -38,9 +38,9 @@
 above the original foreground drawable. Preview rendered with a circular
 launcher mask:
 
-| `--mode=android-adaptive`                          |
-| :------------------------------------------------- |
-| ![](./samples/output/android-adaptive-preview.png) |
+| `--mode=android-adaptive`                          | `--mode=android-adaptive` <br/> `--position=50` <br/> `--gravity=northeast` |
+| :------------------------------------------------- | :-------------------------------------------------------------------------- |
+| ![](./samples/output/android-adaptive-preview.png) | ![](./samples/output/android-adaptive-preview-position.png)                 |
 
 ### Size
 

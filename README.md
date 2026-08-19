@@ -98,7 +98,9 @@ the badge is written as per-density overlay drawables
 a generated `drawable/ic_launcher_foreground_badged.xml`, and the launcher
 icons are re-pointed at it. The original foreground drawable is never
 modified, so re-running replaces the badge instead of stacking it. The badge
-is positioned within the adaptive icon safe zone.
+is sized and positioned relative to the visible area of the adaptive icon
+(the centered 72dp region of the 108dp canvas); `--position` percentages also
+map to the visible area.
 
 ```shell
 npx add-badge --input ./android/app/src/main/res --mode android-adaptive --text "ALPHA"
