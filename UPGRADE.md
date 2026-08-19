@@ -9,7 +9,7 @@
 > deprecation warning showing the equivalent `2.0` command for your
 > options.
 
-- Minimum Node version increased from `v20` to `v22.12`.
+- Minimum Node version increased from `v20` to `v22.13`.
 - The `add-badges` command was removed; `add-badge` now handles globs.
 - Positional arguments were replaced with named options:
 
