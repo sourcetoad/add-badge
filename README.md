@@ -58,6 +58,10 @@ Keys use the camelCase name of the matching option (`fontSize` for
 `--font-size`). The `$schema` reference is optional and enables validation and
 autocompletion in editors that support JSON Schema.
 
+Paths in the config file (`input`, `output`, `fontFile`) are resolved
+relative to the config file's directory. Paths passed on the command line are
+relative to the working directory.
+
 ## Options
 
 See [samples](https://github.com/sourcetoad/add-badge/blob/master/SAMPLES.md) for previews.
