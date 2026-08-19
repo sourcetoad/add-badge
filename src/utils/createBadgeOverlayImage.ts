@@ -8,13 +8,15 @@ import addShadow from './addShadow';
 import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
 
-// An adaptive icon foreground is a 108dp canvas of which only a centered
-// 66dp circle is guaranteed to be visible under every launcher mask.
-const SAFE_ZONE_RATIO = 66 / 108;
+// A launcher scales the 108dp adaptive icon canvas so the centered 72dp area
+// fills the icon slot before masking. The circle mask is the tightest of the
+// standard masks, so a badge tangent to the inscribed circle of this area
+// stays visible on every common launcher.
+export const ADAPTIVE_VISIBLE_RATIO = 72 / 108;
 
 /**
- * Renders the badge onto a transparent square canvas, positioned within the
- * adaptive icon safe zone.
+ * Renders the badge onto a transparent square canvas, sized and positioned
+ * relative to the visible area of the adaptive icon.
  */
 export default function createBadgeOverlayImage(
   size: number,
@@ -23,21 +25,16 @@ export default function createBadgeOverlayImage(
   badgeGravity: BadgeGravity,
   position: ManualPosition | undefined,
 ): IMagickImage {
-  const safeZoneWidth = size * SAFE_ZONE_RATIO;
+  const visibleWidth = size * ADAPTIVE_VISIBLE_RATIO;
 
   // The default sizes are based on usage in 192px icons, anything above or
   // below that will be scaled relative to it.
-  const badgeScale = safeZoneWidth / 192;
+  const badgeScale = visibleWidth / 192;
 
   const scaledBadgeOptions = scaleBadgeOptions(badgeOptions, badgeScale);
   const scaledTextOptions = scaleTextOptions(textOptions, badgeScale);
 
-  const badge = createBadgeImage(
-    scaledBadgeOptions,
-    scaledTextOptions,
-    safeZoneWidth,
-    safeZoneWidth,
-  );
+  const badge = createBadgeImage(scaledBadgeOptions, scaledTextOptions, visibleWidth, visibleWidth);
   const badgeWithShadow = addShadow(
     badge,
     scaledBadgeOptions.shadowColor,
@@ -48,5 +45,12 @@ export default function createBadgeOverlayImage(
   const canvas = MagickImage.create();
   canvas.read(MagickColors.Transparent, size, size);
 
-  return createImageBadgeComposite(canvas, badgeWithShadow, badgeGravity, safeZoneWidth, position);
+  return createImageBadgeComposite(
+    canvas,
+    badgeWithShadow,
+    badgeGravity,
+    visibleWidth,
+    position,
+    (size - visibleWidth) / 2,
+  );
 }

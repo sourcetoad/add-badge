@@ -13,12 +13,9 @@ import {
   getForegroundDrawable,
   getLayerItemDrawables,
 } from './adaptiveIconXml';
+import { ADAPTIVE_VISIBLE_RATIO } from './createBadgeOverlayImage';
 import { BADGED_FOREGROUND_NAME, OVERLAY_DRAWABLE_NAME } from './processAddAdaptiveBadgeCommand';
 import rasterizeVectorDrawable, { rasterizeSvg } from './rasterizeVectorDrawable';
-
-// A launcher scales the 108dp adaptive icon canvas so the centered 72dp area
-// fills the icon slot, then applies its mask (previewed here as a circle).
-const VISIBLE_RATIO = 72 / 108;
 
 function resolveDrawableXmlFile(resDirectory: string, reference: string | undefined): string {
   if (!reference?.startsWith('@drawable/')) {
@@ -65,7 +62,7 @@ export default async function createAdaptivePreviewImage(
     );
   }
 
-  const visibleSize = Math.round(size * VISIBLE_RATIO);
+  const visibleSize = Math.round(size * ADAPTIVE_VISIBLE_RATIO);
   const visibleOffset = Math.round((size - visibleSize) / 2);
 
   const mask = await rasterizeSvg(

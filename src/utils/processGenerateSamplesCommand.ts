@@ -140,5 +140,21 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
     await createAdaptivePreviewImage(adaptiveOutput, 432),
   );
 
+  const adaptivePositionOutput = join(outputRoot, 'android-res-position');
+  cpSync(join(inputRoot, 'android-res'), adaptivePositionOutput, { recursive: true });
+
+  await processAddBadgeCommand({
+    ...defaultInputs,
+    gravity: BadgeGravity.Northeast,
+    input: adaptivePositionOutput,
+    mode: 'android-adaptive',
+    position: '50',
+  });
+
+  writeFileSync(
+    join(outputRoot, 'android-adaptive-preview-position.png'),
+    await createAdaptivePreviewImage(adaptivePositionOutput, 432),
+  );
+
   return 0;
 }
