@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
+import { dirname, resolve, sep } from 'node:path';
 
 import yargs from 'yargs';
 
 import defaultOptions from '../defaultOptions';
 import AddBadgeArguments from '../types/AddBadgeArguments';
 import BadgeGravity from '../types/BadgeGravity';
+
+const PATH_OPTIONS = ['font-file', 'fontFile', 'input', 'output'];
 
 export function parseConfigFile(configPath: string): Record<string, unknown> {
   const parsed: unknown = JSON.parse(readFileSync(configPath, 'utf-8'));
@@ -16,6 +19,20 @@ export function parseConfigFile(configPath: string): Record<string, unknown> {
   // The $schema key is only there for editor validation, not an option.
   const { $schema, ...options } = parsed as Record<string, unknown>;
   void $schema;
+
+  // Paths from the config file resolve relative to the config file, while
+  // paths from the command line stay relative to the working directory.
+  const configDirectory = dirname(resolve(configPath));
+  for (const key of PATH_OPTIONS) {
+    const value = options[key];
+    if (typeof value === 'string') {
+      const resolved = resolve(configDirectory, value);
+
+      // fast-glob patterns require forward slashes, which Windows also
+      // accepts for regular paths.
+      options[key] = sep === '\\' ? resolved.replaceAll('\\', '/') : resolved;
+    }
+  }
 
   return options;
 }
