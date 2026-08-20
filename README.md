@@ -35,6 +35,10 @@ npx add-badge --input <input-glob> --text <badge-text> [options]
 
 See [fast-glob](https://github.com/mrmlnc/fast-glob) for glob details.
 
+For badging a whole app (which Android launcher icons need a badge, the iOS
+icon set, and how this is wired into CI), see
+[recipes](https://github.com/sourcetoad/add-badge/blob/master/RECIPES.md).
+
 ## Config File
 
 Any option can be provided through a JSON config file with `--config`. Options
