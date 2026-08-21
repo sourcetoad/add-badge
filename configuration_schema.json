@@ -10,7 +10,7 @@
     },
     "input": {
       "type": "string",
-      "description": "Input image file or glob (glob matches are modified in place)"
+      "description": "Input image file or glob (glob matches are modified in place), or an Android res directory in android-adaptive mode"
     },
     "output": {
       "type": "string",
@@ -21,7 +21,7 @@
       "description": "Badge text"
     },
     "mode": {
-      "enum": ["raster"],
+      "enum": ["raster", "android-adaptive"],
       "description": "Badge target mode"
     },
     "fontFile": {

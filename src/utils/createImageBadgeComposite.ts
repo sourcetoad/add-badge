@@ -4,6 +4,7 @@ import {
   IMagickImage,
   MagickColors,
   MagickImage,
+  Point,
 } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
@@ -17,6 +18,7 @@ export default function createImageBadgeComposite(
   gravity: BadgeGravity,
   insetWidth: number,
   position: ManualPosition | undefined,
+  manualPositionInset = 0,
 ): IMagickImage {
   const composite = MagickImage.create();
   composite.read(MagickColors.Transparent, image.width, image.height);
@@ -27,16 +29,33 @@ export default function createImageBadgeComposite(
 
   const radius = insetWidth / 2;
 
+  // Manual positions map onto the container inset by manualPositionInset on
+  // every side, so percentages cover only the visible area of the image.
   const { rotation, point } =
     position === undefined
       ? calculateCircularBadgePosition(composite, badge, radius, gravity)
-      : calculateManualBadgePosition(composite, badge, position, gravity);
+      : calculateManualBadgePosition(
+          {
+            height: composite.height - manualPositionInset * 2,
+            width: composite.width - manualPositionInset * 2,
+          },
+          badge,
+          position,
+          gravity,
+        );
 
   if (rotation) {
     badge.rotate(rotation);
   }
 
-  composite.compositeGravity(badge, Gravity.Northwest, CompositeOperator.Over, point);
+  composite.compositeGravity(
+    badge,
+    Gravity.Northwest,
+    CompositeOperator.Over,
+    position === undefined || !manualPositionInset
+      ? point
+      : new Point(point.x + manualPositionInset, point.y + manualPositionInset),
+  );
 
   return composite;
 }

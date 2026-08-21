@@ -1,9 +1,10 @@
-import { lstatSync, readdirSync } from 'node:fs';
+import { cpSync, lstatSync, readdirSync, writeFileSync } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 
 import defaultOptions from '../defaultOptions';
 import AddBadgeArguments from '../types/AddBadgeArguments';
 import BadgeGravity from '../types/BadgeGravity';
+import createAdaptivePreviewImage from './createAdaptivePreviewImage';
 import initializeImageMagick from './initializeImageMagick';
 import processAddBadgeCommand from './processAddBadgeCommand';
 import setBadgeFont from './setBadgeFont';
@@ -123,6 +124,36 @@ export default async function processGenerateSamplesCommand(): Promise<number> {
         ),
       }),
     ),
+  );
+
+  const adaptiveOutput = join(outputRoot, 'android-res');
+  cpSync(join(inputRoot, 'android-res'), adaptiveOutput, { recursive: true });
+
+  await processAddBadgeCommand({
+    ...defaultInputs,
+    input: adaptiveOutput,
+    mode: 'android-adaptive',
+  });
+
+  writeFileSync(
+    join(outputRoot, 'android-adaptive-preview.png'),
+    await createAdaptivePreviewImage(adaptiveOutput, 432),
+  );
+
+  const adaptivePositionOutput = join(outputRoot, 'android-res-position');
+  cpSync(join(inputRoot, 'android-res'), adaptivePositionOutput, { recursive: true });
+
+  await processAddBadgeCommand({
+    ...defaultInputs,
+    gravity: BadgeGravity.Northeast,
+    input: adaptivePositionOutput,
+    mode: 'android-adaptive',
+    position: '50',
+  });
+
+  writeFileSync(
+    join(outputRoot, 'android-adaptive-preview-position.png'),
+    await createAdaptivePreviewImage(adaptivePositionOutput, 432),
   );
 
   return 0;

@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
-import { readdirSync, unlinkSync } from 'node:fs';
+import { readdirSync, rmSync } from 'node:fs';
 
 console.info('Removing samples...');
-readdirSync('samples/output').forEach((file) => unlinkSync(`samples/output/${file}`));
+readdirSync('samples/output').forEach((file) =>
+  rmSync(`samples/output/${file}`, { force: true, recursive: true }),
+);
 
 console.info('Generating samples...');
 console.info(execSync(`npm run generate-samples`, { encoding: 'utf-8' }));

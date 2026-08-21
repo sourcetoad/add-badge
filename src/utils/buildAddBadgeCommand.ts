@@ -38,7 +38,8 @@ export default function buildAddBadgeCommand(
           })
           .option('input', {
             demandOption: true,
-            description: 'Input image file or glob (glob matches are modified in place)',
+            description:
+              'Input image file or glob (glob matches are modified in place), or an Android res directory in android-adaptive mode',
             type: 'string',
           })
           .option('output', {
@@ -51,7 +52,7 @@ export default function buildAddBadgeCommand(
             type: 'string',
           })
           .option('mode', {
-            choices: ['raster'],
+            choices: ['raster', 'android-adaptive'],
             default: 'raster',
             description: 'Badge target mode',
             type: 'string',
