@@ -1,6 +1,6 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -85,7 +85,9 @@ describe('processAddBadgeCommand', () => {
       JSON.stringify({
         $schema: './node_modules/@sourcetoad/add-badge/configuration_schema.json',
         dryRun: true,
-        input: 'samples/input/android-res',
+        // Config paths resolve relative to the config file, so point back at
+        // the repository fixture explicitly.
+        input: resolve('samples/input/android-res'),
         mode: 'android-adaptive',
       }),
     );
@@ -108,7 +110,7 @@ describe('processAddBadgeCommand', () => {
 
     expect(result).toBe(0);
     expect(infoSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Would process "samples/input/android-res"'),
+      expect.stringContaining(`Would process "${resolve('samples/input/android-res')}"`),
     );
   });
 });

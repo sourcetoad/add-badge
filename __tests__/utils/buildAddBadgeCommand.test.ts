@@ -69,9 +69,37 @@ describe('buildAddBadgeCommand', () => {
     const { argv, failure } = parse(['--config', config]);
 
     expect(failure).toBeUndefined();
-    expect(argv?.input).toBe('icon.png');
+    expect(argv?.input).toBe(join(fixtureRoot, 'icon.png'));
     expect(argv?.text).toBe('ALPHA');
     expect(argv?.gravity).toBe('north');
+  });
+
+  it('resolves config file paths relative to the config file', () => {
+    const config = writeConfig('paths.json', {
+      fontFile: './fonts/custom.ttf',
+      input: 'icons/**/*.png',
+      output: 'out.png',
+      text: 'ALPHA',
+    });
+
+    const { argv, failure } = parse(['--config', config]);
+
+    expect(failure).toBeUndefined();
+    expect(argv?.input).toBe(join(fixtureRoot, 'icons/**/*.png'));
+    expect(argv?.output).toBe(join(fixtureRoot, 'out.png'));
+    expect(argv?.fontFile).toBe(join(fixtureRoot, 'fonts/custom.ttf'));
+  });
+
+  it('leaves command line paths relative to the working directory', () => {
+    const config = writeConfig('cli-paths.json', {
+      input: 'config.png',
+      text: 'ALPHA',
+    });
+
+    const { argv, failure } = parse(['--config', config, '--input', 'cli.png']);
+
+    expect(failure).toBeUndefined();
+    expect(argv?.input).toBe('cli.png');
   });
 
   it('prefers command line options over the config file', () => {
