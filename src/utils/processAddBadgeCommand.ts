@@ -7,7 +7,9 @@ import { sync as globSync } from 'fast-glob';
 import defaultOptions from '../defaultOptions';
 import AddBadgeArguments from '../types/AddBadgeArguments';
 import { getBadgeGravityFromString } from '../types/BadgeGravity';
+import BadgeMarker, { describeBadgeMarker, MARKER_VERSION } from '../types/BadgeMarker';
 import addBadgeOverlay from './addBadgeOverlay';
+import { readBadgeMarker } from './badgeMarker';
 import initializeImageMagick from './initializeImageMagick';
 import parseManualPosition from './parseManualPosition';
 import processAddAdaptiveBadgeCommand from './processAddAdaptiveBadgeCommand';
@@ -62,14 +64,29 @@ export default async function processAddBadgeCommand(args: AddBadgeArguments) {
     return 1;
   }
 
-  if (!dryRun) {
-    await initializeImageMagick();
+  await initializeImageMagick();
 
+  if (!dryRun) {
     setBadgeFont(fontFile ?? resolve(__dirname, defaultOptions.fontFile));
   }
 
+  const marker: BadgeMarker = {
+    gravity,
+    position,
+    text,
+    version: MARKER_VERSION,
+  };
+
   for (const inputFile of inputFiles) {
     const outputFile = output ?? inputFile;
+
+    const existingMarker = readBadgeMarker(inputFile);
+    if (existingMarker) {
+      console.warn(
+        `${dryRun ? 'Would skip' : 'Skipping'} "${inputFile}", already badged with ${describeBadgeMarker(existingMarker)}. Restore the original to badge it again.`,
+      );
+      continue;
+    }
 
     console.info(
       `${dryRun ? 'Would process' : 'Processing'} ${
@@ -96,6 +113,7 @@ export default async function processAddBadgeCommand(args: AddBadgeArguments) {
         },
         getBadgeGravityFromString(gravity),
         parseManualPosition(position),
+        marker,
       );
     }
   }

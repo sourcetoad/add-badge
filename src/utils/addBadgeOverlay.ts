@@ -3,10 +3,12 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { Gravity, ImageMagick } from '@imagemagick/magick-wasm';
 
 import BadgeGravity from '../types/BadgeGravity';
+import BadgeMarker from '../types/BadgeMarker';
 import BadgeOptions, { scaleBadgeOptions } from '../types/BadgeOptions';
 import ManualPosition from '../types/ManualPosition';
 import TextOptions, { scaleTextOptions } from '../types/TextOptions';
 import addShadow from './addShadow';
+import { setBadgeMarker } from './badgeMarker';
 import createBadgeImage from './createBadgeImage';
 import createImageBadgeComposite from './createImageBadgeComposite';
 import getInsetAtGravity from './getInsetAtGravity';
@@ -18,6 +20,7 @@ export default function addBadgeOverlay(
   textOptions: TextOptions,
   badgeGravity: BadgeGravity,
   position: ManualPosition | undefined,
+  marker: BadgeMarker,
 ): void {
   ImageMagick.read(readFileSync(inputFile), (image) => {
     const insetWidth =
@@ -56,6 +59,8 @@ export default function addBadgeOverlay(
       .forEach((name) => {
         composite.removeAttribute(name);
       });
+
+    setBadgeMarker(composite, marker);
 
     composite.write(image.format, (data) => {
       writeFileSync(outputFile, data);

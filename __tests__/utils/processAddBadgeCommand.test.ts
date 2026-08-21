@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -18,9 +18,12 @@ const BASE_ARGUMENTS: AddBadgeArguments = {
   textColor: '#666666',
 };
 
+const FONT_FILE = 'fonts/Roboto-Black.ttf';
+
 let fixtureRoot: string;
 let errorSpy: ReturnType<typeof vi.spyOn>;
 let infoSpy: ReturnType<typeof vi.spyOn>;
+let warnSpy: ReturnType<typeof vi.spyOn>;
 
 beforeAll(() => {
   fixtureRoot = mkdtempSync(join(tmpdir(), 'add-badge-'));
@@ -33,11 +36,13 @@ afterAll(() => {
 beforeEach(() => {
   errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
   infoSpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+  warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 });
 
 afterEach(() => {
   errorSpy.mockRestore();
   infoSpy.mockRestore();
+  warnSpy.mockRestore();
 });
 
 describe('processAddBadgeCommand', () => {
@@ -112,5 +117,50 @@ describe('processAddBadgeCommand', () => {
     expect(infoSpy).toHaveBeenCalledWith(
       expect.stringContaining(`Would process "${resolve('samples/input/android-res')}"`),
     );
+  });
+
+  it.each([
+    ['png', 'samples/input/ic_launcher-mdpi.png'],
+    ['webp', 'samples/input/ic_launcher_foreground.webp'],
+  ])('skips an already badged %s instead of stacking a second badge', async (format, source) => {
+    const inputFile = join(fixtureRoot, `rerun.${format}`);
+    copyFileSync(source, inputFile);
+
+    expect(
+      await processAddBadgeCommand({ ...BASE_ARGUMENTS, fontFile: FONT_FILE, input: inputFile }),
+    ).toBe(0);
+    expect(infoSpy).toHaveBeenCalledWith(expect.stringContaining('Processing'));
+
+    const badged = readFileSync(inputFile);
+    infoSpy.mockClear();
+
+    // A retried CI job runs the same command again, which has to be a no-op.
+    expect(
+      await processAddBadgeCommand({ ...BASE_ARGUMENTS, fontFile: FONT_FILE, input: inputFile }),
+    ).toBe(0);
+    expect(readFileSync(inputFile)).toEqual(badged);
+    expect(infoSpy).not.toHaveBeenCalled();
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('already badged with "ALPHA" (southeast)'),
+    );
+  });
+
+  it('reports a skip in a dry run', async () => {
+    const inputFile = join(fixtureRoot, 'dry-run.png');
+    copyFileSync('samples/input/ic_launcher-mdpi.png', inputFile);
+
+    expect(
+      await processAddBadgeCommand({ ...BASE_ARGUMENTS, fontFile: FONT_FILE, input: inputFile }),
+    ).toBe(0);
+
+    const result = await processAddBadgeCommand({
+      ...BASE_ARGUMENTS,
+      dryRun: true,
+      fontFile: FONT_FILE,
+      input: inputFile,
+    });
+
+    expect(result).toBe(0);
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Would skip'));
   });
 });
