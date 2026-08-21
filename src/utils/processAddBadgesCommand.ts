@@ -44,9 +44,7 @@ export default async function processAddBadgesCommand({
   }
 
   for (const inputFile of inputFiles) {
-    console.info(
-      `${dryRun ? 'Would process' : 'Processing'} "${inputFile}" in place.`,
-    );
+    console.info(`${dryRun ? 'Would process' : 'Processing'} "${inputFile}" in place.`);
 
     if (!dryRun) {
       addBadgeOverlay(
@@ -63,7 +61,7 @@ export default async function processAddBadgesCommand({
           color: new MagickColor(textColor),
           font: BADGE_FONT_NAME,
           fontPointSize: fontSize,
-          text: badgeText.replace(/\\n/g, '\n'),
+          text: badgeText.replace(/\\n/gu, '\n'),
         },
         getBadgeGravityFromString(gravity),
         parseManualPosition(position),

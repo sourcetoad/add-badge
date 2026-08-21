@@ -19,19 +19,14 @@ const badgeRotationDegrees: Record<BadgeGravity, number> = {
   [BadgeGravity.Southwest]: 45,
 };
 
-export default function getRotatedBadgeInfo(
-  badge: Rectangle,
-  gravity: BadgeGravity,
-) {
+export default function getRotatedBadgeInfo(badge: Rectangle, gravity: BadgeGravity) {
   const angle = badgeGravityAngles[gravity];
   const radianAngle = (angle * Math.PI) / 180;
 
   const rotatedWidth =
-    badge.width * Math.abs(Math.cos(radianAngle)) +
-    badge.height * Math.abs(Math.sin(radianAngle));
+    badge.width * Math.abs(Math.cos(radianAngle)) + badge.height * Math.abs(Math.sin(radianAngle));
   const rotatedHeight =
-    badge.width * Math.abs(Math.sin(radianAngle)) +
-    badge.height * Math.abs(Math.cos(radianAngle));
+    badge.width * Math.abs(Math.sin(radianAngle)) + badge.height * Math.abs(Math.cos(radianAngle));
 
   return {
     angle,

@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [20, 22, 25, 26]
+        node: [22, 24, 26]
     name: Check Code (Node ${{ matrix.node }})
 
     steps:

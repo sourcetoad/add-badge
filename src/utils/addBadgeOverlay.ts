@@ -21,9 +21,7 @@ export default function addBadgeOverlay(
 ): void {
   ImageMagick.read(readFileSync(inputFile), (image) => {
     const insetWidth =
-      image.width -
-      getInsetAtGravity(image, Gravity.East) -
-      getInsetAtGravity(image, Gravity.West);
+      image.width - getInsetAtGravity(image, Gravity.East) - getInsetAtGravity(image, Gravity.West);
 
     // The default sizes are based on usage in 192px icons, anything above or
     // below that will be scaled relative to it.
@@ -32,12 +30,7 @@ export default function addBadgeOverlay(
     const scaledBadgeOptions = scaleBadgeOptions(badgeOptions, badgeScale);
     const scaledTextOptions = scaleTextOptions(textOptions, badgeScale);
 
-    const badge = createBadgeImage(
-      scaledBadgeOptions,
-      scaledTextOptions,
-      insetWidth,
-      insetWidth,
-    );
+    const badge = createBadgeImage(scaledBadgeOptions, scaledTextOptions, insetWidth, insetWidth);
     const badgeWithShadow = addShadow(
       badge,
       scaledBadgeOptions.shadowColor,
@@ -59,7 +52,7 @@ export default function addBadgeOverlay(
     // the same input every time. This lets us test things like the samples
     // being generated in the CI.
     composite.attributeNames
-      .filter((name) => /date:/i.test(name))
+      .filter((name) => /date:/iu.test(name))
       .forEach((name) => {
         composite.removeAttribute(name);
       });

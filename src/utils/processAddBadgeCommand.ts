@@ -43,9 +43,7 @@ export default async function processAddBadgeCommand({
     return 1;
   }
 
-  console.info(
-    `${dryRun ? 'Would process' : 'Processing'} "${inputImage}" to "${outputImage}".`,
-  );
+  console.info(`${dryRun ? 'Would process' : 'Processing'} "${inputImage}" to "${outputImage}".`);
 
   if (!dryRun) {
     await initializeImageMagick();
@@ -66,7 +64,7 @@ export default async function processAddBadgeCommand({
         color: new MagickColor(textColor),
         font: BADGE_FONT_NAME,
         fontPointSize: fontSize,
-        text: badgeText.replace(/\\n/g, '\n'),
+        text: badgeText.replace(/\\n/gu, '\n'),
       },
       getBadgeGravityFromString(gravity),
       parseManualPosition(position),

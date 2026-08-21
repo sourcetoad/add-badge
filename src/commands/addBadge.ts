@@ -2,9 +2,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import defaultOptions from '../defaultOptions';
-import processAddBadgeCommand, {
-  WriteBadgeArguments,
-} from '../utils/processAddBadgeCommand';
+import processAddBadgeCommand, { WriteBadgeArguments } from '../utils/processAddBadgeCommand';
 
 void yargs(hideBin(process.argv))
   .command<WriteBadgeArguments>(
@@ -55,8 +53,7 @@ void yargs(hideBin(process.argv))
         })
         .option('position', {
           default: defaultOptions.position,
-          description:
-            'Badge position (percent along gravity axis, or x,y as percent)',
+          description: 'Badge position (percent along gravity axis, or x,y as percent)',
           type: 'string',
         })
         .option('dry-run', {
@@ -72,9 +69,7 @@ void yargs(hideBin(process.argv))
         process.exit(exitCode);
       } catch (error) {
         console.error(
-          `Caught error: ${
-            error instanceof Error ? error.message : (error as string)
-          }`,
+          `Caught error: ${error instanceof Error ? error.message : (error as string)}`,
         );
         process.exit(1);
       }

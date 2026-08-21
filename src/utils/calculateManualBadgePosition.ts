@@ -6,12 +6,7 @@ import ManualPosition from '../types/ManualPosition';
 import Rectangle from '../types/Rectangle';
 import getRotatedBadgeInfo from './getRotatedBadgeInfo';
 
-function getPointAtPosition(
-  container: Rectangle,
-  badge: Rectangle,
-  x: number,
-  y: number,
-): Point {
+function getPointAtPosition(container: Rectangle, badge: Rectangle, x: number, y: number): Point {
   return new Point(
     (container.width - badge.width) * (x / 100),
     (container.height - badge.height) * (y / 100),
@@ -64,10 +59,7 @@ export default function calculateManualBadgePosition(
   position: ManualPosition,
   gravity: BadgeGravity,
 ): BadgePosition {
-  const { rotation, rotatedWidth, rotatedHeight } = getRotatedBadgeInfo(
-    badge,
-    gravity,
-  );
+  const { rotation, rotatedWidth, rotatedHeight } = getRotatedBadgeInfo(badge, gravity);
 
   const rotatedBadge: Rectangle = {
     width: rotatedWidth,
@@ -76,9 +68,9 @@ export default function calculateManualBadgePosition(
 
   return {
     point:
-      position.y !== undefined
-        ? getPointAtPosition(container, rotatedBadge, position.x, position.y)
-        : getPointOnGravityAxis(container, rotatedBadge, position.x, gravity),
+      position.y === undefined
+        ? getPointOnGravityAxis(container, rotatedBadge, position.x, gravity)
+        : getPointAtPosition(container, rotatedBadge, position.x, position.y),
     rotation,
   };
 }

@@ -1,19 +1,11 @@
-import {
-  Gravity,
-  IMagickImage,
-  VirtualPixelMethod,
-} from '@imagemagick/magick-wasm';
+import { Gravity, IMagickImage, VirtualPixelMethod } from '@imagemagick/magick-wasm';
 
 const PIXEL_ALPHA_INDEX = 3;
 const HIGHEST_ANDROID_SHADOW_ALPHA = 77;
 
 export default function getInsetAtGravity(
   image: IMagickImage,
-  gravity:
-    | typeof Gravity.North
-    | typeof Gravity.East
-    | typeof Gravity.South
-    | typeof Gravity.West,
+  gravity: typeof Gravity.North | typeof Gravity.East | typeof Gravity.South | typeof Gravity.West,
   axisOffset?: number,
   alphaCutoff: number = HIGHEST_ANDROID_SHADOW_ALPHA,
 ): number {
